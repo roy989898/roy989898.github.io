@@ -61,7 +61,7 @@ publishDir = "docs"
     missingBackButtonLabel = "Back to home page"
 
     [languages.en.params.logo]
-      logoText = "Pom's Programmer Blog"
+      logoText = "Terminal"
       logoHomeLink = "/"
 
     [languages.en.menu]
