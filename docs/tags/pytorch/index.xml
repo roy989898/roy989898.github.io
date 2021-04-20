@@ -13,8 +13,9 @@
       <pubDate>Tue, 20 Apr 2021 14:46:19 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-1/</guid>
-      <description></description>
-      <content>&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/static/img/cat.jpg&#34; alt=&#34;Example image&#34;&gt;&lt;/p&gt;
+      <description>Should show a cat picture </description>
+      <content>&lt;p&gt;Should show a cat picture
+&lt;img src=&#34;https://roy989898.github.io/static/img/cat.jpg&#34; alt=&#34;Example image&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
