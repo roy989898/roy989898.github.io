@@ -10,4 +10,4 @@ description = ""
 showFullContent = false
 +++
 Should show a cat picture
-![Example image](/static/img/cat.jpg)
+![Example image](/img/cat.jpg)
