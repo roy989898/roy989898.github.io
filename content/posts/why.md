@@ -4,8 +4,8 @@ date = "2021-04-20T15:21:54+08:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""
-tags = ["", ""]
-keywords = ["", ""]
+tags = []
+keywords = []
 description = ""
 showFullContent = false
 +++
