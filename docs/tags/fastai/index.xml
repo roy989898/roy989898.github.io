@@ -13,8 +13,84 @@
       <pubDate>Tue, 20 Apr 2021 16:00:14 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-1.2/</guid>
-      <description></description>
-      <content></content>
+      <description>Detail explain of the mechaine learning    Term Meaning     Term Meaning   Label The data that we&amp;rsquo;re trying to predict, such as &amp;ldquo;dog&amp;rdquo; or &amp;ldquo;cat&amp;rdquo;   Architecture The template of the model that we&amp;rsquo;re trying to fit; the actual mathematical function that we&amp;rsquo;re passing the input data and parameters to   Model The combination of the architecture with a particular set of parameters   Parameters The values in the model that change what task it can do, and are updated through model training   Fit Update the parameters of the model such that the predictions of the model using the input data match the target labels   Train A synonym for fit   Pretrained model A model that has already been trained, generally using a large dataset, and will be fine-tuned   Fine-tune Update a pretrained model for a different task   Epoch One complete pass through the input data   Loss A measure of how good the model is, chosen to drive training via SGD   Metric A measurement of how good the model is, using the validation set, chosen for human consumption   Validation set A set of data held out from training, used only for measuring how good the model is   Training set The data used for fitting the model; does not include any data from the validation set   Overfitting Training a model in such a way that it remembers specific features of the input data, rather than generalizing well to data not seen during training   CNN Convolutional neural network; a type of neural network that works particularly well for computer vision tasks    </description>
+      <content>&lt;p&gt;Detail explain of the mechaine learning
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/train_loop.PNG&#34; alt=&#34;tl&#34;&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Term&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Term&lt;/td&gt;
+&lt;td&gt;Meaning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Label&lt;/td&gt;
+&lt;td&gt;The data that we&amp;rsquo;re trying to predict, such as &amp;ldquo;dog&amp;rdquo; or &amp;ldquo;cat&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Architecture&lt;/td&gt;
+&lt;td&gt;The &lt;em&gt;template&lt;/em&gt; of the model that we&amp;rsquo;re trying to fit; the actual mathematical function that we&amp;rsquo;re passing the input data and parameters to&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Model&lt;/td&gt;
+&lt;td&gt;The combination of the architecture with a particular set of parameters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Parameters&lt;/td&gt;
+&lt;td&gt;The values in the model that change what task it can do, and are updated through model training&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fit&lt;/td&gt;
+&lt;td&gt;Update the parameters of the model such that the predictions of the model using the input data match the target labels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Train&lt;/td&gt;
+&lt;td&gt;A synonym for &lt;em&gt;fit&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Pretrained model&lt;/td&gt;
+&lt;td&gt;A model that has already been trained, generally using a large dataset, and will be fine-tuned&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fine-tune&lt;/td&gt;
+&lt;td&gt;Update a pretrained model for a different task&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Epoch&lt;/td&gt;
+&lt;td&gt;One complete pass through the input data&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Loss&lt;/td&gt;
+&lt;td&gt;A measure of how good the model is, chosen to drive training via SGD&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Metric&lt;/td&gt;
+&lt;td&gt;A measurement of how good the model is, using the validation set, chosen for human consumption&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Validation set&lt;/td&gt;
+&lt;td&gt;A set of data held out from training, used only for measuring how good the model is&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Training set&lt;/td&gt;
+&lt;td&gt;The data used for fitting the model; does not include any data from the validation set&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Overfitting&lt;/td&gt;
+&lt;td&gt;Training a model in such a way that it &lt;em&gt;remembers&lt;/em&gt; specific features of the input data, rather than generalizing well to data not seen during training&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CNN&lt;/td&gt;
+&lt;td&gt;Convolutional neural network; a type of neural network that works particularly well for computer vision tasks&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</content>
     </item>
     
     <item>
