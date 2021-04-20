@@ -9,5 +9,6 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-Should show a cat picture
-![Example image](/img/cat.jpg)
+
+
+
