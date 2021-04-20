@@ -140,7 +140,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-1/">Ai Tutorial 1</a>
+          <a href="https://roy989898.github.io/posts/ai-tutorial-1.1/">Ai Tutorial 1.1</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -168,13 +168,16 @@
         <div class="post-content">
           
           
+          Your First Model on fastai framework
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
+          
           
         </div>
 
         
         <div>
           <a class="read-more button"
-            href="/posts/ai-tutorial-1/">Read more →</a>
+            href="/posts/ai-tutorial-1.1/">Read more →</a>
         </div>
         
       </div>

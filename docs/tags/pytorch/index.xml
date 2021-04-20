@@ -8,14 +8,58 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Apr 2021 14:46:19 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ai Tutorial 1</title>
-      <link>https://roy989898.github.io/posts/ai-tutorial-1/</link>
+      <title>Ai Tutorial 1.1</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-1.1/</link>
       <pubDate>Tue, 20 Apr 2021 14:46:19 +0800</pubDate>
       
-      <guid>https://roy989898.github.io/posts/ai-tutorial-1/</guid>
-      <description>這個blog的原因 </description>
-      <content>&lt;h1 id=&#34;這個blog的原因&#34;&gt;這個blog的原因&lt;/h1&gt;
-</content>
+      <guid>https://roy989898.github.io/posts/ai-tutorial-1.1/</guid>
+      <description>Your First Model on fastai framework
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&amp;#39;images&amp;#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.</description>
+      <content>&lt;p&gt;Your First Model on fastai framework&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook
+fastbook&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setup_book()
+
+
+
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastbook &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;#id first_training&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#caption Results from the first training&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.vision.all &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# get the cat do images path&lt;/span&gt;
+path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; untar_data(URLs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;PETS)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;images&amp;#39;&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_cat&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isupper()
+&lt;span style=&#34;color:#75715e&#34;&gt;# because we are stuing the image so use ImageDataLoaders&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# valid_pct=0.2 meankeep 20 % photo image not use on training,for testing&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# label_func=is_cat mean get the tag of the imag,to detect&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# is the photos is a cat or dog,if photo name start by Upper case&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# ,than tha pohot is a cat&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# item_tfms=Resize(224) resize the photo to 224&lt;/span&gt;
+dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ImageDataLoaders&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;from_name_func(
+    path, get_image_files(path), valid_pct&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;, seed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;,
+    label_func&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;is_cat, item_tfms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;Resize(&lt;span style=&#34;color:#ae81ff&#34;&gt;224&lt;/span&gt;))
+
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet34, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fine_tune(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# use to create a upload button&lt;/span&gt;
+
+uploader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; widgets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;FileUpload()
+uploader
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# use the model to detect is your photo is a cat&lt;/span&gt;
+img &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; PILImage&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create(uploader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+is_cat,_,probs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict(img)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Is this a cat?: {is_cat}.&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Probability it&amp;#39;s a cat: {probs[1].item():.6f}&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>

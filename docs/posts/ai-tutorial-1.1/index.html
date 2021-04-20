@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 1.1 :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Your First Model on fastai framework
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&amp;#39;images&amp;#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-1.1/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 1.1">
+<meta property="og:description" content="Your First Model on fastai framework
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&amp;#39;images&amp;#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders." />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-1.1/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-20 14:46:19 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-1.1/">Ai Tutorial 1.1</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-20 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>Your First Model on fastai framework</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#960050;background-color:#1e0010">!</span>pip install <span style="color:#f92672">-</span>Uqq fastbook
+<span style="color:#f92672">import</span> fastbook
+fastbook<span style="color:#f92672">.</span>setup_book()
+
+
+
+<span style="color:#f92672">from</span> fastbook <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+
+<span style="color:#75715e">#id first_training</span>
+<span style="color:#75715e">#caption Results from the first training</span>
+
+<span style="color:#f92672">from</span> fastai.vision.all <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#75715e"># get the cat do images path</span>
+path <span style="color:#f92672">=</span> untar_data(URLs<span style="color:#f92672">.</span>PETS)<span style="color:#f92672">/</span><span style="color:#e6db74">&#39;images&#39;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_cat</span>(x): <span style="color:#66d9ef">return</span> x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>isupper()
+<span style="color:#75715e"># because we are stuing the image so use ImageDataLoaders</span>
+<span style="color:#75715e"># valid_pct=0.2 meankeep 20 % photo image not use on training,for testing</span>
+<span style="color:#75715e"># label_func=is_cat mean get the tag of the imag,to detect</span>
+<span style="color:#75715e"># is the photos is a cat or dog,if photo name start by Upper case</span>
+<span style="color:#75715e"># ,than tha pohot is a cat</span>
+<span style="color:#75715e"># item_tfms=Resize(224) resize the photo to 224</span>
+dls <span style="color:#f92672">=</span> ImageDataLoaders<span style="color:#f92672">.</span>from_name_func(
+    path, get_image_files(path), valid_pct<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>,
+    label_func<span style="color:#f92672">=</span>is_cat, item_tfms<span style="color:#f92672">=</span>Resize(<span style="color:#ae81ff">224</span>))
+
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet34, metrics<span style="color:#f92672">=</span>error_rate)
+learn<span style="color:#f92672">.</span>fine_tune(<span style="color:#ae81ff">1</span>)
+
+
+<span style="color:#75715e"># use to create a upload button</span>
+
+uploader <span style="color:#f92672">=</span> widgets<span style="color:#f92672">.</span>FileUpload()
+uploader
+
+
+<span style="color:#75715e"># use the model to detect is your photo is a cat</span>
+img <span style="color:#f92672">=</span> PILImage<span style="color:#f92672">.</span>create(uploader<span style="color:#f92672">.</span>data[<span style="color:#ae81ff">0</span>])
+is_cat,_,probs <span style="color:#f92672">=</span> learn<span style="color:#f92672">.</span>predict(img)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Is this a cat?: {is_cat}.&#34;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Probability it&#39;s a cat: {probs[1].item():.6f}&#34;</span>)
+</code></pre></div>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-0/">
+                <span class="button__text">Ai Tutorial 0</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
