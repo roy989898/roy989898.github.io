@@ -6,11 +6,22 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Apr 2021 15:26:46 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Apr 2021 14:46:19 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 1</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-1/</link>
+      <pubDate>Tue, 20 Apr 2021 14:46:19 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-1/</guid>
+      <description>這個blog的原因 </description>
+      <content>&lt;h1 id=&#34;這個blog的原因&#34;&gt;這個blog的原因&lt;/h1&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 0</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-0/</link>
-      <pubDate>Tue, 20 Apr 2021 15:26:46 +0800</pubDate>
+      <pubDate>Mon, 19 Apr 2021 15:26:46 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-0/</guid>
       <description>一向想學下 Machine laerning,見到有本幾好的書 寫給程式設計師的深度學習：使用fastai和PyTorch，決定一邊睇書，一邊寫有關本書的教學，希望能夠完整完成.</description>
@@ -21,22 +32,11 @@
     <item>
       <title>為什麼寫這個Blog</title>
       <link>https://roy989898.github.io/posts/why/</link>
-      <pubDate>Tue, 20 Apr 2021 15:21:54 +0800</pubDate>
+      <pubDate>Sun, 18 Apr 2021 15:21:54 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/why/</guid>
       <description>就是想記錄一下學program和工作上的經歷 :)</description>
       <content>&lt;p&gt;就是想記錄一下學program和工作上的經歷 :)&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Ai Tutorial 1</title>
-      <link>https://roy989898.github.io/posts/ai-tutorial-1/</link>
-      <pubDate>Tue, 20 Apr 2021 14:46:19 +0800</pubDate>
-      
-      <guid>https://roy989898.github.io/posts/ai-tutorial-1/</guid>
-      <description>這個blog的原因 </description>
-      <content>&lt;h1 id=&#34;這個blog的原因&#34;&gt;這個blog的原因&lt;/h1&gt;
 </content>
     </item>
     

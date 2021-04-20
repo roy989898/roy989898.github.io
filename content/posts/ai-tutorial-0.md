@@ -1,6 +1,6 @@
 +++
 title = "Ai Tutorial 0"
-date = "2021-04-20T15:26:46+08:00"
+date = "2021-04-19T15:26:46+08:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""
