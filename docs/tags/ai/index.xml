@@ -6,9 +6,19 @@
     <description>Recent content in ai on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Apr 2021 14:46:19 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Apr 2021 16:00:14 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ai Tutorial 1.1</title>
+      <title>Ai Notes 1.2</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-1.2/</link>
+      <pubDate>Tue, 20 Apr 2021 16:00:14 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-1.2/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Ai Notes 1.1</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-1.1/</link>
       <pubDate>Tue, 20 Apr 2021 14:46:19 +0800</pubDate>
       
@@ -63,13 +73,13 @@ is_cat,_,probs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt
     </item>
     
     <item>
-      <title>Ai Tutorial 0</title>
+      <title>Ai Notes 0</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-0/</link>
       <pubDate>Mon, 19 Apr 2021 15:26:46 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-0/</guid>
-      <description>一向想學下 Machine laerning,見到有本幾好的書 寫給程式設計師的深度學習：使用fastai和PyTorch，決定一邊睇書，一邊寫有關本書的教學，希望能夠完整完成.</description>
-      <content>&lt;p&gt;一向想學下 Machine laerning,見到有本幾好的書 &lt;a href=&#34;https://www.books.com.tw/products/0010886129?sloc=main&#34;&gt;寫給程式設計師的深度學習：使用fastai和PyTorch&lt;/a&gt;，決定一邊睇書，一邊寫有關本書的教學，希望能夠完整完成.&lt;/p&gt;
+      <description>一向想學下 Machine laerning,見到有本幾好的書 寫給程式設計師的深度學習：使用fastai和PyTorch，決定一邊睇書，一邊寫有關本書的Notes，希望能夠完整完成.</description>
+      <content>&lt;p&gt;一向想學下 Machine laerning,見到有本幾好的書 &lt;a href=&#34;https://www.books.com.tw/products/0010886129?sloc=main&#34;&gt;寫給程式設計師的深度學習：使用fastai和PyTorch&lt;/a&gt;，決定一邊睇書，一邊寫有關本書的Notes，希望能夠完整完成.&lt;/p&gt;
 </content>
     </item>
     
