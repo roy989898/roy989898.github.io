@@ -9,3 +9,4 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+![Example image](/static/img/cat.jpg)
