@@ -2,17 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://roy989898.github.io/tags/ai/</loc>
+    <lastmod>2021-04-20T14:46:19+08:00</lastmod>
+  </url><url>
     <loc>https://roy989898.github.io/posts/ai-tutorial-1/</loc>
     <lastmod>2021-04-20T14:46:19+08:00</lastmod>
   </url><url>
+    <loc>https://roy989898.github.io/tags/fastai/</loc>
+    <lastmod>2021-04-20T14:46:19+08:00</lastmod>
+  </url><url>
     <loc>https://roy989898.github.io/posts/</loc>
+    <lastmod>2021-04-20T14:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://roy989898.github.io/tags/pytorch/</loc>
+    <lastmod>2021-04-20T14:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://roy989898.github.io/tags/</loc>
     <lastmod>2021-04-20T14:46:19+08:00</lastmod>
   </url><url>
     <loc>https://roy989898.github.io/</loc>
     <lastmod>2021-04-20T14:46:19+08:00</lastmod>
   </url><url>
     <loc>https://roy989898.github.io/categories/</loc>
-  </url><url>
-    <loc>https://roy989898.github.io/tags/</loc>
   </url>
 </urlset>
