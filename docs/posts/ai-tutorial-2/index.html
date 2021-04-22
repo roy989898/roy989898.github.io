@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
-!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): subscription_key = &amp;#34;158558d991224dd9930aa6397b1f0b35&amp;#34; search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : subscription_key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
-<meta name="keywords" content=", " />
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
+<meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-2/" />
 
@@ -45,7 +45,7 @@ you need to apply the key for free
 <meta property="og:title" content="Ai Tutorial 2">
 <meta property="og:description" content="Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
-!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): subscription_key = &amp;#34;158558d991224dd9930aa6397b1f0b35&amp;#34; search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : subscription_key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-2/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -142,9 +142,13 @@ you need to apply the key for free
   
   <span class="post-tags">
     
-    #<a href="https://roy989898.github.io/tags/"></a>&nbsp;
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
     
-    #<a href="https://roy989898.github.io/tags/"></a>&nbsp;
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
     
   </span>
   
@@ -172,9 +176,8 @@ key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;secret
 <span style="color:#f92672">from</span> PIL <span style="color:#f92672">import</span> Image
 <span style="color:#f92672">from</span> io <span style="color:#f92672">import</span> BytesIO
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search_images_bing_min</span>(search_term):
-  subscription_key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;158558d991224dd9930aa6397b1f0b35&#34;</span>
   search_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://api.bing.microsoft.com/v7.0/images/search&#34;</span>
-  headers <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;Ocp-Apim-Subscription-Key&#34;</span> : subscription_key}
+  headers <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;Ocp-Apim-Subscription-Key&#34;</span> : key}
   <span style="color:#75715e"># search_term = &#34;grizzly bear&#34;</span>
   params  <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;q&#34;</span>: search_term, <span style="color:#e6db74">&#34;license&#34;</span>: <span style="color:#e6db74">&#34;public&#34;</span>, <span style="color:#e6db74">&#34;imageType&#34;</span>: <span style="color:#e6db74">&#34;photo&#34;</span>,<span style="color:#e6db74">&#34;count&#34;</span>:<span style="color:#e6db74">&#39;150&#39;</span>}
   response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(search_url, headers<span style="color:#f92672">=</span>headers, params<span style="color:#f92672">=</span>params)
@@ -211,7 +214,83 @@ failed <span style="color:#f92672">=</span> verify_images(fns)
 failed
 <span style="color:#75715e"># if fail,remove it</span>
 failed<span style="color:#f92672">.</span>map(Path<span style="color:#f92672">.</span>unlink);
-</code></pre></div>
+</code></pre></div><h2 id="intro-to-create-the-model">intro to create the model<a href="#intro-to-create-the-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>datablock is the templat of a dataloader
+data loader tell fastai 4 thing:</p>
+<ol>
+<li>what is the type of the inf</li>
+<li>how to get the items</li>
+<li>how to tag the items</li>
+<li>How to create the validation set</li>
+</ol>
+<p>blocks=(ImageBlock, CategoryBlock), mean use the image to predict,<br>
+#CategoryBlock mean target is the category<br>
+get_items=get_image_files ,how to get the image,from files<br>
+splitter mean how to get the validation set<br>
+get_y mean how to get the Category<br>
+parent_label mean use the parent folder as a category tag<br>
+need t oresize all the image to same size,Resize(128)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># datablock is the templat of a dataloader</span>
+<span style="color:#75715e"># data loader tell fastai 4 thing:</span>
+<span style="color:#75715e"># 1.what is the type of the inf</span>
+<span style="color:#75715e"># 2.how to get the items</span>
+<span style="color:#75715e"># 3.how to tag the items</span>
+<span style="color:#75715e"># 4.How to create the validation set</span>
+
+
+<span style="color:#75715e"># blocks=(ImageBlock, CategoryBlock), bean use the image to predict,</span>
+<span style="color:#75715e">#CategoryBlock mean target is the category</span>
+<span style="color:#75715e"># get_items=get_image_files ,how to get the image,from files</span>
+<span style="color:#75715e"># splitter mean how to get the validation set</span>
+<span style="color:#75715e"># get_y mean how to get the Category</span>
+<span style="color:#75715e"># parent_label mean use the parent folder as a category tag</span>
+<span style="color:#75715e"># need t oresize all the image to same size,Resize(128)</span>
+bears <span style="color:#f92672">=</span> DataBlock(
+    blocks<span style="color:#f92672">=</span>(ImageBlock, CategoryBlock), 
+    get_items<span style="color:#f92672">=</span>get_image_files, 
+    splitter<span style="color:#f92672">=</span>RandomSplitter(valid_pct<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>),
+    get_y<span style="color:#f92672">=</span>parent_label,
+    item_tfms<span style="color:#f92672">=</span>Resize(<span style="color:#ae81ff">128</span>))
+
+</code></pre></div><p>create the dataloaders,path is the image path,it validate and train the dataloader</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># create the dataloaders,path is the image path,it validate and train the dataloader</span>
+dls <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>dataloaders(path)
+
+</code></pre></div><p>see some item in the dataLoader</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dls<span style="color:#f92672">.</span>valid<span style="color:#f92672">.</span>show_batch(max_n<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+
+</code></pre></div><p>we can see ,at defaukt ,the fastai crop the image to the size 128</p>
+<p><img src="/img/ai_t/t1/default.PNG" alt="default"></p>
+<p>we also can Squish the image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bears <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>new(item_tfms<span style="color:#f92672">=</span>Resize(<span style="color:#ae81ff">128</span>, ResizeMethod<span style="color:#f92672">.</span>Squish))
+dls <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>dataloaders(path)
+dls<span style="color:#f92672">.</span>valid<span style="color:#f92672">.</span>show_batch(max_n<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</code></pre></div><p><img src="/img/ai_t/t1/squizh.PNG" alt="Squish"></p>
+<p>or pad them</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bears <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>new(item_tfms<span style="color:#f92672">=</span>Resize(<span style="color:#ae81ff">128</span>, ResizeMethod<span style="color:#f92672">.</span>Pad, pad_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;zeros&#39;</span>))
+dls <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>dataloaders(path)
+dls<span style="color:#f92672">.</span>valid<span style="color:#f92672">.</span>show_batch(max_n<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+
+</code></pre></div><p><img src="/img/ai_t/t1/pad.PNG" alt="pad"></p>
+<p>or randomly choose a part to crop the image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># unique=True mean use the sam picture</span>
+<span style="color:#75715e"># RandomResizedCrop  Crop  different part of the same picture,we can have more data to train,Data Augmentation</span>
+<span style="color:#75715e"># min_scale=0.3, select the % of the picture to crop,30%</span>
+bears <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>new(item_tfms<span style="color:#f92672">=</span>RandomResizedCrop(<span style="color:#ae81ff">128</span>, min_scale<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>))
+dls <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>dataloaders(path)
+dls<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>show_batch(max_n<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, unique<span style="color:#f92672">=</span>True)
+
+</code></pre></div><p><img src="/img/ai_t/t1/RandomResizedCrop.PNG" alt="pad"></p>
+<p>another way to Data Augmentation(資料增強,種通過讓有限的資料產生更多的等價資料來人工擴充套件訓練資料集的技術),not crop,just example, to show  rotation, flipping, perspective warping, brightness changes and contrast changes<br>
+batch_tfms apply the aug_transforms to batch ,not only items</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># another way to Data Augmentation,not crop,just example, to show  rotation, flipping, perspective warping, brightness changes and contrast changes</span>
+<span style="color:#75715e"># production use crop + aug_transforms</span>
+bears <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>new(item_tfms<span style="color:#f92672">=</span>Resize(<span style="color:#ae81ff">128</span>), batch_tfms<span style="color:#f92672">=</span>aug_transforms(mult<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>))
+dls <span style="color:#f92672">=</span> bears<span style="color:#f92672">.</span>dataloaders(path)
+dls<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>show_batch(max_n<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, unique<span style="color:#f92672">=</span>True)
+</code></pre></div><p><img src="/img/ai_t/t1/aug_t.PNG" alt="pad"></p>
+<h2 id="start-create-the-model">Start create the model<a href="#start-create-the-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+
       </div></div>
 
   
