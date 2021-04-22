@@ -9,8 +9,6 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-
-
 Your First Model on fastai framework
 ```python
 

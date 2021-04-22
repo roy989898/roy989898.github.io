@@ -6,7 +6,76 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Apr 2021 16:00:14 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Apr 2021 15:30:42 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 2</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-2/</link>
+      <pubDate>Thu, 22 Apr 2021 15:30:42 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-2/</guid>
+      <description>Build your Bear reconigize model Download image we use the Azure bing image search API
+you need to apply the key for free
+!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): subscription_key = &amp;#34;158558d991224dd9930aa6397b1f0b35&amp;#34; search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : subscription_key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests.</description>
+      <content>&lt;h1 id=&#34;build-your-bear-reconigize-model&#34;&gt;Build your Bear reconigize model&lt;/h1&gt;
+&lt;h2 id=&#34;download-image&#34;&gt;Download image&lt;/h2&gt;
+&lt;p&gt;we use the Azure &lt;a href=&#34;https://www.microsoft.com/en-us/bing/apis/bing-image-search-api&#34;&gt;bing image search API&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;you need to apply the key for free&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook
+fastbook&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setup_book()
+
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastbook &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.vision.widgets &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;secret_key_from_bing&amp;#39;&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; requests
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; matplotlib.pyplot &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; plt
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; PIL &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Image
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; io &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; BytesIO
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;search_images_bing_min&lt;/span&gt;(search_term):
+  subscription_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;158558d991224dd9930aa6397b1f0b35&amp;#34;&lt;/span&gt;
+  search_url &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34;&lt;/span&gt;
+  headers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Ocp-Apim-Subscription-Key&amp;#34;&lt;/span&gt; : subscription_key}
+  &lt;span style=&#34;color:#75715e&#34;&gt;# search_term = &amp;#34;grizzly bear&amp;#34;&lt;/span&gt;
+  params  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;q&amp;#34;&lt;/span&gt;: search_term, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;license&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;public&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;imageType&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;count&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;150&amp;#39;&lt;/span&gt;}
+  response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(search_url, headers&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;headers, params&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;params)
+  response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;raise_for_status()
+  search_results &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json()
+  &lt;span style=&#34;color:#75715e&#34;&gt;# ims=[img[&amp;#34;thumbnailUrl&amp;#34;] for img in search_results[&amp;#34;value&amp;#34;]]&lt;/span&gt;
+  ims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;search_results[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;]
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ims
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we can use the abovce function to down the image&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;search_images_bing_min(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;grizzly bear&amp;#34;&lt;/span&gt;)
+len(ims)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# ims is a string array&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;now we can download the iomage to the google drive&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;bear_types &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;grizzly&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;teddy&amp;#39;&lt;/span&gt;
+path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Path(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bearss&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exists():
+    path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mkdir()
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; bear_types:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(o)
+  dest &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;o)
+  dest&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mkdir(exist_ok&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
+  results &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; search_images_bing_min(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{o} bear&amp;#39;&lt;/span&gt;)
+  
+  &lt;span style=&#34;color:#75715e&#34;&gt;# print(results)&lt;/span&gt;
+  ims&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[img[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;contentUrl&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; img &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; results]
+  &lt;span style=&#34;color:#75715e&#34;&gt;# print(ims)&lt;/span&gt;
+  download_images(dest, urls&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ims)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;clean the image,remove the fail image&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;fns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_image_files(path)
+fns
+failed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verify_images(fns)
+failed
+&lt;span style=&#34;color:#75715e&#34;&gt;# if fail,remove it&lt;/span&gt;
+failed&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;map(Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unlink);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Ai Notes 1.2</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-1.2/</link>
