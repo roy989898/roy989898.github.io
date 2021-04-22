@@ -180,3 +180,74 @@ dls.train.show_batch(max_n=8, nrows=2, unique=True)
 ![pad](/img/ai_t/t1/aug_t.PNG)
 
 ## Start create the model
+
+```python
+bears = DataBlock(
+    blocks=(ImageBlock, CategoryBlock), 
+    get_items=get_image_files, 
+    splitter=RandomSplitter(valid_pct=0.2, seed=42),
+    get_y=parent_label,
+    item_tfms=RandomResizedCrop(224, min_scale=0.5),
+    batch_tfms=aug_transforms())
+
+dls = bears.dataloaders(path)
+
+
+learn = cnn_learner(dls, resnet18, metrics=error_rate)
+learn.fine_tune(4)
+```
+```python
+interp = ClassificationInterpretation.from_learner(learn)
+interp.plot_confusion_matrix()
+```
+![square](/img/ai_t/t1/square.PNG)
+this is the result box,,to see how many item is worng predict
+we can see some grizzly,put in black
+
+
+```python
+interp.plot_top_losses(5, nrows=1)
+# we can see some grizzly,put in black
+# the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high
+```
+the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high
+![pi](/img/ai_t/t1/pl.PNG)
+
+```python
+# ues the fastai GUI to clean the data,remove or re tag
+cleaner = ImageClassifierCleaner(learn)
+cleaner
+```
+![gui](/img/ai_t/t1/gui.png)
+
+
+after change the action to the pait(bear colormgroup(valid,train))  
+run below to move and dlete the items
+```python
+print(cleaner.delete())
+print(cleaner.change())
+# delete the delete marked photo
+for idx in cleaner.delete(): cleaner.fns[idx].unlink()
+# move the photo to the right folder /tag
+for idx,cat in cleaner.change(): 
+  try:
+    shutil.move(str(cleaner.fns[idx]), path/cat)
+  except:
+    cleaner.fns[idx].unlink()
+```
+after this process, we can retrain again,run 
+
+## Use it
+```python
+uploader = widgets.FileUpload()
+uploader
+```
+
+```python
+img = PILImage.create(uploader.data[0])
+bear_type,_,probs=learn.predict(img)
+
+print(f"bear type: {bear_type}.")
+print(f"Probability : {probs[1]}")
+
+```

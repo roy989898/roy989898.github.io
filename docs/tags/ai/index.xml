@@ -148,7 +148,56 @@ dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bears&lt;span style
 dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show_batch(max_n&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, nrows&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, unique&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/aug_t.PNG&#34; alt=&#34;pad&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;start-create-the-model&#34;&gt;Start create the model&lt;/h2&gt;
-</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;bears &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(
+    blocks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(ImageBlock, CategoryBlock), 
+    get_items&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_image_files, 
+    splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RandomSplitter(valid_pct&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;, seed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;),
+    get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;parent_label,
+    item_tfms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RandomResizedCrop(&lt;span style=&#34;color:#ae81ff&#34;&gt;224&lt;/span&gt;, min_scale&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;),
+    batch_tfms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;aug_transforms())
+
+dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bears&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataloaders(path)
+
+
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet18, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fine_tune(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;interp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ClassificationInterpretation&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;from_learner(learn)
+interp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot_confusion_matrix()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/square.PNG&#34; alt=&#34;square&#34;&gt;
+this is the result box,,to see how many item is worng predict
+we can see some grizzly,put in black&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;interp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot_top_losses(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, nrows&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# we can see some grizzly,put in black&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/pl.PNG&#34; alt=&#34;pi&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ues the fastai GUI to clean the data,remove or re tag&lt;/span&gt;
+cleaner &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ImageClassifierCleaner(learn)
+cleaner
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/gui.png&#34; alt=&#34;gui&#34;&gt;&lt;/p&gt;
+&lt;p&gt;after change the action to the pait(bear colormgroup(valid,train))&lt;br&gt;
+run below to move and dlete the items&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;delete())
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;change())
+&lt;span style=&#34;color:#75715e&#34;&gt;# delete the delete marked photo&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;delete(): cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fns[idx]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unlink()
+&lt;span style=&#34;color:#75715e&#34;&gt;# move the photo to the right folder /tag&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx,cat &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;change(): 
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+    shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;move(str(cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fns[idx]), path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;cat)
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt;:
+    cleaner&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fns[idx]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unlink()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;after this process, we can retrain again,run&lt;/p&gt;
+&lt;h2 id=&#34;use-it&#34;&gt;Use it&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;uploader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; widgets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;FileUpload()
+uploader
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;img &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; PILImage&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create(uploader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+bear_type,_,probs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict(img)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bear type: {bear_type}.&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Probability : {probs[1]}&amp;#34;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
