@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 4 Machine Learning"
+title = "Ai Tutorial 4 Stochastic Gradient Descent 隨機梯度下降 (SGD)"
 date = "2021-04-27T19:56:41+08:00"
 author = ""
 authorTwitter = "" #do not include @
