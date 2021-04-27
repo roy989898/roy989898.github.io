@@ -119,6 +119,7 @@ stacked_threes = torch.stack(three_tensors).float()/255
 stacked_threes.shape #torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels
 ```
 
+rank is the number of axes or dimensions in a tensor; shape is the size of each axis of a tensor. above shape is [6131, 28, 28],rank is 3 (len(stacked_threes.shape)==3)
 ```py
 # get the rank
 len(stacked_threes.shape)
@@ -137,3 +138,42 @@ mean7=stacked_sevens.mean(0)
 show_image(mean7)
 ```
 ![ideal7](/img/ai_t/t1/ideal_7.png)
+
+```py
+# get a 3
+a_3=stacked_threes[1]
+show_image(a_3)
+```
+
+now we compare the ideal 3 and the real 3  
+How do we compare the a_3 and the mean3?? 
+1. compare each pixel,get the bas,calculate the avh of the absof each pixel,This is called the mean absolute difference or L1 norm
+
+2. calculaet the (dif)^2,mean, than square root.This is called the root mean squared error (RMSE) or L2 norm.
+
+```py
+# try
+# 1
+dist_3_abs = (a_3 - mean3).abs().mean()
+# 2
+dist_3_sqr = ((a_3 - mean3)**2).mean().sqrt()
+dist_3_abs,dist_3_sqr
+
+# (tensor(0.1114), tensor(0.2021))
+```
+```py
+dist_7_abs = (a_3 - mean7).abs().mean()
+dist_7_sqr = ((a_3 - mean7)**2).mean().sqrt()
+dist_7_abs,dist_7_sqr
+# (tensor(0.1586), tensor(0.3021))
+
+```
+In both cases, the distance between our 3 and the "ideal" 3 is less than the distance to the ideal 7. So our simple model will give the right prediction in this case.
+
+PyTorch already provides both of these as loss functions. You'll find these inside torch.nn.functional, which the PyTorch team recommends importing as F (and is available by default under that name in fastai):
+
+Here mse stands for mean squared error, and l1 refers to the standard mathematical jargon for mean absolute value (in math it's called the L1 norm).
+```py
+F.l1_loss(a_3.float(),mean7), F.mse_loss(a_3,mean7).sqrt()
+# (tensor(0.1586), tensor(0.3021))
+```

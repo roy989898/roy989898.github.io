@@ -87,7 +87,8 @@ show_image(three_tensors[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt
 stacked_sevens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack(seven_tensors)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
 stacked_threes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack(three_tensors)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
 stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape &lt;span style=&#34;color:#75715e&#34;&gt;#torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# get the rank&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;rank is the number of axes or dimensions in a tensor; shape is the size of each axis of a tensor. above shape is [6131, 28, 28],rank is 3 (len(stacked_threes.shape)==3)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# get the rank&lt;/span&gt;
 len(stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape)
 &lt;span style=&#34;color:#75715e&#34;&gt;# or&lt;/span&gt;
 stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ndim  &lt;span style=&#34;color:#75715e&#34;&gt;#3&lt;/span&gt;
@@ -98,7 +99,38 @@ show_image(mean3);
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;mean7&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;stacked_sevens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
 show_image(mean7)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/ideal_7.png&#34; alt=&#34;ideal7&#34;&gt;&lt;/p&gt;
-</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# get a 3&lt;/span&gt;
+a_3&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;stacked_threes[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+show_image(a_3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;now we compare the ideal 3 and the real 3&lt;br&gt;
+How do we compare the a_3 and the mean3??&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;compare each pixel,get the bas,calculate the avh of the absof each pixel,This is called the mean absolute difference or L1 norm&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;calculaet the (dif)^2,mean, than square root.This is called the root mean squared error (RMSE) or L2 norm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# try&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1&lt;/span&gt;
+dist_3_abs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a_3 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; mean3)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;abs()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2&lt;/span&gt;
+dist_3_sqr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ((a_3 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; mean3)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqrt()
+dist_3_abs,dist_3_sqr
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(0.1114), tensor(0.2021))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dist_7_abs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a_3 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; mean7)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;abs()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+dist_7_sqr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ((a_3 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; mean7)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqrt()
+dist_7_abs,dist_7_sqr
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(0.1586), tensor(0.3021))&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In both cases, the distance between our 3 and the &amp;ldquo;ideal&amp;rdquo; 3 is less than the distance to the ideal 7. So our simple model will give the right prediction in this case.&lt;/p&gt;
+&lt;p&gt;PyTorch already provides both of these as loss functions. You&amp;rsquo;ll find these inside torch.nn.functional, which the PyTorch team recommends importing as F (and is available by default under that name in fastai):&lt;/p&gt;
+&lt;p&gt;Here mse stands for mean squared error, and l1 refers to the standard mathematical jargon for mean absolute value (in math it&amp;rsquo;s called the L1 norm).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;l1_loss(a_3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float(),mean7), F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mse_loss(a_3,mean7)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqrt()
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(0.1586), tensor(0.3021))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>

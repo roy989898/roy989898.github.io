@@ -229,7 +229,8 @@ show_image(three_tensors[<span style="color:#ae81ff">1</span>]);
 stacked_sevens <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack(seven_tensors)<span style="color:#f92672">.</span>float()<span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>
 stacked_threes <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack(three_tensors)<span style="color:#f92672">.</span>float()<span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>
 stacked_threes<span style="color:#f92672">.</span>shape <span style="color:#75715e">#torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># get the rank</span>
+</code></pre></div><p>rank is the number of axes or dimensions in a tensor; shape is the size of each axis of a tensor. above shape is [6131, 28, 28],rank is 3 (len(stacked_threes.shape)==3)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># get the rank</span>
 len(stacked_threes<span style="color:#f92672">.</span>shape)
 <span style="color:#75715e"># or</span>
 stacked_threes<span style="color:#f92672">.</span>ndim  <span style="color:#75715e">#3</span>
@@ -240,7 +241,38 @@ show_image(mean3);
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">mean7<span style="color:#f92672">=</span>stacked_sevens<span style="color:#f92672">.</span>mean(<span style="color:#ae81ff">0</span>)
 show_image(mean7)
 </code></pre></div><p><img src="/img/ai_t/t1/ideal_7.png" alt="ideal7"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># get a 3</span>
+a_3<span style="color:#f92672">=</span>stacked_threes[<span style="color:#ae81ff">1</span>]
+show_image(a_3)
+</code></pre></div><p>now we compare the ideal 3 and the real 3<br>
+How do we compare the a_3 and the mean3??</p>
+<ol>
+<li>
+<p>compare each pixel,get the bas,calculate the avh of the absof each pixel,This is called the mean absolute difference or L1 norm</p>
+</li>
+<li>
+<p>calculaet the (dif)^2,mean, than square root.This is called the root mean squared error (RMSE) or L2 norm.</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># try</span>
+<span style="color:#75715e"># 1</span>
+dist_3_abs <span style="color:#f92672">=</span> (a_3 <span style="color:#f92672">-</span> mean3)<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>mean()
+<span style="color:#75715e"># 2</span>
+dist_3_sqr <span style="color:#f92672">=</span> ((a_3 <span style="color:#f92672">-</span> mean3)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>sqrt()
+dist_3_abs,dist_3_sqr
 
+<span style="color:#75715e"># (tensor(0.1114), tensor(0.2021))</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">dist_7_abs <span style="color:#f92672">=</span> (a_3 <span style="color:#f92672">-</span> mean7)<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>mean()
+dist_7_sqr <span style="color:#f92672">=</span> ((a_3 <span style="color:#f92672">-</span> mean7)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>sqrt()
+dist_7_abs,dist_7_sqr
+<span style="color:#75715e"># (tensor(0.1586), tensor(0.3021))</span>
+
+</code></pre></div><p>In both cases, the distance between our 3 and the &ldquo;ideal&rdquo; 3 is less than the distance to the ideal 7. So our simple model will give the right prediction in this case.</p>
+<p>PyTorch already provides both of these as loss functions. You&rsquo;ll find these inside torch.nn.functional, which the PyTorch team recommends importing as F (and is available by default under that name in fastai):</p>
+<p>Here mse stands for mean squared error, and l1 refers to the standard mathematical jargon for mean absolute value (in math it&rsquo;s called the L1 norm).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">F<span style="color:#f92672">.</span>l1_loss(a_3<span style="color:#f92672">.</span>float(),mean7), F<span style="color:#f92672">.</span>mse_loss(a_3,mean7)<span style="color:#f92672">.</span>sqrt()
+<span style="color:#75715e"># (tensor(0.1586), tensor(0.3021))</span>
+</code></pre></div>
       </div></div>
 
   
