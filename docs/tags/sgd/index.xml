@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SGD on Terminal</title>
+    <link>https://roy989898.github.io/tags/sgd/</link>
+    <description>Recent content in SGD on Terminal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 27 Apr 2021 19:56:41 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/sgd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4 Stochastic Gradient Descent 隨機梯度下降 (SGD)</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.4/</link>
+      <pubDate>Tue, 27 Apr 2021 19:56:41 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.4/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+  </channel>
+</rss>
