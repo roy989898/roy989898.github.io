@@ -140,6 +140,47 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://roy989898.github.io/posts/ai-tutorial-4.3/">Ai Tutorial 4</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-04-27
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/ai-tutorial-4.3/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://roy989898.github.io/posts/ai-tutorial-4.2/">Ai Tutorial 4.2</a>
         </h1>
         <div class="post-meta">
@@ -168,7 +209,7 @@
         <div class="post-content">
           
           
-          NumPy Arrays and PyTorch Tensors they almost the same but NumPy Arrays not support GPU
+          _NumPy Arrays and PyTorch Tensors they almost the same but NumPy Arrays not support GPU
 data = [[1,2,3],[4,5,6]] arr = array (data) tns = tensor(data) arr # numpy # array([[1, 2, 3], # [4, 5, 6]]) tns # pytorch # tensor([[1, 2, 3], # [4, 5, 6]]) tns[1] # get index 1 # tensor([4, 5, 6]) tns[:,1] # all first axis,index 1 at ssecond axis # tensor([2, 5]) tns[1,1:3] # first axis :1,sendoc axis 1-3(exclude) # tensor([5, 6]) tns+1 # tensor([[2, 3, 4], # [5, 6, 7]]) tns*1.
           
           
@@ -309,50 +350,6 @@ you need to apply the key for free
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-1.2/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-1.1/">Ai Notes 1.1</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-20
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Your First Model on fastai framework
-!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-1.1/">Read more →</a>
         </div>
         
       </div>

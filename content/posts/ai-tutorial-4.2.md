@@ -9,7 +9,7 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-## NumPy Arrays and PyTorch Tensors
+# _NumPy Arrays and PyTorch Tensors
 they almost the same but  NumPy Arrays not support GPU
 ```py
 data = [[1,2,3],[4,5,6]]
