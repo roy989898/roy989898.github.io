@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   
-    <title>Ai Tutorial 4 Stochastic Gradient Descent 隨機梯度下降 (SGD) :: Terminal</title>
+    <title>Ai Tutorial 4.4 Stochastic Gradient Descent 隨機梯度下降 (SGD) :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="" />
+<meta name="description" content="Instead of trying to find the similarity between an image and an &amp;ldquo;ideal image,&amp;rdquo; we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.4/" />
@@ -40,8 +40,8 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ai Tutorial 4 Stochastic Gradient Descent 隨機梯度下降 (SGD)">
-<meta property="og:description" content="" />
+<meta property="og:title" content="Ai Tutorial 4.4 Stochastic Gradient Descent 隨機梯度下降 (SGD)">
+<meta property="og:description" content="Instead of trying to find the similarity between an image and an &amp;ldquo;ideal image,&amp;rdquo; we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.4/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -125,7 +125,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://roy989898.github.io/posts/ai-tutorial-4.4/">Ai Tutorial 4 Stochastic Gradient Descent 隨機梯度下降 (SGD)</a></h1>
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.4/">Ai Tutorial 4.4 Stochastic Gradient Descent 隨機梯度下降 (SGD)</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -157,7 +157,26 @@
 
   
 
-  <div class="post-content"></div>
+  <div class="post-content"><div>
+        <p>Instead of trying to find the similarity between an image and an &ldquo;ideal image,&rdquo; we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8. This can be represented as a function and set of weight values for each possible category—for instance the probability of being the number 8:</p>
+<p>與其嘗試查找圖像與“理想圖像”之間的相似性，不如查看每個單獨的像素並為每個像素提出一組權重，以使最高的權重與最有可能與之相關的那些像素相關聯。 對於特定類別為黑色。 例如，朝右下角移動的像素不太可能為7激活，因此對於7,像素應該具有較低的權重，但對於8,像素應該很容易被激活，因此對於8,像素應該具有較高的權重.這可以表示為每個可能類別的一個函數和一組權重值，例如，成為數字8的概率：<br>
+<code>def pr_eight(x,w): return (x*w).sum()</code><br>
+x is the image, represented as a vector—in other words, with all of the rows stacked up end to end into a single long line. And we are assuming that the weights are a vector w. If we have this function, then we just need some way to update the weights to make them a little bit better. With such an approach, we can repeat that step a number of times, making the weights better and better, until they are as good as we can make them.</p>
+<p>x是表示為矢量的圖像，換句話說，所有行首尾相連地排成一條長線。 並且我們假設權重是向量w。 如果我們具有此功能，那麼我們只需要一些方法來更新權重即可使它們更好一點。 通過這種方法，我們可以重複該步驟多次，使權重越來越好，直到權重達到我們所能達到的程度為止。</p>
+<p>want to find the specific values for the vector w that causes the result of our function to be high for those images that are actually 8s, and low for those images that are not. Searching for the best vector w is a way to search for the best function for recognising 8s.</p>
+<p>想要找到向量w的特定值，該值導致函數的結果對於那些實際上是8s的圖像來說較高，而對於那些不是8s的圖像來說較低。 搜索最佳向量w是搜索識別8s的最佳函數的一種方式。</p>
+<ol>
+<li>Initialize the weights.初始化權重。</li>
+<li>For each image, use these weights to predict whether it appears to be a 3 or a 7.對於每個圖像，使用這些權重來預測它是3還是7。</li>
+<li>Based on these predictions, calculate how good the model is (its loss).根據這些預測，計算模型的好壞（損失）。</li>
+<li>Calculate the gradient, which measures for each weight, how changing that weight would change the loss.計算坡度，該坡度針對每個權重進行度量，更改該權重將如何改變損耗</li>
+<li>Step (that is, change) all the weights based on that calculation.根據該計算步進（即更改）所有權重。</li>
+<li>Go back to the step 2, and repeat the process.返回到步驟2，並重複該過程。</li>
+<li>Iterate until you decide to stop the training process (for instance, because the model is good enough or you don&rsquo;t want to wait any longer).重複進行直到您決定停止訓練過程為止（例如，因為模型足夠好或者您不想再等待了）。</li>
+</ol>
+<p><img src="/img/ai_t/t1/sgd_step.PNG" alt="sgd_step"></p>
+
+      </div></div>
 
   
   
