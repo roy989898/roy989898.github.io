@@ -16,7 +16,7 @@
       <description>Get the number sample !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastai.vision.all import * from fastbook import * matplotlib.rc(&amp;#39;image&amp;#39;, cmap=&amp;#39;Greys&amp;#39;) path = untar_data(URLs.MNIST_SAMPLE) Path.BASE_PATH = path path.ls() [Path(&amp;lsquo;valid&amp;rsquo;),Path(&amp;lsquo;train&amp;rsquo;),Path(&amp;lsquo;labels.csv&amp;rsquo;)] train group use to train,valid group use to test
 (path/&amp;#39;train&amp;#39;).ls() # [Path(&amp;#39;train/7&amp;#39;),Path(&amp;#39;train/3&amp;#39;)] threes = (path/&amp;#39;train&amp;#39;/&amp;#39;3&amp;#39;).ls().sorted() sevens = (path/&amp;#39;train&amp;#39;/&amp;#39;7&amp;#39;).ls().sorted() threes # (#6131) [Path(&amp;#39;train/3/10.png&amp;#39;),Path(&amp;#39;train/3/10000.png&amp;#39;),Path(&amp;#39;train/3/10011.png&amp;#39;),Path(&amp;#39;train/3/10031.png&amp;#39;),Path(&amp;#39;train/3/10034.png&amp;#39;),Path(&amp;#39;train/3/10042.png&amp;#39;),Path(&amp;#39;train/3/10052.png&amp;#39;),Path(&amp;#39;train/3/1007.png&amp;#39;),Path(&amp;#39;train/3/10074.png&amp;#39;),Path(&amp;#39;train/3/10091.png&amp;#39;)...] open a image to see
 im3_path = threes[1]im3 = Image.open(im3_path)im3array(im3).shape # a 28 * 28 image # (28, 28) turn the image into a 2 d array show row 4:10(not include),column 4:10(not include)</description>
-      <content>&lt;h1 id=&#34;get-the-number-sample&#34;&gt;Get the number sample&lt;/h1&gt;
+      <content>&lt;h1 id=&#34;_get-the-number-sample_&#34;&gt;&lt;em&gt;Get the number sample&lt;/em&gt;&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook
 fastbook&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setup_book()
@@ -62,7 +62,7 @@ show row 4:10(not include),column 4:10(not include)&lt;/p&gt;
 df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame(im3_t[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;])
 df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;style&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;set_properties(&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;font-size&amp;#39;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;6pt&amp;#39;&lt;/span&gt;})&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;background_gradient(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Greys&amp;#39;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/3_head.PNG&#34; alt=&#34;3_h&#34;&gt;&lt;/p&gt;
-&lt;h1 id=&#34;first-try-pixel-similarity-baseline&#34;&gt;First Try: Pixel Similarity Baseline&lt;/h1&gt;
+&lt;h1 id=&#34;_first-try-pixel-similarity-baseline_&#34;&gt;&lt;em&gt;First Try: Pixel Similarity Baseline&lt;/em&gt;&lt;/h1&gt;
 &lt;p&gt;we fins the average pixel value of 3 and 7,so we can define the ideal 3 ,7,then the image compare to the ideal 3 7,to identify is 3 or 7&lt;/p&gt;
 &lt;p&gt;因此，這是第一個想法：我們如何找到3s的每個像素的平均像素值，然後對7s進行相同的處理。 這將為我們提供兩個組平均值，定義我們可以稱之為“理想”的3和7。然後，將圖像分類為一個數字或另一個數字，我們將看到圖像與這兩個理想數字中的哪一個最相似。 當然，這似乎總比沒有好，因此它將成為一個良好的基準。&lt;/p&gt;
 &lt;h3 id=&#34;what-is-a-baseline&#34;&gt;what is a baseline&lt;/h3&gt;
@@ -72,11 +72,33 @@ df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;style&lt;span style=&#
 &lt;p&gt;get the average of pixel values for each of our two groups
 create a tensor containing all of our 3s stacked together&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(Image.open(o)) turn the image to a 2d array&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# this way for loop more fast&lt;/span&gt;
 seven_tensors &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; sevens]
 three_tensors &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; threes]
 len(three_tensors),len(seven_tensors)
 &lt;span style=&#34;color:#75715e&#34;&gt;# (6131, 6265)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# display a image in tensor&lt;/span&gt;
+show_image(three_tensors[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we want ot calculate each pixel avarge strange,so wee need to make a 3d tensor /array rank3 tensor each image to a 2d array,multi image become a 3d array&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/rank.jpg&#34; alt=&#34;rank&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# change the whole tensorto the 0-1 floating point&lt;/span&gt;
+stacked_sevens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack(seven_tensors)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
+stacked_threes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack(three_tensors)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
+stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape &lt;span style=&#34;color:#75715e&#34;&gt;#torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# get the rank&lt;/span&gt;
+len(stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape)
+&lt;span style=&#34;color:#75715e&#34;&gt;# or&lt;/span&gt;
+stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ndim  &lt;span style=&#34;color:#75715e&#34;&gt;#3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# calculate the mean of each pixel&lt;/span&gt;
+mean3 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+show_image(mean3);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/ideal_3.png&#34; alt=&#34;ideal3&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;mean7&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;stacked_sevens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+show_image(mean7)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/ideal_7.png&#34; alt=&#34;ideal7&#34;&gt;&lt;/p&gt;
+</content>
     </item>
     
     <item>
