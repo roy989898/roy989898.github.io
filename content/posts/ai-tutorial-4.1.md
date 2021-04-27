@@ -9,7 +9,7 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-# Get the number sample
+# _Get the number sample_
 ```py
 !pip install -Uqq fastbook
 import fastbook
@@ -80,7 +80,7 @@ df.style.set_properties(**{'font-size':'6pt'}).background_gradient('Greys')
 ```
 ![3_h](/img/ai_t/t1/3_head.PNG)
 
-# First Try: Pixel Similarity Baseline
+# _First Try: Pixel Similarity Baseline_
 we fins the average pixel value of 3 and 7,so we can define the ideal 3 ,7,then the image compare to the ideal 3 7,to identify is 3 or 7  
 
 因此，這是第一個想法：我們如何找到3s的每個像素的平均像素值，然後對7s進行相同的處理。 這將為我們提供兩個組平均值，定義我們可以稱之為“理想”的3和7。然後，將圖像分類為一個數字或另一個數字，我們將看到圖像與這兩個理想數字中的哪一個最相似。 當然，這似乎總比沒有好，因此它將成為一個良好的基準。
@@ -95,9 +95,33 @@ create a tensor containing all of our 3s stacked together
 
 ```py
 # tensor(Image.open(o)) turn the image to a 2d array
+# this way for loop more fast
 seven_tensors = [tensor(Image.open(o)) for o in sevens]
 three_tensors = [tensor(Image.open(o)) for o in threes]
 len(three_tensors),len(seven_tensors)
 # (6131, 6265)
 ```
 
+```py
+
+# display a image in tensor
+show_image(three_tensors[1]);
+
+```
+we want ot calculate each pixel avarge strange,so wee need to make a 3d tensor /array rank3 tensor each image to a 2d array,multi image become a 3d array
+
+![rank](/img/ai_t/t1/rank.jpg)
+
+```py
+# change the whole tensorto the 0-1 floating point
+stacked_sevens = torch.stack(seven_tensors).float()/255
+stacked_threes = torch.stack(three_tensors).float()/255
+stacked_threes.shape #torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels
+```
+
+```py
+# get the rank
+len(stacked_threes.shape)
+# or
+stacked_threes.ndim
+```
