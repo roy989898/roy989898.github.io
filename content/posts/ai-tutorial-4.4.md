@@ -46,3 +46,12 @@ There are many different ways to do each of these seven steps
   一旦我們確定了訓練模型的時間（在前面的列表中給出了一些建議），我們就會應用該決定。 這就是應用該決定的地方。 對於我們的數字分類器，我們將繼續訓練直到模型的準確性開始變差或用完為止。
 
 ## simple example of SGD
+```py
+def f(x): return x**2
+```
+
+```py
+plot_function(f, 'x', 'x**2')
+```
+
+![sgd_step](/img/ai_t/t1/x2p.PNG)
