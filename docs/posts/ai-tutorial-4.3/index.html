@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>Ai Tutorial 4 :: Terminal</title>
+    <title>Ai Tutorial 4.3 Metric :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="" />
+<meta name="description" content="Computing Metrics Using Broadcasting Metric a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.
+we want to calculate our metric over a validation set. This is so that we don&amp;rsquo;t inadvertently overfit—that is, train a model to work well only on our training data
+指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。
+我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作" />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.3/" />
@@ -40,8 +43,11 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ai Tutorial 4">
-<meta property="og:description" content="" />
+<meta property="og:title" content="Ai Tutorial 4.3 Metric">
+<meta property="og:description" content="Computing Metrics Using Broadcasting Metric a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.
+we want to calculate our metric over a validation set. This is so that we don&amp;rsquo;t inadvertently overfit—that is, train a model to work well only on our training data
+指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。
+我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作" />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.3/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -125,7 +131,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://roy989898.github.io/posts/ai-tutorial-4.3/">Ai Tutorial 4</a></h1>
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.3/">Ai Tutorial 4.3 Metric</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -153,7 +159,62 @@
 
   
 
-  <div class="post-content"></div>
+  <div class="post-content"><div>
+        <h1 id="_computing-metrics-using-broadcasting_"><em>Computing Metrics Using Broadcasting</em><a href="#_computing-metrics-using-broadcasting_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h4 id="metric">Metric<a href="#metric" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.<br>
+we want to calculate our metric over a validation set. This is so that we don&rsquo;t inadvertently overfit—that is, train a model to work well only on our training data<br>
+指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。<br>
+我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作</p>
+<p>get the data</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">valid_3_tens <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack([tensor(Image<span style="color:#f92672">.</span>open(o)) 
+                            <span style="color:#66d9ef">for</span> o <span style="color:#f92672">in</span> (path<span style="color:#f92672">/</span><span style="color:#e6db74">&#39;valid&#39;</span><span style="color:#f92672">/</span><span style="color:#e6db74">&#39;3&#39;</span>)<span style="color:#f92672">.</span>ls()])
+valid_3_tens <span style="color:#f92672">=</span> valid_3_tens<span style="color:#f92672">.</span>float()<span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>
+valid_7_tens <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack([tensor(Image<span style="color:#f92672">.</span>open(o)) 
+                            <span style="color:#66d9ef">for</span> o <span style="color:#f92672">in</span> (path<span style="color:#f92672">/</span><span style="color:#e6db74">&#39;valid&#39;</span><span style="color:#f92672">/</span><span style="color:#e6db74">&#39;7&#39;</span>)<span style="color:#f92672">.</span>ls()])
+valid_7_tens <span style="color:#f92672">=</span> valid_7_tens<span style="color:#f92672">.</span>float()<span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>
+valid_3_tens<span style="color:#f92672">.</span>shape,valid_7_tens<span style="color:#f92672">.</span>shape
+
+<span style="color:#75715e"># (torch.Size([1010, 28, 28]), torch.Size([1028, 28, 28]))</span>
+</code></pre></div><h2 id="computing-metrics-using-broadcasting">Computing Metrics Using Broadcasting<a href="#computing-metrics-using-broadcasting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>write a function that canculate the distance</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mnist_distance</span>(a,b): <span style="color:#66d9ef">return</span> (a<span style="color:#f92672">-</span>b)<span style="color:#f92672">.</span>abs()<span style="color:#f92672">.</span>mean((<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>))
+mnist_distance(a_3, mean3)
+<span style="color:#75715e"># tensor(0.1114)</span>
+</code></pre></div><p>for every image ,we do not need to write a loop ,we use Broadcasting</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+valid_3_dist <span style="color:#f92672">=</span> mnist_distance(valid_3_tens, mean3)
+valid_3_dist, valid_3_dist<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># (tensor([0.1329, 0.1555, 0.1107,  ..., 0.1359, 0.1526, 0.1126]),</span>
+<span style="color:#75715e">#  torch.Size([1010]))</span>
+</code></pre></div><p>它沒有抱怨形狀不匹配，而是將每個單個圖像的距離作為長度為1,010（我們的驗證集中的3的數量）的向量（即1級張量）返回</p>
+<p>當PyTorch嘗試在不同等級的兩個張量之間執行簡單的減法運算時，它將使用廣播。 也就是說，它將自動擴展具有較小等級的張量，使其具有與具有較大等級的張量相同的大小。 廣播是一項重要功能，可使張量代碼更易於編寫。</p>
+<p>Instead of complaining about shapes not matching, it returned the distance for every single image as a vector (i.e., a rank-1 tensor) of length 1,010 (the number of 3s in our validation set).
+PyTorch, when it tries to perform a simple subtraction operation between two tensors of different ranks, will use broadcasting. That is, it will automatically expand the tensor with the smaller rank to have the same size as the one with the larger rank. Broadcasting is an important capability that makes tensor code much easier to write.</p>
+<h4 id="more-brodcast-example">More Brodcast example<a href="#more-brodcast-example" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># brodcast example</span>
+tensor([[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]]) <span style="color:#f92672">+</span> tensor(<span style="color:#ae81ff">1</span>)
+<span style="color:#75715e"># tensor([[2, 3, 4],</span>
+<span style="color:#75715e">#         [2, 3, 4]])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">(valid_3_tens<span style="color:#f92672">-</span>mean3)<span style="color:#f92672">.</span>shape
+
+<span style="color:#75715e"># torch.Size([1010, 28, 28])</span>
+</code></pre></div><h2 id="is_3">is_3<a href="#is_3" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_3</span>(x): <span style="color:#66d9ef">return</span> mnist_distance(x,mean3) <span style="color:#f92672">&lt;</span> mnist_distance(x,mean7)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">is_3(a_3), is_3(a_3)<span style="color:#f92672">.</span>float()
+<span style="color:#75715e"># (tensor(True), tensor(1.))</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">is_3(valid_3_tens)
+<span style="color:#75715e"># tensor([True, True, True,  ..., True, True, True])</span>
+</code></pre></div><p>Now we can calculate the accuracy for each of the 3s and 7s by taking the average of that function for all 3s and its inverse for all 7s:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">accuracy_3s <span style="color:#f92672">=</span>      is_3(valid_3_tens)<span style="color:#f92672">.</span>float() <span style="color:#f92672">.</span>mean()
+accuracy_7s <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> is_3(valid_7_tens)<span style="color:#f92672">.</span>float())<span style="color:#f92672">.</span>mean()
+
+accuracy_3s,accuracy_7s,(accuracy_3s<span style="color:#f92672">+</span>accuracy_7s)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+
+<span style="color:#75715e"># (tensor(0.9168), tensor(0.9854), tensor(0.9511))</span>
+</code></pre></div><p>over 90% accuracy on both 3s and 7s!!!!</p>
+
+      </div></div>
 
   
   

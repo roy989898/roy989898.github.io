@@ -8,13 +8,69 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 27 Apr 2021 18:18:28 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/fastai/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ai Tutorial 4</title>
+      <title>Ai Tutorial 4.3 Metric</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.3/</link>
       <pubDate>Tue, 27 Apr 2021 18:18:28 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.3/</guid>
-      <description></description>
-      <content></content>
+      <description>Computing Metrics Using Broadcasting Metric a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.
+we want to calculate our metric over a validation set. This is so that we don&amp;rsquo;t inadvertently overfit—that is, train a model to work well only on our training data
+指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。
+我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作</description>
+      <content>&lt;h1 id=&#34;_computing-metrics-using-broadcasting_&#34;&gt;&lt;em&gt;Computing Metrics Using Broadcasting&lt;/em&gt;&lt;/h1&gt;
+&lt;h4 id=&#34;metric&#34;&gt;Metric&lt;/h4&gt;
+&lt;p&gt;a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.&lt;br&gt;
+we want to calculate our metric over a validation set. This is so that we don&amp;rsquo;t inadvertently overfit—that is, train a model to work well only on our training data&lt;br&gt;
+指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。&lt;br&gt;
+我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作&lt;/p&gt;
+&lt;p&gt;get the data&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;valid_3_tens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack([tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) 
+                            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;valid&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()])
+valid_3_tens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; valid_3_tens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
+valid_7_tens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack([tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) 
+                            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;valid&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;7&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()])
+valid_7_tens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; valid_7_tens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt;
+valid_3_tens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,valid_7_tens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([1010, 28, 28]), torch.Size([1028, 28, 28]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;computing-metrics-using-broadcasting&#34;&gt;Computing Metrics Using Broadcasting&lt;/h2&gt;
+&lt;p&gt;write a function that canculate the distance&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mnist_distance&lt;/span&gt;(a,b): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;abs()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean((&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;))
+mnist_distance(a_3, mean3)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(0.1114)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for every image ,we do not need to write a loop ,we use Broadcasting&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+valid_3_dist &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mnist_distance(valid_3_tens, mean3)
+valid_3_dist, valid_3_dist&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor([0.1329, 0.1555, 0.1107,  ..., 0.1359, 0.1526, 0.1126]),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  torch.Size([1010]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它沒有抱怨形狀不匹配，而是將每個單個圖像的距離作為長度為1,010（我們的驗證集中的3的數量）的向量（即1級張量）返回&lt;/p&gt;
+&lt;p&gt;當PyTorch嘗試在不同等級的兩個張量之間執行簡單的減法運算時，它將使用廣播。 也就是說，它將自動擴展具有較小等級的張量，使其具有與具有較大等級的張量相同的大小。 廣播是一項重要功能，可使張量代碼更易於編寫。&lt;/p&gt;
+&lt;p&gt;Instead of complaining about shapes not matching, it returned the distance for every single image as a vector (i.e., a rank-1 tensor) of length 1,010 (the number of 3s in our validation set).
+PyTorch, when it tries to perform a simple subtraction operation between two tensors of different ranks, will use broadcasting. That is, it will automatically expand the tensor with the smaller rank to have the same size as the one with the larger rank. Broadcasting is an important capability that makes tensor code much easier to write.&lt;/p&gt;
+&lt;h4 id=&#34;more-brodcast-example&#34;&gt;More Brodcast example&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# brodcast example&lt;/span&gt;
+tensor([[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;],[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]]) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; tensor(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[2, 3, 4],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [2, 3, 4]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;(valid_3_tens&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;mean3)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([1010, 28, 28])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;is_3&#34;&gt;is_3&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_3&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; mnist_distance(x,mean3) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; mnist_distance(x,mean7)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;is_3(a_3), is_3(a_3)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(True), tensor(1.))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;is_3(valid_3_tens)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([True, True, True,  ..., True, True, True])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can calculate the accuracy for each of the 3s and 7s by taking the average of that function for all 3s and its inverse for all 7s:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;accuracy_3s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;      is_3(valid_3_tens)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float() &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+accuracy_7s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; is_3(valid_7_tens)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float())&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+
+accuracy_3s,accuracy_7s,(accuracy_3s&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;accuracy_7s)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(0.9168), tensor(0.9854), tensor(0.9511))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;over 90% accuracy on both 3s and 7s!!!!&lt;/p&gt;
+</content>
     </item>
     
     <item>
