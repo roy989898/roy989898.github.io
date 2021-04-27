@@ -145,7 +145,7 @@ a_3=stacked_threes[1]
 show_image(a_3)
 ```
 
-now we compare the ideal 3 and the real 3  
+## step2 now we compare the ideal 3 and the real 3  
 How do we compare the a_3 and the mean3?? 
 1. compare each pixel,get the bas,calculate the avh of the absof each pixel,This is called the mean absolute difference or L1 norm
 
@@ -176,48 +176,4 @@ Here mse stands for mean squared error, and l1 refers to the standard mathematic
 ```py
 F.l1_loss(a_3.float(),mean7), F.mse_loss(a_3,mean7).sqrt()
 # (tensor(0.1586), tensor(0.3021))
-```
-
-## NumPy Arrays and PyTorch Tensors
-they almost the same but  NumPy Arrays not support GPU
-```py
-data = [[1,2,3],[4,5,6]]
-arr = array (data)
-tns = tensor(data)
-```
-
-```py
-arr  # numpy
-# array([[1, 2, 3],
-#        [4, 5, 6]])
-```
-
-```py
-tns  # pytorch
-
-# tensor([[1, 2, 3],
-#         [4, 5, 6]])
-```
-
-```py
-tns[1]
-# get index 1
-# tensor([4, 5, 6])
-
-tns[:,1]
-# all first axis,index 1 at ssecond axis
-# tensor([2, 5])
-
-
-tns[1,1:3]
-# first axis :1,sendoc axis 1-3(exclude)
-# tensor([5, 6])
-
-tns+1
-# tensor([[2, 3, 4],
-#         [5, 6, 7]])
-
-tns*1.5
-# tensor([[1.5000, 3.0000, 4.5000],
-#         [6.0000, 7.5000, 9.0000]])
 ```

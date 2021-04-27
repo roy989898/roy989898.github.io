@@ -244,8 +244,8 @@ show_image(mean7)
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># get a 3</span>
 a_3<span style="color:#f92672">=</span>stacked_threes[<span style="color:#ae81ff">1</span>]
 show_image(a_3)
-</code></pre></div><p>now we compare the ideal 3 and the real 3<br>
-How do we compare the a_3 and the mean3??</p>
+</code></pre></div><h2 id="step2-now-we-compare-the-ideal-3-and-the-real-3">step2 now we compare the ideal 3 and the real 3<a href="#step2-now-we-compare-the-ideal-3-and-the-real-3" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>How do we compare the a_3 and the mean3??</p>
 <ol>
 <li>
 <p>compare each pixel,get the bas,calculate the avh of the absof each pixel,This is called the mean absolute difference or L1 norm</p>
@@ -272,38 +272,6 @@ dist_7_abs,dist_7_sqr
 <p>Here mse stands for mean squared error, and l1 refers to the standard mathematical jargon for mean absolute value (in math it&rsquo;s called the L1 norm).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">F<span style="color:#f92672">.</span>l1_loss(a_3<span style="color:#f92672">.</span>float(),mean7), F<span style="color:#f92672">.</span>mse_loss(a_3,mean7)<span style="color:#f92672">.</span>sqrt()
 <span style="color:#75715e"># (tensor(0.1586), tensor(0.3021))</span>
-</code></pre></div><h2 id="numpy-arrays-and-pytorch-tensors">NumPy Arrays and PyTorch Tensors<a href="#numpy-arrays-and-pytorch-tensors" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>they almost the same but  NumPy Arrays not support GPU</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">data <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]]
-arr <span style="color:#f92672">=</span> array (data)
-tns <span style="color:#f92672">=</span> tensor(data)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">arr  <span style="color:#75715e"># numpy</span>
-<span style="color:#75715e"># array([[1, 2, 3],</span>
-<span style="color:#75715e">#        [4, 5, 6]])</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">tns  <span style="color:#75715e"># pytorch</span>
-
-<span style="color:#75715e"># tensor([[1, 2, 3],</span>
-<span style="color:#75715e">#         [4, 5, 6]])</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">tns[<span style="color:#ae81ff">1</span>]
-<span style="color:#75715e"># get index 1</span>
-<span style="color:#75715e"># tensor([4, 5, 6])</span>
-
-tns[:,<span style="color:#ae81ff">1</span>]
-<span style="color:#75715e"># all first axis,index 1 at ssecond axis</span>
-<span style="color:#75715e"># tensor([2, 5])</span>
-
-
-tns[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
-<span style="color:#75715e"># first axis :1,sendoc axis 1-3(exclude)</span>
-<span style="color:#75715e"># tensor([5, 6])</span>
-
-tns<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
-<span style="color:#75715e"># tensor([[2, 3, 4],</span>
-<span style="color:#75715e">#         [5, 6, 7]])</span>
-
-tns<span style="color:#f92672">*</span><span style="color:#ae81ff">1.5</span>
-<span style="color:#75715e"># tensor([[1.5000, 3.0000, 4.5000],</span>
-<span style="color:#75715e">#         [6.0000, 7.5000, 9.0000]])</span>
 </code></pre></div>
       </div></div>
 
@@ -315,6 +283,13 @@ tns<span style="color:#f92672">*</span><span style="color:#ae81ff">1.5</span>
         <hr />
     </div>
     <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.2/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Ai Tutorial 4.2</span>
+            </a>
+        </span>
         
         
         <span class="button next">
