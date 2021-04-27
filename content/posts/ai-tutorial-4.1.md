@@ -123,5 +123,17 @@ stacked_threes.shape #torch.Size([6131, 28, 28]),6131 images, each 28*28 pixels
 # get the rank
 len(stacked_threes.shape)
 # or
-stacked_threes.ndim
+stacked_threes.ndim  #3
 ```
+```py
+# calculate the mean of each pixel
+mean3 = stacked_threes.mean(0)
+show_image(mean3);
+```
+![ideal3](/img/ai_t/t1/ideal_3.png)
+
+```py
+mean7=stacked_sevens.mean(0)
+show_image(mean7)
+```
+![ideal7](/img/ai_t/t1/ideal_7.png)
