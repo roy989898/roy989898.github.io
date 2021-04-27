@@ -6,7 +6,62 @@
     <description>Recent content in fastai on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Apr 2021 15:30:42 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/fastai/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Apr 2021 15:51:50 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/fastai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.1</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.1/</link>
+      <pubDate>Tue, 27 Apr 2021 15:51:50 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.1/</guid>
+      <description>Get the number sample !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastai.vision.all import * from fastbook import * matplotlib.rc(&amp;#39;image&amp;#39;, cmap=&amp;#39;Greys&amp;#39;) path = untar_data(URLs.MNIST_SAMPLE) Path.BASE_PATH = path path.ls() (path/&amp;#39;train&amp;#39;).ls() # [Path(&amp;#39;train/7&amp;#39;),Path(&amp;#39;train/3&amp;#39;)] threes = (path/&amp;#39;train&amp;#39;/&amp;#39;3&amp;#39;).ls().sorted() sevens = (path/&amp;#39;train&amp;#39;/&amp;#39;7&amp;#39;).ls().sorted() threes # (#6131) [Path(&amp;#39;train/3/10.png&amp;#39;),Path(&amp;#39;train/3/10000.png&amp;#39;),Path(&amp;#39;train/3/10011.png&amp;#39;),Path(&amp;#39;train/3/10031.png&amp;#39;),Path(&amp;#39;train/3/10034.png&amp;#39;),Path(&amp;#39;train/3/10042.png&amp;#39;),Path(&amp;#39;train/3/10052.png&amp;#39;),Path(&amp;#39;train/3/1007.png&amp;#39;),Path(&amp;#39;train/3/10074.png&amp;#39;),Path(&amp;#39;train/3/10091.png&amp;#39;)...] open a image to see
+im3_path = threes[1]im3 = Image.open(im3_path)im3array(im3).shape # a 28 * 28 image # (28, 28) turn the image into a 2 d array show row 4:10(not include),column 4:10(not include)</description>
+      <content>&lt;h1 id=&#34;get-the-number-sample&#34;&gt;Get the number sample&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook
+fastbook&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setup_book()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.vision.all &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastbook &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+matplotlib&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rc(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;image&amp;#39;&lt;/span&gt;, cmap&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Greys&amp;#39;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; untar_data(URLs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MNIST_SAMPLE)
+Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;BASE_PATH &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; path
+path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;train&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()
+&lt;span style=&#34;color:#75715e&#34;&gt;# [Path(&amp;#39;train/7&amp;#39;),Path(&amp;#39;train/3&amp;#39;)]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;threes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;train&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sorted()
+sevens &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;train&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;7&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sorted()
+threes
+&lt;span style=&#34;color:#75715e&#34;&gt;# (#6131) [Path(&amp;#39;train/3/10.png&amp;#39;),Path(&amp;#39;train/3/10000.png&amp;#39;),Path(&amp;#39;train/3/10011.png&amp;#39;),Path(&amp;#39;train/3/10031.png&amp;#39;),Path(&amp;#39;train/3/10034.png&amp;#39;),Path(&amp;#39;train/3/10042.png&amp;#39;),Path(&amp;#39;train/3/10052.png&amp;#39;),Path(&amp;#39;train/3/1007.png&amp;#39;),Path(&amp;#39;train/3/10074.png&amp;#39;),Path(&amp;#39;train/3/10091.png&amp;#39;)...]&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;open a image to see&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;im3_path = threes[1]
+im3 = Image.open(im3_path)
+im3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/3.png&#34; alt=&#34;3&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;array(im3)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# a 28 * 28 image&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# (28, 28)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;turn the image into a  2 d array
+show row 4:10(not include),column 4:10(not include)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;array(im3)[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# array([[  0,   0,   0,   0,   0,   0],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#        [  0,   0,   0,   0,   0,  29],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#        [  0,   0,   0,  48, 166, 224],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#        [  0,  93, 244, 249, 253, 187],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#        [  0, 107, 253, 253, 230,  48],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#        [  0,   3,  20,  20,  15,   0]], dtype=uint8)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;tensor is array use in pytorch&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;tensor(im3)[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;show the head of th 3,the colr is Grey,0,is white&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;im3_t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor(im3)
+df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame(im3_t[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;])
+df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;style&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;set_properties(&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;font-size&amp;#39;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;6pt&amp;#39;&lt;/span&gt;})&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;background_gradient(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Greys&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/3_head.PNG&#34; alt=&#34;3_h&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 2</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-2/</link>
