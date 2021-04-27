@@ -29,6 +29,8 @@ path = untar_data(URLs.MNIST_SAMPLE)
 Path.BASE_PATH = path
 path.ls()
 ```
+[Path('valid'),Path('train'),Path('labels.csv')]
+train group use to train,valid group use to test
 
 ```py
 (path/'train').ls()
