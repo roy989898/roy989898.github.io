@@ -62,7 +62,21 @@ show row 4:10(not include),column 4:10(not include)&lt;/p&gt;
 df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame(im3_t[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;])
 df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;style&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;set_properties(&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;font-size&amp;#39;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;6pt&amp;#39;&lt;/span&gt;})&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;background_gradient(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Greys&amp;#39;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/3_head.PNG&#34; alt=&#34;3_h&#34;&gt;&lt;/p&gt;
-</content>
+&lt;h1 id=&#34;first-try-pixel-similarity-baseline&#34;&gt;First Try: Pixel Similarity Baseline&lt;/h1&gt;
+&lt;p&gt;we fins the average pixel value of 3 and 7,so we can define the ideal 3 ,7,then the image compare to the ideal 3 7,to identify is 3 or 7&lt;/p&gt;
+&lt;p&gt;因此，這是第一個想法：我們如何找到3s的每個像素的平均像素值，然後對7s進行相同的處理。 這將為我們提供兩個組平均值，定義我們可以稱之為“理想”的3和7。然後，將圖像分類為一個數字或另一個數字，我們將看到圖像與這兩個理想數字中的哪一個最相似。 當然，這似乎總比沒有好，因此它將成為一個良好的基準。&lt;/p&gt;
+&lt;h3 id=&#34;what-is-a-baseline&#34;&gt;what is a baseline&lt;/h3&gt;
+&lt;p&gt;A simple model which you are confident should perform reasonably well.&lt;br&gt;
+您相信一個簡單的模型應該可以表現良好。 它應該很容易實現，也很容易測試，這樣您就可以測試每個改進的想法，並確保它們總是比基線更好。 不從合理的基准開始，很難知道您的超級幻想模型是否真的有用。 創建基準的一種好方法是執行我們在此處所做的工作：考慮一個簡單，易於實現的模型。 另一個好的方法是四處搜尋，以解決與您的問題相似的其他人，然後在您的數據集上下載並運行他們的代碼。 理想情況下，嘗試這兩個！&lt;/p&gt;
+&lt;h2 id=&#34;step1&#34;&gt;step1&lt;/h2&gt;
+&lt;p&gt;get the average of pixel values for each of our two groups
+create a tensor containing all of our 3s stacked together&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(Image.open(o)) turn the image to a 2d array&lt;/span&gt;
+seven_tensors &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; sevens]
+three_tensors &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [tensor(Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(o)) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; o &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; threes]
+len(three_tensors),len(seven_tensors)
+&lt;span style=&#34;color:#75715e&#34;&gt;# (6131, 6265)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>

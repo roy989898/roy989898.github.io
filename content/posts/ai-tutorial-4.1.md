@@ -79,3 +79,25 @@ df = pd.DataFrame(im3_t[4:15,4:22])
 df.style.set_properties(**{'font-size':'6pt'}).background_gradient('Greys')
 ```
 ![3_h](/img/ai_t/t1/3_head.PNG)
+
+# First Try: Pixel Similarity Baseline
+we fins the average pixel value of 3 and 7,so we can define the ideal 3 ,7,then the image compare to the ideal 3 7,to identify is 3 or 7  
+
+因此，這是第一個想法：我們如何找到3s的每個像素的平均像素值，然後對7s進行相同的處理。 這將為我們提供兩個組平均值，定義我們可以稱之為“理想”的3和7。然後，將圖像分類為一個數字或另一個數字，我們將看到圖像與這兩個理想數字中的哪一個最相似。 當然，這似乎總比沒有好，因此它將成為一個良好的基準。
+
+### what is a baseline
+A simple model which you are confident should perform reasonably well.  
+您相信一個簡單的模型應該可以表現良好。 它應該很容易實現，也很容易測試，這樣您就可以測試每個改進的想法，並確保它們總是比基線更好。 不從合理的基准開始，很難知道您的超級幻想模型是否真的有用。 創建基準的一種好方法是執行我們在此處所做的工作：考慮一個簡單，易於實現的模型。 另一個好的方法是四處搜尋，以解決與您的問題相似的其他人，然後在您的數據集上下載並運行他們的代碼。 理想情況下，嘗試這兩個！
+
+## step1
+get the average of pixel values for each of our two groups
+create a tensor containing all of our 3s stacked together
+
+```py
+# tensor(Image.open(o)) turn the image to a 2d array
+seven_tensors = [tensor(Image.open(o)) for o in sevens]
+three_tensors = [tensor(Image.open(o)) for o in threes]
+len(three_tensors),len(seven_tensors)
+# (6131, 6265)
+```
+
