@@ -1,2 +1,2 @@
-hugo new posts/my-first-post.md
-hugo h server -D
+hugo new posts/ai-tutorial-4.1.md
+hugo server -D
