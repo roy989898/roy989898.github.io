@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 4"
+title = "Ai Tutorial 4 Machine Learning"
 date = "2021-04-27T19:56:41+08:00"
 author = ""
 authorTwitter = "" #do not include @
