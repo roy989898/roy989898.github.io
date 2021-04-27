@@ -188,6 +188,18 @@ x is the image, represented as a vector—in other words, with all of the rows s
 一旦我們確定了訓練模型的時間（在前面的列表中給出了一些建議），我們就會應用該決定。 這就是應用該決定的地方。 對於我們的數字分類器，我們將繼續訓練直到模型的準確性開始變差或用完為止。</li>
 </ul>
 <h2 id="simple-example-of-sgd">simple example of SGD<a href="#simple-example-of-sgd" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x): <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(f, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;x**2&#39;</span>)
+</code></pre></div><p><img src="/img/ai_t/t1/x2p.PNG" alt="sgd_step"></p>
+<p>The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(f, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;x**2&#39;</span>)
+plt<span style="color:#f92672">.</span>scatter(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>, f(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>);
+</code></pre></div><p><img src="/img/ai_t/t1/2pr.PNG" alt="sgd_step"></p>
+<p>if we increased or decreased our parameter by a little bit—the adjustment. This is simply the slope at a particular point:
+<img src="/img/ai_t/t1/rs1.PNG" alt="sgd_step"></p>
+<p>We can change our weight by a little in the direction of the slope, calculate our loss and adjustment again, and repeat this a few times. Eventually, we will get to the lowest point on our curve:
+<img src="/img/ai_t/t1/rs2.PNG" alt="sgd_step"></p>
+<p>we want to find the lower y/(Loss),lowest is good,we we replay to try different x, to find the lowest y. this method is slow,a better ,is The way to do this is by calculating gradients. This is just a performance optimization, we would get exactly the same results by using the slower manual process as well.</p>
 
       </div></div>
 

@@ -44,6 +44,18 @@ x is the image, represented as a vector—in other words, with all of the rows s
 一旦我們確定了訓練模型的時間（在前面的列表中給出了一些建議），我們就會應用該決定。 這就是應用該決定的地方。 對於我們的數字分類器，我們將繼續訓練直到模型的準確性開始變差或用完為止。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;simple-example-of-sgd&#34;&gt;simple example of SGD&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(f, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x**2&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/x2p.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(f, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x**2&amp;#39;&lt;/span&gt;)
+plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;, f(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;), color&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/2pr.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;p&gt;if we increased or decreased our parameter by a little bit—the adjustment. This is simply the slope at a particular point:
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/rs1.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We can change our weight by a little in the direction of the slope, calculate our loss and adjustment again, and repeat this a few times. Eventually, we will get to the lowest point on our curve:
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/rs2.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;p&gt;we want to find the lower y/(Loss),lowest is good,we we replay to try different x, to find the lowest y. this method is slow,a better ,is The way to do this is by calculating gradients. This is just a performance optimization, we would get exactly the same results by using the slower manual process as well.&lt;/p&gt;
 </content>
     </item>
     

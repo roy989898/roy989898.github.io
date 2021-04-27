@@ -55,3 +55,19 @@ plot_function(f, 'x', 'x**2')
 ```
 
 ![sgd_step](/img/ai_t/t1/x2p.PNG)
+
+The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:
+
+```py
+plot_function(f, 'x', 'x**2')
+plt.scatter(-1.5, f(-1.5), color='red');
+```
+![sgd_step](/img/ai_t/t1/2pr.PNG)
+
+if we increased or decreased our parameter by a little bit—the adjustment. This is simply the slope at a particular point:
+![sgd_step](/img/ai_t/t1/rs1.PNG)
+
+We can change our weight by a little in the direction of the slope, calculate our loss and adjustment again, and repeat this a few times. Eventually, we will get to the lowest point on our curve:
+![sgd_step](/img/ai_t/t1/rs2.PNG)
+
+we want to find the lower y/(Loss),lowest is good,we we replay to try different x, to find the lowest y. this method is slow,a better ,is The way to do this is by calculating gradients. This is just a performance optimization, we would get exactly the same results by using the slower manual process as well.
