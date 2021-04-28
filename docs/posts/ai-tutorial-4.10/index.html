@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 4.10 Put it all together :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Put it all together each epoch is like this
+# basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
+weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
+dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.10/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 4.10 Put it all together">
+<meta property="og:description" content="Put it all together each epoch is like this
+# basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
+weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
+dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data" />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.10/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-28 16:52:44 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/">Ai Tutorial 4.10 Put it all together</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-28 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="put-it-all-together">Put it all together<a href="#put-it-all-together" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>each epoch is like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># basic example</span>
+<span style="color:#75715e"># for x,y in dl:</span>
+<span style="color:#75715e">#     pred = model(x)</span>
+<span style="color:#75715e">#     loss = loss_func(pred, y)</span>
+<span style="color:#75715e">#     loss.backward()</span>
+<span style="color:#75715e">#     parameters -= parameters.grad * lr</span>
+</code></pre></div><p>re-initialize our parameters:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+weights <span style="color:#f92672">=</span> init_params((<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>))
+bias <span style="color:#f92672">=</span> init_params(<span style="color:#ae81ff">1</span>)
+weights<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([784, 1])</span>
+</code></pre></div><p>create DataLoader of train data  from <a href="https://roy989898.github.io/posts/ai-tutorial-4.8/#prepare-the-pytorch-need-format" title="Dataset">Dataset</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">dl <span style="color:#f92672">=</span> DataLoader(dset, batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>)
+xb,yb <span style="color:#f92672">=</span> first(dl)
+xb<span style="color:#f92672">.</span>shape,yb<span style="color:#f92672">.</span>shape
+(torch<span style="color:#f92672">.</span>Size([<span style="color:#ae81ff">784</span>]), tensor([<span style="color:#ae81ff">1</span>]))
+<span style="color:#75715e"># (torch.Size([784]), tensor([1]))</span>
+</code></pre></div><p>create DataLoader of valid data <a href="https://roy989898.github.io/posts/ai-tutorial-4.8/#prepare-the-valid-data" title="valid data">valid data</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">valid_dl <span style="color:#f92672">=</span> DataLoader(valid_dset, batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>)
+</code></pre></div><p>create a 4 size batch for test</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">batch <span style="color:#f92672">=</span> train_x[:<span style="color:#ae81ff">4</span>]
+batch<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([4, 784])</span>
+</code></pre></div><p>alcaulate the predict
+<a href="https://roy989898.github.io/posts/ai-tutorial-4.8/#predict--multi-image" title="linear1">linear1</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">preds <span style="color:#f92672">=</span> linear1(batch)
+preds
+<span style="color:#e6db74">&#39;&#39;&#39; tensor([[-4.5725],
+</span><span style="color:#e6db74">        [ 0.2557],
+</span><span style="color:#e6db74">        [-5.5496],
+</span><span style="color:#e6db74">        [ 3.6488]], grad_fn=&lt;AddBackward0&gt;) &#39;&#39;&#39;</span>
+</code></pre></div><p>calculate a loss</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">loss <span style="color:#f92672">=</span> mnist_loss(preds, train_y[:<span style="color:#ae81ff">4</span>])
+loss
+<span style="color:#75715e"># tensor(0.6119, grad_fn=&lt;MeanBackward0&gt;)</span>
+</code></pre></div><p>Now we can calculate the gradients:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">loss<span style="color:#f92672">.</span>backward()
+weights<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>shape,weights<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>mean(),bias<span style="color:#f92672">.</span>grad
+<span style="color:#75715e"># (torch.Size([784, 1]), tensor(-0.0103), tensor([-0.0712]))</span>
+</code></pre></div><h2 id="put-above-together-to-create-calc_grad-functions">put above together to create calc_grad functions<a href="#put-above-together-to-create-calc_grad-functions" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calc_grad</span>(xb, yb, model):
+    preds <span style="color:#f92672">=</span> model(xb)
+    loss <span style="color:#f92672">=</span> mnist_loss(preds, yb)
+    loss<span style="color:#f92672">.</span>backward()
+</code></pre></div><p>test</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">calc_grad(batch, train_y[:<span style="color:#ae81ff">4</span>], linear1)
+weights<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>mean(),bias<span style="color:#f92672">.</span>grad
+<span style="color:#75715e"># (tensor(-0.0207), tensor([-0.1423]))</span>
+</code></pre></div><p>run again</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">calc_grad(batch, train_y[:<span style="color:#ae81ff">4</span>], linear1)
+weights<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>mean(),bias<span style="color:#f92672">.</span>grad
+<span style="color:#75715e"># (tensor(-0.0310), tensor([-0.2135]))</span>
+</code></pre></div><p>have probelm!!!!! we expect the grad should be the same ,becasue all the parameter of the calc_grad is same,but not!!!
+becasue because the loss.backward add the gradients of loss to any gradients that are currently stored. So, we have to set the current gradients to 0 first:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">weights<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_()
+bias<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_();
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># each epoch function</span>
+<span style="color:#75715e"># params already use in model</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train_epoch</span>(model, lr, params):
+    <span style="color:#66d9ef">for</span> xb,yb <span style="color:#f92672">in</span> dl:
+        calc_grad(xb, yb, model)
+        <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> params:
+            p<span style="color:#f92672">.</span>data <span style="color:#f92672">-=</span> p<span style="color:#f92672">.</span>grad<span style="color:#f92672">*</span>lr
+            p<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_()
+</code></pre></div><p>That gives us this function to calculate our validation accuracy:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">batch_accuracy</span>(xb, yb):
+    preds <span style="color:#f92672">=</span> xb<span style="color:#f92672">.</span>sigmoid()
+    correct <span style="color:#f92672">=</span> (preds<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">==</span> yb
+    <span style="color:#66d9ef">return</span> correct<span style="color:#f92672">.</span>float()<span style="color:#f92672">.</span>mean()
+</code></pre></div><p>We can check it works:
+linear1 calculate the prediction</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">batch_accuracy(linear1(batch), train_y[:<span style="color:#ae81ff">4</span>])
+</code></pre></div>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.9/">
+                <span class="button__text">Ai Tutorial 4.9 SGD and Mini-Batches</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

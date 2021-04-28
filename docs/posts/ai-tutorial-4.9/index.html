@@ -184,7 +184,7 @@ ds
 <h3 id="1-single-image-size-batch">1. single image size batch<a href="#1-single-image-size-batch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, <code>total 256 epoch</code></p>
 <h3 id="2-4-image-size-batch">2. 4 image size batch<a href="#2-4-image-size-batch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,<code>total 64 epoch</code></p>
+<p>we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use a loss number  to calculate 4 gradient number ,step the weight,next batch,<code>total 64 epoch</code></p>
 <p>So use mini btach more fast!!!!!!!!</p>
 <h2 id="other-reason-why-mini-batches">Other reason why Mini-Batches<a href="#other-reason-why-mini-batches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it&rsquo;s helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!</p>
@@ -207,6 +207,13 @@ list(dl)
         <hr />
     </div>
     <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Ai Tutorial 4.10 Put it all together</span>
+            </a>
+        </span>
         
         
         <span class="button next">

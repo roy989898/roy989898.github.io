@@ -35,7 +35,7 @@ we can one item for 1 epoch,but this will be very slow,
 ### 1. single image size batch
 if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, `total 256 epoch`
 ### 2. 4 image size batch
-we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,`total 64 epoch`
+we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use a loss number  to calculate 4 gradient number ,step the weight,next batch,`total 64 epoch`
 
 So use mini btach more fast!!!!!!!!
 

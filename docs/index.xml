@@ -6,7 +6,95 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Apr 2021 16:06:34 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 16:52:44 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.10 Put it all together</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.10/</link>
+      <pubDate>Wed, 28 Apr 2021 16:52:44 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.10/</guid>
+      <description>Put it all together each epoch is like this
+# basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
+weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
+dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data</description>
+      <content>&lt;h1 id=&#34;put-it-all-together&#34;&gt;Put it all together&lt;/h1&gt;
+&lt;p&gt;each epoch is like this&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# basic example&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# for x,y in dl:&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     pred = model(x)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     loss = loss_func(pred, y)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     loss.backward()&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     parameters -= parameters.grad * lr&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;re-initialize our parameters:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+weights &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params((&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+bias &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([784, 1])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;create DataLoader of train data  from &lt;a href=&#34;https://roy989898.github.io/posts/ai-tutorial-4.8/#prepare-the-pytorch-need-format&#34; title=&#34;Dataset&#34;&gt;Dataset&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dl &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataLoader(dset, batch_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;256&lt;/span&gt;)
+xb,yb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; first(dl)
+xb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,yb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+(torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Size([&lt;span style=&#34;color:#ae81ff&#34;&gt;784&lt;/span&gt;]), tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]))
+&lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([784]), tensor([1]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;create DataLoader of valid data &lt;a href=&#34;https://roy989898.github.io/posts/ai-tutorial-4.8/#prepare-the-valid-data&#34; title=&#34;valid data&#34;&gt;valid data&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;valid_dl &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataLoader(valid_dset, batch_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;256&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;create a 4 size batch for test&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;batch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; train_x[:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+batch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([4, 784])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;alcaulate the predict
+&lt;a href=&#34;https://roy989898.github.io/posts/ai-tutorial-4.8/#predict--multi-image&#34; title=&#34;linear1&#34;&gt;linear1&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; linear1(batch)
+preds
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&amp;#39; tensor([[-4.5725],
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [ 0.2557],
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [-5.5496],
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [ 3.6488]], grad_fn=&amp;lt;AddBackward0&amp;gt;) &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;calculate a loss&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mnist_loss(preds, train_y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;])
+loss
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(0.6119, grad_fn=&amp;lt;MeanBackward0&amp;gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can calculate the gradients:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(),bias&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([784, 1]), tensor(-0.0103), tensor([-0.0712]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;put-above-together-to-create-calc_grad-functions&#34;&gt;put above together to create calc_grad functions&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_grad&lt;/span&gt;(xb, yb, model):
+    preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; model(xb)
+    loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mnist_loss(preds, yb)
+    loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;test&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;calc_grad(batch, train_y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;], linear1)
+weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(),bias&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(-0.0207), tensor([-0.1423]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;run again&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;calc_grad(batch, train_y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;], linear1)
+weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean(),bias&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor(-0.0310), tensor([-0.2135]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;have probelm!!!!! we expect the grad should be the same ,becasue all the parameter of the calc_grad is same,but not!!!
+becasue because the loss.backward add the gradients of loss to any gradients that are currently stored. So, we have to set the current gradients to 0 first:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zero_()
+bias&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zero_();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# each epoch function&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# params already use in model&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;train_epoch&lt;/span&gt;(model, lr, params):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; xb,yb &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dl:
+        calc_grad(xb, yb, model)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; params:
+            p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;lr
+            p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zero_()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That gives us this function to calculate our validation accuracy:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;batch_accuracy&lt;/span&gt;(xb, yb):
+    preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
+    correct &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (preds&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; yb
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; correct&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can check it works:
+linear1 calculate the prediction&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;batch_accuracy(linear1(batch), train_y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 4.9 SGD and Mini-Batches</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.9/</link>
@@ -36,7 +124,7 @@ ds
 &lt;h3 id=&#34;1-single-image-size-batch&#34;&gt;1. single image size batch&lt;/h3&gt;
 &lt;p&gt;if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, &lt;code&gt;total 256 epoch&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;2-4-image-size-batch&#34;&gt;2. 4 image size batch&lt;/h3&gt;
-&lt;p&gt;we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,&lt;code&gt;total 64 epoch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use a loss number  to calculate 4 gradient number ,step the weight,next batch,&lt;code&gt;total 64 epoch&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;So use mini btach more fast!!!!!!!!&lt;/p&gt;
 &lt;h2 id=&#34;other-reason-why-mini-batches&#34;&gt;Other reason why Mini-Batches&lt;/h2&gt;
 &lt;p&gt;another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it&amp;rsquo;s helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!&lt;/p&gt;

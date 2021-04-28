@@ -36,7 +36,7 @@ ds
 &lt;h3 id=&#34;1-single-image-size-batch&#34;&gt;1. single image size batch&lt;/h3&gt;
 &lt;p&gt;if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, &lt;code&gt;total 256 epoch&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;2-4-image-size-batch&#34;&gt;2. 4 image size batch&lt;/h3&gt;
-&lt;p&gt;we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,&lt;code&gt;total 64 epoch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use a loss number  to calculate 4 gradient number ,step the weight,next batch,&lt;code&gt;total 64 epoch&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;So use mini btach more fast!!!!!!!!&lt;/p&gt;
 &lt;h2 id=&#34;other-reason-why-mini-batches&#34;&gt;Other reason why Mini-Batches&lt;/h2&gt;
 &lt;p&gt;another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it&amp;rsquo;s helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!&lt;/p&gt;
