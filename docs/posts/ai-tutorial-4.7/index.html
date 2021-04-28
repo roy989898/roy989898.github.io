@@ -6,7 +6,11 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="An End-to-End SGD Example " />
+<meta name="description" content="An End-to-End SGD Example we want to find the smallest value
+craete a 0-19 torch array
+time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
+# 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
+# simulate a car speed # torch.randn(20)*3 is some random noise time = torch." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.7/" />
@@ -41,7 +45,11 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.7 An End-to-End SGD Example">
-<meta property="og:description" content="An End-to-End SGD Example " />
+<meta property="og:description" content="An End-to-End SGD Example we want to find the smallest value
+craete a 0-19 torch array
+time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
+# 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
+# simulate a car speed # torch.randn(20)*3 is some random noise time = torch." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.7/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -161,6 +169,26 @@
 
   <div class="post-content"><div>
         <h1 id="_an-end-to-end-sgd-example_"><em>An End-to-End SGD Example</em><a href="#_an-end-to-end-sgd-example_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>we want to find the smallest value<br>
+craete a 0-19 torch array</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">time <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>)<span style="color:#f92672">.</span>float(); time
+<span style="color:#75715e"># tensor([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.])</span>
+</code></pre></div><p>create randome number</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。</span>
+num<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+t<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>randn(num)
+time_f <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>,num)<span style="color:#f92672">.</span>float(); time
+plt<span style="color:#f92672">.</span>scatter(time_f,t);
+t
+</code></pre></div><p><img src="/img/ai_t/t1/rt.PNG" alt="rt"></p>
+<p>simulate a car speed</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># simulate a car speed</span>
+<span style="color:#75715e"># torch.randn(20)*3 is some random noise</span>
+time <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>)<span style="color:#f92672">.</span>float(); time
+speed <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">20</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.75</span><span style="color:#f92672">*</span>(time<span style="color:#f92672">-</span><span style="color:#ae81ff">9.5</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+plt<span style="color:#f92672">.</span>scatter(time,speed);
+</code></pre></div><p><img src="/img/ai_t/t1/car_speed.PNG" alt="car_speed"></p>
 
       </div></div>
 
