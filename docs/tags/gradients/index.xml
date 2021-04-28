@@ -15,7 +15,7 @@
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.5/</guid>
       <description>Gradients explain for the Gredient 
 calculate for the gradient in program def f(x): return x**2 the function in 4.4
-# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example </description>
+# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example xt = tensor([3.,4.,10.]).requires_grad_() def f(x): return (x**2).sum() yt = f(xt) yt.backward() xt.grad </description>
       <content>&lt;h1 id=&#34;_gradients_&#34;&gt;&lt;em&gt;Gradients&lt;/em&gt;&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.khanacademy.org/math/differential-calculus/dc-diff-intro&#34;&gt;explain for the Gredient
 &lt;/a&gt;&lt;/p&gt;
@@ -37,7 +37,16 @@ yt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
 xt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor(6.)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;another-example&#34;&gt;another example&lt;/h2&gt;
-</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+xt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;3.&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4.&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;10.&lt;/span&gt;])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;requires_grad_()
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (x&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum()
+
+yt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f(xt)
+
+yt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+xt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
   </channel>

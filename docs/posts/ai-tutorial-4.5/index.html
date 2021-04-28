@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Gradients explain for the Gredient 
 calculate for the gradient in program def f(x): return x**2 the function in 4.4
-# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example " />
+# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example xt = tensor([3.,4.,10.]).requires_grad_() def f(x): return (x**2).sum() yt = f(xt) yt.backward() xt.grad " />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.5/" />
@@ -45,7 +45,7 @@ calculate for the gradient in program def f(x): return x**2 the function in 4.4
 <meta property="og:title" content="Ai Tutorial 4.5 Gredient">
 <meta property="og:description" content="Gradients explain for the Gredient 
 calculate for the gradient in program def f(x): return x**2 the function in 4.4
-# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example " />
+# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example xt = tensor([3.,4.,10.]).requires_grad_() def f(x): return (x**2).sum() yt = f(xt) yt.backward() xt.grad " />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.5/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -181,7 +181,16 @@ yt<span style="color:#f92672">.</span>backward()
 xt<span style="color:#f92672">.</span>grad
 <span style="color:#75715e"># tensor(6.)</span>
 </code></pre></div><h2 id="another-example">another example<a href="#another-example" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+xt <span style="color:#f92672">=</span> tensor([<span style="color:#ae81ff">3.</span>,<span style="color:#ae81ff">4.</span>,<span style="color:#ae81ff">10.</span>])<span style="color:#f92672">.</span>requires_grad_()
 
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x): <span style="color:#66d9ef">return</span> (x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>sum()
+
+yt <span style="color:#f92672">=</span> f(xt)
+
+yt<span style="color:#f92672">.</span>backward()
+xt<span style="color:#f92672">.</span>grad
+</code></pre></div>
       </div></div>
 
   

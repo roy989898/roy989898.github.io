@@ -46,3 +46,15 @@ xt.grad
 ```
 
 ## another example
+
+```py
+
+xt = tensor([3.,4.,10.]).requires_grad_()
+
+def f(x): return (x**2).sum()
+
+yt = f(xt)
+
+yt.backward()
+xt.grad
+```
