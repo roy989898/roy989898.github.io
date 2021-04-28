@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 4.6 Stepping With a Learning Rate :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.6/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 4.6 Stepping With a Learning Rate">
+<meta property="og:description" content="Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.6/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-28 11:30:02 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.6/">Ai Tutorial 4.6 Stepping With a Learning Rate</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-28 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/lr/">LR</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/stepping/">stepping</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="_stepping-with-a-learning-rate_"><em>Stepping With a Learning Rate</em><a href="#_stepping-with-a-learning-rate_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder). Once you&rsquo;ve picked a learning rate, you can adjust your parameters using this simple function:
+w -= gradient(w) * lr<br>
+This is known as <em>stepping</em> your parameters, using an <em>optimizer step</em>.
+當我們得到梯度時，我們就用它來計算新的參數。 幾乎所有方法都始於將梯度乘以一個稱為學習率（LR）的小數的基本思想。 學習率通常是0.001到0.1之間的數字，儘管可以是任意數。通常，人們僅通過嘗試一些就可以選擇學習率，並在訓練後發現哪種模式可以得到最佳模型（我們將在稍後向您展示一種更好的方法 在這本書中，稱為學習率查找器）。 選擇學習速度後，您可以使用以下簡單功能調整參數：
+w -= gradient(w) * lr<br>
+使用“優化步”，這稱為“步進”你的參數。</p>
+<p>if your Lr too small,maybe too slow,</p>
+<p><img src="/img/ai_t/t1/step_small.PNG" alt="sgd_step"></p>
+<p>if LR too big,it can actually result in the loss getting worse,</p>
+<p><img src="/img/ai_t/t1/strp_big1.PNG" alt="sgd_step"></p>
+<p><img src="/img/ai_t/t1/steo_big2.PNG" alt="sgd_step"></p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.5/">
+                <span class="button__text">Ai Tutorial 4.5 Gredient</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
