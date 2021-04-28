@@ -6,7 +6,18 @@
     <description>Recent content in stepping on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Apr 2021 11:30:02 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/stepping/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 11:57:33 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/stepping/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.7 An End-to-End SGD Example</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.7/</link>
+      <pubDate>Wed, 28 Apr 2021 11:57:33 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.7/</guid>
+      <description>An End-to-End SGD Example </description>
+      <content>&lt;h1 id=&#34;_an-end-to-end-sgd-example_&#34;&gt;&lt;em&gt;An End-to-End SGD Example&lt;/em&gt;&lt;/h1&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 4.6 Stepping With a Learning Rate</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.6/</link>

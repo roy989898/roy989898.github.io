@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 4.7"
+title = "Ai Tutorial 4.7 An End-to-End SGD Example"
 date = "2021-04-28T11:57:33+08:00"
 author = ""
 authorTwitter = "" #do not include @
@@ -9,3 +9,6 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+
+
+# _An End-to-End SGD Example_
