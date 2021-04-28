@@ -32,9 +32,11 @@ xt
 yt = f(xt)
 yt
 
-```python
+```
+```py
 # calculate the gradients
 yt.backward()
+
 ```
 
 ``` python
