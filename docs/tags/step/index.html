@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>SGD :: Terminal</title>
+    <title>step :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://roy989898.github.io/tags/sgd/" />
+<link rel="canonical" href="https://roy989898.github.io/tags/step/" />
 
 
 
@@ -40,9 +40,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="SGD">
+<meta property="og:title" content="step">
 <meta property="og:description" content="" />
-<meta property="og:url" content="https://roy989898.github.io/tags/sgd/" />
+<meta property="og:url" content="https://roy989898.github.io/tags/step/" />
 <meta property="og:site_name" content="Terminal" />
 
   
@@ -56,7 +56,7 @@
 
 
 
-  <link href="/tags/sgd/index.xml" rel="alternate" type="application/rss+xml" title="Terminal" />
+  <link href="/tags/step/index.xml" rel="alternate" type="application/rss+xml" title="Terminal" />
 
 
 
@@ -175,106 +175,6 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-4.9/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-4.7/">Ai Tutorial 4.7 An End-to-End SGD Example</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-28
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/lr/">LR</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/stepping/">stepping</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          An End-to-End SGD Example we want to find the smallest value
-Some useful function craete a 0-19 torch array
-time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
-# 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
-# simulate a car speed # torch.randn(20)*3 is some random noise time = torch.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-4.7/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-4.4/">Ai Tutorial 4.4 Stochastic Gradient Descent 隨機梯度下降 (SGD)</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-27
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/sgd/">sgd</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          SGD Instead of trying to find the similarity between an image and an &ldquo;ideal image,&rdquo; we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-4.4/">Read more →</a>
         </div>
         
       </div>

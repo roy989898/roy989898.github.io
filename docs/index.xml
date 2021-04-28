@@ -6,7 +6,51 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Apr 2021 12:44:41 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 16:06:34 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.9 SGD and Mini-Batches</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.9/</link>
+      <pubDate>Wed, 28 Apr 2021 16:06:34 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.9/</guid>
+      <description>we already have a SGD loss function,we can go to Step
+which is to change or update the weights based on the gradients. This is called an optimization step.
+basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow,</description>
+      <content>&lt;p&gt;we already have a SGD loss function,we can go to &lt;code&gt;Step&lt;/code&gt;&lt;br&gt;
+which is to change or update the weights based on the gradients. This is called an optimization step.&lt;/p&gt;
+&lt;h1 id=&#34;basic-python&#34;&gt;basic Python&lt;/h1&gt;
+&lt;h2 id=&#34;stringascii_lowercase&#34;&gt;string.ascii_lowercase&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ascii_lowercase
+&lt;span style=&#34;color:#75715e&#34;&gt;# abcdefghijklmnopqrstuvwxyz&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;basic-pytorch&#34;&gt;basic Pytorch&lt;/h1&gt;
+&lt;h2 id=&#34;enumerate&#34;&gt;enumerate&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#  L is something liek list&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。&lt;/span&gt;
+ds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; L(enumerate(string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ascii_lowercase))
+ds
+&lt;span style=&#34;color:#75715e&#34;&gt;# [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;optimization-step&#34;&gt;optimization step&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/sgd_step.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;why-mini-batches&#34;&gt;why Mini-Batches&lt;/h2&gt;
+&lt;p&gt;we can one item for 1 epoch,but this will be very slow,&lt;/p&gt;
+&lt;h3 id=&#34;1-single-image-size-batch&#34;&gt;1. single image size batch&lt;/h3&gt;
+&lt;p&gt;if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, &lt;code&gt;total 256 epoch&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-4-image-size-batch&#34;&gt;2. 4 image size batch&lt;/h3&gt;
+&lt;p&gt;we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,&lt;code&gt;total 64 epoch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So use mini btach more fast!!!!!!!!&lt;/p&gt;
+&lt;h2 id=&#34;other-reason-why-mini-batches&#34;&gt;Other reason why Mini-Batches&lt;/h2&gt;
+&lt;p&gt;another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it&amp;rsquo;s helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!&lt;/p&gt;
+&lt;h2 id=&#34;use-dataloader-to-create-batches&#34;&gt;Use DataLoader to create batches&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;coll &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
+dl &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataLoader(coll, batch_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, shuffle&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
+list(dl)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# [tensor([ 3, 12,  8, 10,  2]),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  tensor([ 9,  4,  7, 14,  5]),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  tensor([ 1, 13,  0,  6, 11])]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 4.8 The MNIST Loss Function</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.8/</link>

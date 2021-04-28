@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 4.9 SGD and Mini-Batches :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="we already have a SGD loss function,we can go to Step
+which is to change or update the weights based on the gradients. This is called an optimization step.
+basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow," />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.9/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 4.9 SGD and Mini-Batches">
+<meta property="og:description" content="we already have a SGD loss function,we can go to Step
+which is to change or update the weights based on the gradients. This is called an optimization step.
+basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow," />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.9/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-28 16:06:34 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.9/">Ai Tutorial 4.9 SGD and Mini-Batches</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-28 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/batch/">batch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/step/">step</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>we already have a SGD loss function,we can go to <code>Step</code><br>
+which is to change or update the weights based on the gradients. This is called an optimization step.</p>
+<h1 id="basic-python">basic Python<a href="#basic-python" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="stringascii_lowercase">string.ascii_lowercase<a href="#stringascii_lowercase" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">string<span style="color:#f92672">.</span>ascii_lowercase
+<span style="color:#75715e"># abcdefghijklmnopqrstuvwxyz</span>
+</code></pre></div><h1 id="basic-pytorch">basic Pytorch<a href="#basic-pytorch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="enumerate">enumerate<a href="#enumerate" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#  L is something liek list</span>
+<span style="color:#75715e"># enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。</span>
+ds <span style="color:#f92672">=</span> L(enumerate(string<span style="color:#f92672">.</span>ascii_lowercase))
+ds
+<span style="color:#75715e"># [(0, &#39;a&#39;),(1, &#39;b&#39;),(2, &#39;c&#39;),(3, &#39;d&#39;),(4, &#39;e&#39;),(5, &#39;f&#39;),(6, &#39;g&#39;),(7, &#39;h&#39;),(8, &#39;i&#39;),(9, &#39;j&#39;)...]</span>
+</code></pre></div><h1 id="optimization-step">optimization step<a href="#optimization-step" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="/img/ai_t/t1/sgd_step.PNG" alt="sgd_step"></p>
+<h2 id="why-mini-batches">why Mini-Batches<a href="#why-mini-batches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>we can one item for 1 epoch,but this will be very slow,</p>
+<h3 id="1-single-image-size-batch">1. single image size batch<a href="#1-single-image-size-batch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>if we ahve 256 picture,we predict 1 picture,tha we calculate the loss for the picture,than use the loss number to calculate the gradient,step the weight,next picture, <code>total 256 epoch</code></p>
+<h3 id="2-4-image-size-batch">2. 4 image size batch<a href="#2-4-image-size-batch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>we have 256/4= 64 bitch picture, we predict 4 picture at a time,we calcuate 4 loss for 4 picture,than use 4 loss number mean to calculate a gradient number ,step the weight,next batch,<code>total 64 epoch</code></p>
+<p>So use mini btach more fast!!!!!!!!</p>
+<h2 id="other-reason-why-mini-batches">Other reason why Mini-Batches<a href="#other-reason-why-mini-batches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it&rsquo;s helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!</p>
+<h2 id="use-dataloader-to-create-batches">Use DataLoader to create batches<a href="#use-dataloader-to-create-batches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">coll <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">15</span>)
+dl <span style="color:#f92672">=</span> DataLoader(coll, batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, shuffle<span style="color:#f92672">=</span>True)
+list(dl)
+
+<span style="color:#75715e"># [tensor([ 3, 12,  8, 10,  2]),</span>
+<span style="color:#75715e">#  tensor([ 9,  4,  7, 14,  5]),</span>
+<span style="color:#75715e">#  tensor([ 1, 13,  0,  6, 11])]</span>
+</code></pre></div>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.8/">
+                <span class="button__text">Ai Tutorial 4.8 The MNIST Loss Function</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
