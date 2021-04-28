@@ -21,3 +21,25 @@ showFullContent = false
 #     loss.backward()
 #     parameters -= parameters.grad * lr
 ```
+re-initialize our parameters:
+```py
+
+weights = init_params((28*28,1))
+bias = init_params(1)
+weights.shape
+# torch.Size([784, 1])
+```
+
+create DataLoader of train data  from [Dataset]({{< ref "posts/ai-tutorial-4.8.md#prepare-the-pytorch-need-format" >}} "Dataset")
+```py
+dl = DataLoader(dset, batch_size=256)
+xb,yb = first(dl)
+xb.shape,yb.shape
+(torch.Size([784]), tensor([1]))
+# (torch.Size([784]), tensor([1]))
+```
+
+create DataLoader of valid data [valid data]({{< ref "posts/ai-tutorial-4.8.md#prepare-the-valid-data" >}} "valid data")
+```
+valid_dl = DataLoader(valid_dset, batch_size=256)
+```
