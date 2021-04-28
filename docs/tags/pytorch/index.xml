@@ -68,8 +68,28 @@ example&lt;/p&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[1., 2.],&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#         [3., 4.],&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#         [5., 6.]])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;mnist-loss-function&#34;&gt;MNIST Loss Function&lt;/h2&gt;
-&lt;h2 id=&#34;connect-the-photo&#34;&gt;connect the photo&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;torchrandn&#34;&gt;torch.randn&lt;/h3&gt;
+&lt;p&gt;create a list of random numberless&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([ 0.9912,  0.4679, -0.2049, -0.7409,  0.3618,  1.9199, -0.2254, -0.3417])&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn((&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[ 0.3040],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-0.6890],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.1267],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-0.2858],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.0935],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ 1.1351],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ 0.7592],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-3.5945]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;matrix-multiplication&#34;&gt;matrix multiplication&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;A&lt;span style=&#34;color:#a6e22e&#34;&gt;@B&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/matrix_m.PNG&#34; alt=&#34;rt&#34;&gt;
+For instance, row 1, column 2 (the orange dot with a red border) is calculated as a1,1∗b1,2+a1,2∗b2,2&lt;/p&gt;
+&lt;h2 id=&#34;mnist-loss-function&#34;&gt;MNIST Loss Function&lt;/h2&gt;
+&lt;h3 id=&#34;prepare-the-train-data&#34;&gt;Prepare the train data&lt;/h3&gt;
+&lt;h4 id=&#34;connect-the-photo&#34;&gt;connect the photo&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
 &lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([6131, 28, 28])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;stacked_sevens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
@@ -81,7 +101,7 @@ train_x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
 for each picture , orginal is respenct by a 2d tensor,(28&lt;em&gt;28),turn to 1d tensor 784
 &lt;code&gt;view(-1, 28*28)&lt;/code&gt; mean 28&lt;/em&gt;28 column,-1 mean not specific the row number,just make it can fit the content,becasue we have
 &lt;code&gt;6131+6265=12396&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;add-the-tag-for-each-photo&#34;&gt;add the tag for each photo&lt;/h2&gt;
+&lt;h4 id=&#34;add-the-tag-for-each-photo&#34;&gt;add the tag for each photo&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# assign the tag to each image&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# We need a label for each image. We&amp;#39;ll use `1` for 3s and `0` for 7s:&lt;/span&gt;
@@ -90,7 +110,75 @@ train_x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,train_y&lt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([12396, 784]), torch.Size([12396, 1]))&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# train_X,12396 images,each image total 784 pixels&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#train_y,12396 tag,because eachpicture 1 tag,1 tag inf in each tag&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;prepare-the-pytorch-need-format&#34;&gt;prepare the Pytorch need format&lt;/h4&gt;
+&lt;p&gt;A Dataset in PyTorch is required to return a tuple of (x,y) when indexed. Python provides a zip function which, when combined with list, provides a simple way to get this functionality:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; list(zip(train_x,train_y))
+x,y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dset[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,y
+&lt;span style=&#34;color:#75715e&#34;&gt;# x is  the image,t is the tag&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([784]), tensor([1]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;prepare-the-valid-data&#34;&gt;Prepare the valid data&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;valid_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cat([valid_3_tens, valid_7_tens])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;)
+valid_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(valid_3_tens) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(valid_7_tens))&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unsqueeze(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+valid_dset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; list(zip(valid_x,valid_y))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-random-init-param&#34;&gt;create random init param&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;init_params&lt;/span&gt;(size, std&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn(size)&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;std)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;requires_grad_()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# weneed a vertical 2d array,show we need (28*28,1),not only 28*28&lt;/span&gt;
+weights &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params((&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+&lt;span style=&#34;color:#75715e&#34;&gt;# weights&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function &lt;code&gt;weights*pixels&lt;/code&gt; won&amp;rsquo;t be flexible enough—it is always equal to 0 when the pixels are equal to 0 (i.e., its &lt;em&gt;intercept&lt;/em&gt; is 0). You might remember from high school math that the formula for a line is &lt;code&gt;y=w*x+b&lt;/code&gt;; we still need the &lt;code&gt;b&lt;/code&gt;. We&amp;rsquo;ll initialize it to a random number too:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;bias &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# why??????&lt;/span&gt;
+bias
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;predict-a-image&#34;&gt;Predict a image&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;(train_x[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;T)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; bias
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we can use a foor loop to calculate all the image pred,but this is slow&lt;br&gt;
+so we use matrix multiplication  ,more fast can use GPU
+we suggest you take a look at the Intro to Matrix Multiplication &lt;a href=&#34;https://www.youtube.com/watch?v=kT4Mp9EdVqs&amp;amp;ab_channel=KhanAcademy&#34;&gt;https://www.youtube.com/watch?v=kT4Mp9EdVqs&amp;amp;ab_channel=KhanAcademy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/matrix_m.PNG&#34; alt=&#34;rt&#34;&gt;
+For instance, row 1, column 2 (the orange dot with a red border) is calculated as  a1,1∗b1,2+a1,2∗b2,2&lt;/p&gt;
+&lt;h3 id=&#34;predict--multi-image&#34;&gt;Predict  multi image&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;weights&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([784, 1])&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;train_x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([12396, 784])&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# xb@weights + bias is the formula to predict is the image is 3 or 7,1 is 3,0 is 7&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;linear1&lt;/span&gt;(xb): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; xb&lt;span style=&#34;color:#a6e22e&#34;&gt;@weights&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; bias
+preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; linear1(train_x)
+preds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;corrects &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (preds&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; train_y
+corrects
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[ True],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ True],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ True],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         ...,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [False],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [False],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [False]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;corrects&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0.49080348014831543&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;first-loss-finction&#34;&gt;first loss finction&lt;/h3&gt;
+&lt;p&gt;suppose we had three images which we knew were a 3, a 7, and a 3. And suppose our model predicted with high confidence (0.9) that the first was a 3, with slight confidence (0.4) that the second was a 7, and with fair confidence (0.2), but incorrectly, that the last was a 7. This would mean our loss function would receive these values as its inputs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1 is 3,0 is 7&lt;/span&gt;
+trgts  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])
+prds   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;0.9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;])
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;C/CUDA speed
+具体的意思可以理解为：针对于x而言，如果其中的每个元素都满足condition，就返回x的值；如果不满足condition，就将y对应位置的元素或者y的值(如果y为氮元素tensor的话)替换x的值，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# low is good&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# low is good&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mnist_loss&lt;/span&gt;(predictions, targets):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;where(targets&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;predictions, predictions)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# example&lt;/span&gt;
+torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;where(trgts&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;prds, prds)
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.where(trgts==1, 1-prds, prds)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;mnist_loss(prds,trgts)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(0.4333)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;better-loss-finction&#34;&gt;better loss finction&lt;/h3&gt;
+</content>
     </item>
     
     <item>

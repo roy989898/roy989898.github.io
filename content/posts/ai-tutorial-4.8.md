@@ -109,6 +109,16 @@ torch.randn((8,1))
 #         [ 0.7592],
 #         [-3.5945]])
 ```
+
+### matrix multiplication
+```py
+A@B
+
+```
+![rt](/img/ai_t/t1/matrix_m.PNG)
+For instance, row 1, column 2 (the orange dot with a red border) is calculated as a1,1∗b1,2+a1,2∗b2,2
+
+
 ## MNIST Loss Function
 ### Prepare the train data
 #### connect the photo
@@ -180,3 +190,84 @@ bias = init_params(1)
 # why??????
 bias
 ```
+### Predict a image 
+
+```py
+(train_x[0]*weights.T).sum() + bias
+```
+
+we can use a foor loop to calculate all the image pred,but this is slow  
+so we use matrix multiplication  ,more fast can use GPU
+we suggest you take a look at the Intro to Matrix Multiplication https://www.youtube.com/watch?v=kT4Mp9EdVqs&ab_channel=KhanAcademy
+
+
+![rt](/img/ai_t/t1/matrix_m.PNG)
+For instance, row 1, column 2 (the orange dot with a red border) is calculated as  a1,1∗b1,2+a1,2∗b2,2
+
+
+### Predict  multi image 
+
+```py
+weights.shape
+# torch.Size([784, 1])
+
+```
+
+```py
+train_x.shape
+# torch.Size([12396, 784])
+
+```
+```py
+# xb@weights + bias is the formula to predict is the image is 3 or 7,1 is 3,0 is 7
+def linear1(xb): return xb@weights + bias
+preds = linear1(train_x)
+preds
+```
+
+```py
+corrects = (preds>0.5).float() == train_y
+corrects
+# tensor([[ True],
+#         [ True],
+#         [ True],
+#         ...,
+#         [False],
+#         [False],
+#         [False]])
+```
+
+```py
+corrects.float().mean().item()
+# 0.49080348014831543
+```
+
+### first loss finction
+suppose we had three images which we knew were a 3, a 7, and a 3. And suppose our model predicted with high confidence (0.9) that the first was a 3, with slight confidence (0.4) that the second was a 7, and with fair confidence (0.2), but incorrectly, that the last was a 7. This would mean our loss function would receive these values as its inputs:
+
+```py
+# 1 is 3,0 is 7
+trgts  = tensor([1,0,1])
+prds   = tensor([0.9, 0.4, 0.2])
+
+```
+C/CUDA speed
+具体的意思可以理解为：针对于x而言，如果其中的每个元素都满足condition，就返回x的值；如果不满足condition，就将y对应位置的元素或者y的值(如果y为氮元素tensor的话)替换x的值，
+```py
+# low is good
+# low is good
+def mnist_loss(predictions, targets):
+    return torch.where(targets==1, 1-predictions, predictions).mean()
+```
+
+```py
+# example
+torch.where(trgts==1, 1-prds, prds)
+# torch.where(trgts==1, 1-prds, prds)
+```
+```py
+mnist_loss(prds,trgts)
+# tensor(0.4333)
+```
+
+### better loss finction
