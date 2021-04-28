@@ -117,6 +117,7 @@ That gives us this function to calculate our validation accuracy:
 ```py
 def batch_accuracy(xb, yb):
     preds = xb.sigmoid()
+    # after sigmoid 0 becime 0.5 so, >0.5 ,is 1,that mean it is 3
     correct = (preds>0.5) == yb
     return correct.float().mean()
 ```
@@ -124,4 +125,34 @@ We can check it works:
 linear1 calculate the prediction
 ```py
 batch_accuracy(linear1(batch), train_y[:4])
+```
+
+check is it work
+```
+batch_accuracy(linear1(batch), train_y[:4])
+```
+
+create a valid epoch function to our new weight model
+```py
+def validate_epoch(model):
+    accs = [batch_accuracy(model(xb), yb) for xb,yb in valid_dl]
+    return round(torch.stack(accs).mean().item(), 4)
+```
+
+
+## now use the above function to run a epoch
+### strat point
+```py
+lr = 1.
+params = weights,bias
+train_epoch(linear1, lr, params)
+validate_epoch(linear1)
+# 0.6268
+```
+
+### do more
+```py
+for i in range(20):
+    train_epoch(linear1, lr, params)
+    print(validate_epoch(linear1), end=' ')
 ```

@@ -232,11 +232,29 @@ bias<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>
 </code></pre></div><p>That gives us this function to calculate our validation accuracy:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">batch_accuracy</span>(xb, yb):
     preds <span style="color:#f92672">=</span> xb<span style="color:#f92672">.</span>sigmoid()
+    <span style="color:#75715e"># after sigmoid 0 becime 0.5 so, &gt;0.5 ,is 1,that mean it is 3</span>
     correct <span style="color:#f92672">=</span> (preds<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">==</span> yb
     <span style="color:#66d9ef">return</span> correct<span style="color:#f92672">.</span>float()<span style="color:#f92672">.</span>mean()
 </code></pre></div><p>We can check it works:
 linear1 calculate the prediction</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">batch_accuracy(linear1(batch), train_y[:<span style="color:#ae81ff">4</span>])
+</code></pre></div><p>check is it work</p>
+<pre><code>batch_accuracy(linear1(batch), train_y[:4])
+</code></pre><p>create a valid epoch function to our new weight model</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_epoch</span>(model):
+    accs <span style="color:#f92672">=</span> [batch_accuracy(model(xb), yb) <span style="color:#66d9ef">for</span> xb,yb <span style="color:#f92672">in</span> valid_dl]
+    <span style="color:#66d9ef">return</span> round(torch<span style="color:#f92672">.</span>stack(accs)<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>item(), <span style="color:#ae81ff">4</span>)
+</code></pre></div><h2 id="now-use-the-above-function-to-run-a-epoch">now use the above function to run a epoch<a href="#now-use-the-above-function-to-run-a-epoch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="strat-point">strat point<a href="#strat-point" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">lr <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span>
+params <span style="color:#f92672">=</span> weights,bias
+train_epoch(linear1, lr, params)
+validate_epoch(linear1)
+<span style="color:#75715e"># 0.6268</span>
+</code></pre></div><h3 id="do-more">do more<a href="#do-more" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">20</span>):
+    train_epoch(linear1, lr, params)
+    <span style="color:#66d9ef">print</span>(validate_epoch(linear1), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39; &#39;</span>)
 </code></pre></div>
       </div></div>
 
