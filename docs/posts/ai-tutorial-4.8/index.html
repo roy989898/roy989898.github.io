@@ -326,6 +326,23 @@ torch<span style="color:#f92672">.</span>where(trgts<span style="color:#f92672">
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">mnist_loss(prds,trgts)
 <span style="color:#75715e"># tensor(0.4333)</span>
 </code></pre></div><h3 id="better-loss-finction">better loss finction<a href="#better-loss-finction" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>buts this mnist_loss has a problem , it assume the predict is alwasy0-1
+we can use sigmoid function,it map all the value between 1 and 0</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sigmoid</span>(x): <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>torch<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x))
+plot_function(torch<span style="color:#f92672">.</span>sigmoid, title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Sigmoid&#39;</span>, min<span style="color:#f92672">=-</span><span style="color:#ae81ff">4</span>, max<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+</code></pre></div><p><img src="/img/ai_t/t1/sig.png" alt="sig"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mnist_loss</span>(predictions, targets):
+    predictions <span style="color:#f92672">=</span> predictions<span style="color:#f92672">.</span>sigmoid()
+    <span style="color:#66d9ef">return</span> torch<span style="color:#f92672">.</span>where(targets<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>predictions, predictions)<span style="color:#f92672">.</span>mean()
+</code></pre></div><p>why select sigmoid()? becuase it can keep the mnist_loss function
+has a meaningful derivative. It can&rsquo;t have big flat sections and large jumps, but instead must be reasonably smooth. This is why we designed a loss function that would respond to small changes in confidence level
+This requirement means that sometimes it does not really reflect exactly what we are trying to achieve, but is rather a compromise between our real goal, and a function that can be optimized using its gradient.</p>
+<p>為什麼選擇sigmoid（）？ 因為它可以保留mnist_loss函數
+具有有意義的導數 它不能有較大的扁平部分和較大的跳動，而必須相當平滑。 這就是為什麼我們設計一個損失函數以響應置信度水平的微小變化的原因
+此要求意味著有時它不能真正反映出我們要實現的目標，但實際上是我們實際目標與可以使用其梯度進行優化的功能之間的折衷。</p>
+<h2 id="loss-vs-metrics">Loss vs Metrics<a href="#loss-vs-metrics" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><code>Metrics</code>, are the numbers that we really care about. These are the values that are printed at the end of each epoch that tell us how our model is really doing.  when judging the performance of a model,we use metrics</p>
+<p><code>loss</code>,To drive automated learning, the loss must be a function that has a meaningful derivative. It can&rsquo;t have big flat sections and large jumps, but instead must be reasonably smooth. This is why we designed a loss function that would respond to small changes in confidence level.</p>
 
       </div></div>
 

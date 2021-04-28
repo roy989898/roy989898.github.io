@@ -271,3 +271,31 @@ mnist_loss(prds,trgts)
 ```
 
 ### better loss finction
+buts this mnist_loss has a problem , it assume the predict is alwasy0-1
+we can use sigmoid function,it map all the value between 1 and 0
+
+```py
+def sigmoid(x): return 1/(1+torch.exp(-x))
+plot_function(torch.sigmoid, title='Sigmoid', min=-4, max=4)
+```
+![sig](/img/ai_t/t1/sig.png)
+
+
+```py
+def mnist_loss(predictions, targets):
+    predictions = predictions.sigmoid()
+    return torch.where(targets==1, 1-predictions, predictions).mean()
+```
+why select sigmoid()? becuase it can keep the mnist_loss function
+has a meaningful derivative. It can't have big flat sections and large jumps, but instead must be reasonably smooth. This is why we designed a loss function that would respond to small changes in confidence level
+This requirement means that sometimes it does not really reflect exactly what we are trying to achieve, but is rather a compromise between our real goal, and a function that can be optimized using its gradient.   
+
+為什麼選擇sigmoid（）？ 因為它可以保留mnist_loss函數
+具有有意義的導數 它不能有較大的扁平部分和較大的跳動，而必須相當平滑。 這就是為什麼我們設計一個損失函數以響應置信度水平的微小變化的原因
+此要求意味著有時它不能真正反映出我們要實現的目標，但實際上是我們實際目標與可以使用其梯度進行優化的功能之間的折衷。
+
+
+## Loss vs Metrics
+`Metrics`, are the numbers that we really care about. These are the values that are printed at the end of each epoch that tell us how our model is really doing.  when judging the performance of a model,we use metrics
+
+`loss`,To drive automated learning, the loss must be a function that has a meaningful derivative. It can't have big flat sections and large jumps, but instead must be reasonably smooth. This is why we designed a loss function that would respond to small changes in confidence level.
