@@ -23,6 +23,23 @@ tensor([1]*4 + [0]*3)
 ```
 
 ## Some basic pytorch functions
+
+### horizontal tensor to vertical tensors
+
+```py
+tensor([1]*4 + [0]*3)
+# tensor([1, 1, 1, 1, 0, 0, 0])
+```
+```py
+tensor([1]*4 + [0]*3).unsqueeze(1)
+# tensor([[1],
+#         [1],
+#         [1],
+#         [1],
+#         [0],
+#         [0],
+#         [0]])
+```
 ### torch.cat
 connect two tensors together
 https://blog.csdn.net/qq_39709535/article/details/80803003
