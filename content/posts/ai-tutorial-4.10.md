@@ -21,7 +21,9 @@ showFullContent = false
 #     loss.backward()
 #     parameters -= parameters.grad * lr
 ```
+
 re-initialize our parameters:
+
 ```py
 
 weights = init_params((28*28,1))
@@ -31,6 +33,7 @@ weights.shape
 ```
 
 create DataLoader of train data  from [Dataset]({{< ref "posts/ai-tutorial-4.8.md#prepare-the-pytorch-need-format" >}} "Dataset")
+
 ```py
 dl = DataLoader(dset, batch_size=256)
 xb,yb = first(dl)
@@ -40,17 +43,22 @@ xb.shape,yb.shape
 ```
 
 create DataLoader of valid data [valid data]({{< ref "posts/ai-tutorial-4.8.md#prepare-the-valid-data" >}} "valid data")
+
 ```py
 valid_dl = DataLoader(valid_dset, batch_size=256)
 ```
+
 create a 4 size batch for test
+
 ```py
 batch = train_x[:4]
 batch.shape
 # torch.Size([4, 784])
 ```
+
 alcaulate the predict
 [linear1]({{< ref "posts/ai-tutorial-4.8.md#predict--multi-image" >}} "linear1")
+
 ```py
 preds = linear1(batch)
 preds
@@ -60,13 +68,16 @@ preds
         [ 3.6488]], grad_fn=<AddBackward0>) '''
 ```
 
-calculate a loss 
+calculate a loss
+
 ```py
 loss = mnist_loss(preds, train_y[:4])
 loss
 # tensor(0.6119, grad_fn=<MeanBackward0>)
 ```
+
 Now we can calculate the gradients:
+
 ```py
 loss.backward()
 weights.grad.shape,weights.grad.mean(),bias.grad
@@ -74,6 +85,7 @@ weights.grad.shape,weights.grad.mean(),bias.grad
 ```
 
 ## put above together to create calc_grad functions
+
 ```py
 def calc_grad(xb, yb, model):
     preds = model(xb)
@@ -82,6 +94,7 @@ def calc_grad(xb, yb, model):
 ```
 
 test
+
 ```py
 calc_grad(batch, train_y[:4], linear1)
 weights.grad.mean(),bias.grad
@@ -89,13 +102,16 @@ weights.grad.mean(),bias.grad
 ```
 
 run again
+
 ```py
 calc_grad(batch, train_y[:4], linear1)
 weights.grad.mean(),bias.grad
 # (tensor(-0.0310), tensor([-0.2135]))
 ```
+
 have probelm!!!!! we expect the grad should be the same ,becasue all the parameter of the calc_grad is same,but not!!!
 becasue because the loss.backward add the gradients of loss to any gradients that are currently stored. So, we have to set the current gradients to 0 first:
+
 ```py
 weights.grad.zero_()
 bias.grad.zero_();
@@ -121,27 +137,32 @@ def batch_accuracy(xb, yb):
     correct = (preds>0.5) == yb
     return correct.float().mean()
 ```
+
 We can check it works:
 linear1 calculate the prediction
+
 ```py
 batch_accuracy(linear1(batch), train_y[:4])
 ```
 
 check is it work
+
 ```
 batch_accuracy(linear1(batch), train_y[:4])
 ```
 
 create a valid epoch function to our new weight model
+
 ```py
 def validate_epoch(model):
     accs = [batch_accuracy(model(xb), yb) for xb,yb in valid_dl]
     return round(torch.stack(accs).mean().item(), 4)
 ```
 
-
 ## now use the above function to run a epoch
+
 ### strat point
+
 ```py
 lr = 1.
 params = weights,bias
@@ -151,6 +172,7 @@ validate_epoch(linear1)
 ```
 
 ### do more
+
 ```py
 for i in range(20):
     train_epoch(linear1, lr, params)
