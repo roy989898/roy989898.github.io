@@ -51,4 +51,25 @@ print(a.view(3,2))
 #         [3., 4.],
 #         [5., 6.]])
 ```
- 
+
+## MNIST Loss Function
+## connect the photo
+```py
+stacked_threes.shape
+# torch.Size([6131, 28, 28])
+```
+```py
+stacked_sevens.shape
+# torch.Size([6265, 28, 28])
+```
+```py
+train_x = torch.cat([stacked_threes, stacked_sevens]).view(-1, 28*28)
+train_x.shape
+# torch.Size([12396, 784])
+```
+the above acode,we first connect the stacked_threes(each pixel present by 0-1 number) and
+for each picture , orginal is respenct by a 2d tensor,(28*28),turn to 1d tensor 784
+`view(-1, 28*28)` mean 28*28 column,-1 mean not specific the row number,just make it can fit the content,becasue we have
+`6131+6265=12396`
+
+## add the tag for each photo
