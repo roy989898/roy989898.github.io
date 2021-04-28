@@ -13,8 +13,37 @@
       <pubDate>Wed, 28 Apr 2021 12:44:41 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.8/</guid>
-      <description></description>
-      <content></content>
+      <description>MNIST Loss Function Some basic pytorch functions
+torch.cat connect two tensors together https://blog.csdn.net/qq_39709535/article/details/80803003
+A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.]]) B=2*torch.ones(4,3) B # tensor([[2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.]]) C=torch.cat([A,B]) C.shape # torch.Size([8, 3]) Tensor.view PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.</description>
+      <content>&lt;h1 id=&#34;_mnist-loss-function_&#34;&gt;&lt;em&gt;MNIST Loss Function&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;Some basic pytorch functions&lt;/p&gt;
+&lt;h2 id=&#34;torchcat&#34;&gt;torch.cat&lt;/h2&gt;
+&lt;p&gt;connect two tensors together
+&lt;a href=&#34;https://blog.csdn.net/qq_39709535/article/details/80803003&#34;&gt;https://blog.csdn.net/qq_39709535/article/details/80803003&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;A&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ones(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#2x3的张量（矩阵）                                     &lt;/span&gt;
+A
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[1., 1., 1.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1., 1., 1.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1., 1., 1.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1., 1., 1.]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;B&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ones(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+B
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[2., 2., 2.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [2., 2., 2.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [2., 2., 2.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [2., 2., 2.]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;C&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cat([A,B])
+C&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([8, 3])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;tensorview&#34;&gt;Tensor.view&lt;/h2&gt;
+&lt;p&gt;PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.&lt;/p&gt;
+&lt;p&gt;把原先tensor中的數據按照行優先的順序排成一個一維的數據（這裡應該是因為要求地址是連續存儲的），然後按照參數組合成其他維度的tensor。比如說是不管你原先的數據是[ [[1,2,3],[4,5,6]]]還是[1,2,3,4,5,6]，因為它們排成一維向量都是6個元素，所以只要view後面的參數一致，得到的結果都是一樣的。比如，
+example&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Tensor([[[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;],[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;]]])
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(a&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;))
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
