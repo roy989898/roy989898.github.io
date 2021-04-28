@@ -91,7 +91,8 @@ print(a.view(3,2))
 ```
 
 ## MNIST Loss Function
-## connect the photo
+### Prepare the train data
+#### connect the photo
 ```py
 stacked_threes.shape
 # torch.Size([6131, 28, 28])
@@ -110,7 +111,7 @@ for each picture , orginal is respenct by a 2d tensor,(28*28),turn to 1d tensor 
 `view(-1, 28*28)` mean 28*28 column,-1 mean not specific the row number,just make it can fit the content,becasue we have
 `6131+6265=12396`
 
-## add the tag for each photo
+#### add the tag for each photo
 
 ```py
 
@@ -121,4 +122,24 @@ train_x.shape,train_y.shape
 # (torch.Size([12396, 784]), torch.Size([12396, 1]))
 # train_X,12396 images,each image total 784 pixels
 #train_y,12396 tag,because eachpicture 1 tag,1 tag inf in each tag
+```
+
+#### prepare the Pytorch need format
+A Dataset in PyTorch is required to return a tuple of (x,y) when indexed. Python provides a zip function which, when combined with list, provides a simple way to get this functionality:
+
+
+```py
+dset = list(zip(train_x,train_y))
+x,y = dset[0]
+x.shape,y
+# x is  the image,t is the tag
+
+# (torch.Size([784]), tensor([1]))
+```
+
+### Prepare the valid data
+```py
+valid_x = torch.cat([valid_3_tens, valid_7_tens]).view(-1, 28*28)
+valid_y = tensor([1]*len(valid_3_tens) + [0]*len(valid_7_tens)).unsqueeze(1)
+valid_dset = list(zip(valid_x,valid_y))
 ```
