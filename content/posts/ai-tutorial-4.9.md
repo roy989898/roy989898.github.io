@@ -26,3 +26,14 @@ So use mini btach more fast!!!!!!!!
 
 ## Other reason why Mini-Batches
 another reason that use mini batch not calculating the gradient on individual data items is that, we nearly always do our training on an accelerator such as a GPU. These accelerators only perform well if they have lots of work to do at a time, so it's helpful if we can give them lots of data items to work on. Using mini-batches is one of the best ways to do this. However, if you give them too much data to work on at once, they run out of memory—making GPUs happy is also tricky!
+
+## Use DataLoader to create batches
+```py
+coll = range(15)
+dl = DataLoader(coll, batch_size=5, shuffle=True)
+list(dl)
+
+# [tensor([ 3, 12,  8, 10,  2]),
+#  tensor([ 9,  4,  7, 14,  5]),
+#  tensor([ 1, 13,  0,  6, 11])]
+```
