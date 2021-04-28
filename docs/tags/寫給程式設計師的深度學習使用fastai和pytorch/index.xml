@@ -14,13 +14,14 @@
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.7/</guid>
       <description>An End-to-End SGD Example we want to find the smallest value
-craete a 0-19 torch array
+Some useful function craete a 0-19 torch array
 time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
 # 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
 # simulate a car speed # torch.randn(20)*3 is some random noise time = torch.</description>
       <content>&lt;h1 id=&#34;_an-end-to-end-sgd-example_&#34;&gt;&lt;em&gt;An End-to-End SGD Example&lt;/em&gt;&lt;/h1&gt;
-&lt;p&gt;we want to find the smallest value&lt;br&gt;
-craete a 0-19 torch array&lt;/p&gt;
+&lt;p&gt;we want to find the smallest value&lt;/p&gt;
+&lt;h2 id=&#34;some-useful-function&#34;&gt;Some useful function&lt;/h2&gt;
+&lt;p&gt;craete a 0-19 torch array&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;time &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;arange(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float(); time
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;create randome number&lt;/p&gt;
@@ -39,7 +40,17 @@ time &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span styl
 speed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn(&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.75&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(time&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;9.5&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
 plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(time,speed);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/car_speed.PNG&#34; alt=&#34;car_speed&#34;&gt;&lt;/p&gt;
-</content>
+&lt;h2 id=&#34;use-sgd-to-find-the-smallest-value-for-the-loss&#34;&gt;use SGD to find the smallest value for the loss&lt;/h2&gt;
+&lt;h3 id=&#34;step-0-gues-the-functions&#34;&gt;Step 0 gues the functions&lt;/h3&gt;
+&lt;p&gt;we nedd to find the a,b,c that make the loss is the lowset
+(time**2)+(b*time)+c&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;(t, params):
+    a,b,c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(t&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (b&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;t) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-01-define-the-meaning-of-best&#34;&gt;Step 0.1 define the meaning of best&lt;/h3&gt;
+&lt;p&gt;we use a loss function to define the best, which will return a value based on a prediction and a target, where lower values of the function correspond to &amp;ldquo;better&amp;rdquo; predictions. For continuous data, it&amp;rsquo;s common to use mean squared error:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mse&lt;/span&gt;(preds, targets): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ((preds&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;targets)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqrt()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>

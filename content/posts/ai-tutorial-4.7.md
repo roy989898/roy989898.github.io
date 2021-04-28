@@ -44,7 +44,7 @@ plt.scatter(time,speed);
 ```
 ![car_speed](/img/ai_t/t1/car_speed.PNG)
 
-## use SGD to find the smallest value for
+## use SGD to find the smallest value for the loss
 ### Step 0 gues the functions
 we nedd to find the a,b,c that make the loss is the lowset
 (time**2)+(b*time)+c
@@ -53,4 +53,11 @@ we nedd to find the a,b,c that make the loss is the lowset
 def f(t, params):
     a,b,c = params
     return a*(t**2) + (b*t) + c
+```
+
+### Step 0.1 define the meaning of best
+we use a loss function to define the best, which will return a value based on a prediction and a target, where lower values of the function correspond to "better" predictions. For continuous data, it's common to use mean squared error:
+
+```py
+def mse(preds, targets): return ((preds-targets)**2).mean().sqrt()
 ```
