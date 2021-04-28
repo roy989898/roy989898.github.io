@@ -6,9 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MNIST Loss Function Some basic pytorch functions
-torch.cat connect two tensors together https://blog.csdn.net/qq_39709535/article/details/80803003
-A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.]]) B=2*torch.ones(4,3) B # tensor([[2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.]]) C=torch.cat([A,B]) C.shape # torch.Size([8, 3]) Tensor.view PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor." />
+<meta name="description" content="MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.8/" />
@@ -43,9 +41,7 @@ A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1.
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.8 The MNIST Loss Function">
-<meta property="og:description" content="MNIST Loss Function Some basic pytorch functions
-torch.cat connect two tensors together https://blog.csdn.net/qq_39709535/article/details/80803003
-A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.]]) B=2*torch.ones(4,3) B # tensor([[2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.]]) C=torch.cat([A,B]) C.shape # torch.Size([8, 3]) Tensor.view PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor." />
+<meta property="og:description" content="MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.8/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -167,8 +163,31 @@ A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1.
 
   <div class="post-content"><div>
         <h1 id="_mnist-loss-function_"><em>MNIST Loss Function</em><a href="#_mnist-loss-function_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<p>Some basic pytorch functions</p>
-<h2 id="torchcat">torch.cat<a href="#torchcat" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="some-basic-python">some basic python<a href="#some-basic-python" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="zip">zip<a href="#zip" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># zip</span>
+a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]
+b<span style="color:#f92672">=</span>[<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>]
+list(zip(a,b))
+<span style="color:#75715e"># [(1, 5), (2, 6), (3, 7), (4, 8)]</span>
+</code></pre></div><h3 id="create-array">create array<a href="#create-array" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+<span style="color:#75715e"># [1, 1, 1, 1]</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">tensor([<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># tensor([1, 1, 1, 1, 0, 0, 0])</span>
+</code></pre></div><h2 id="some-basic-pytorch-functions">Some basic pytorch functions<a href="#some-basic-pytorch-functions" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="horizontal-tensor-to-vertical-tensors">horizontal tensor to vertical tensors<a href="#horizontal-tensor-to-vertical-tensors" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">tensor([<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># tensor([1, 1, 1, 1, 0, 0, 0])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">tensor([<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">1</span>)
+<span style="color:#75715e"># tensor([[1],</span>
+<span style="color:#75715e">#         [1],</span>
+<span style="color:#75715e">#         [1],</span>
+<span style="color:#75715e">#         [1],</span>
+<span style="color:#75715e">#         [0],</span>
+<span style="color:#75715e">#         [0],</span>
+<span style="color:#75715e">#         [0]])</span>
+</code></pre></div><h3 id="torchcat">torch.cat<a href="#torchcat" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>connect two tensors together
 <a href="https://blog.csdn.net/qq_39709535/article/details/80803003">https://blog.csdn.net/qq_39709535/article/details/80803003</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">A<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>) <span style="color:#75715e">#2x3的张量（矩阵）                                     </span>
@@ -186,7 +205,7 @@ B
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">C<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>cat([A,B])
 C<span style="color:#f92672">.</span>shape
 <span style="color:#75715e"># torch.Size([8, 3])</span>
-</code></pre></div><h2 id="tensorview">Tensor.view<a href="#tensorview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+</code></pre></div><h3 id="tensorview">Tensor.view<a href="#tensorview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.</p>
 <p>把原先tensor中的數據按照行優先的順序排成一個一維的數據（這裡應該是因為要求地址是連續存儲的），然後按照參數組合成其他維度的tensor。比如說是不管你原先的數據是[ [[1,2,3],[4,5,6]]]還是[1,2,3,4,5,6]，因為它們排成一維向量都是6個元素，所以只要view後面的參數一致，得到的結果都是一樣的。比如，
 example</p>
@@ -197,6 +216,28 @@ example</p>
 <span style="color:#75715e"># tensor([[1., 2.],</span>
 <span style="color:#75715e">#         [3., 4.],</span>
 <span style="color:#75715e">#         [5., 6.]])</span>
+</code></pre></div><h2 id="mnist-loss-function">MNIST Loss Function<a href="#mnist-loss-function" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="connect-the-photo">connect the photo<a href="#connect-the-photo" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">stacked_threes<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([6131, 28, 28])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">stacked_sevens<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([6265, 28, 28])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">train_x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([stacked_threes, stacked_sevens])<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>)
+train_x<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># torch.Size([12396, 784])</span>
+</code></pre></div><p>the above acode,we first connect the stacked_threes(each pixel present by 0-1 number) and
+for each picture , orginal is respenct by a 2d tensor,(28<em>28),turn to 1d tensor 784
+<code>view(-1, 28*28)</code> mean 28</em>28 column,-1 mean not specific the row number,just make it can fit the content,becasue we have
+<code>6131+6265=12396</code></p>
+<h2 id="add-the-tag-for-each-photo">add the tag for each photo<a href="#add-the-tag-for-each-photo" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># assign the tag to each image</span>
+<span style="color:#75715e"># We need a label for each image. We&#39;ll use `1` for 3s and `0` for 7s:</span>
+train_y <span style="color:#f92672">=</span> tensor([<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>len(threes) <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>len(sevens))<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">1</span>)
+train_x<span style="color:#f92672">.</span>shape,train_y<span style="color:#f92672">.</span>shape
+<span style="color:#75715e"># (torch.Size([12396, 784]), torch.Size([12396, 1]))</span>
+<span style="color:#75715e"># train_X,12396 images,each image total 784 pixels</span>
+<span style="color:#75715e">#train_y,12396 tag,because eachpicture 1 tag,1 tag inf in each tag</span>
 </code></pre></div>
       </div></div>
 

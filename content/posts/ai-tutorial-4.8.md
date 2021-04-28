@@ -12,6 +12,15 @@ showFullContent = false
 # _MNIST Loss Function_
 
 ## some basic python 
+
+### zip
+```py
+# zip
+a=[1,2,3,4]
+b=[5,6,7,8]
+list(zip(a,b))
+# [(1, 5), (2, 6), (3, 7), (4, 8)]
+```
 ### create array 
 ```py
 [1]*4

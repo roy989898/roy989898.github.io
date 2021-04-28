@@ -13,12 +13,33 @@
       <pubDate>Wed, 28 Apr 2021 12:44:41 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.8/</guid>
-      <description>MNIST Loss Function Some basic pytorch functions
-torch.cat connect two tensors together https://blog.csdn.net/qq_39709535/article/details/80803003
-A=torch.ones(4,3) #2x3的张量（矩阵）  A # tensor([[1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.], # [1., 1., 1.]]) B=2*torch.ones(4,3) B # tensor([[2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.], # [2., 2., 2.]]) C=torch.cat([A,B]) C.shape # torch.Size([8, 3]) Tensor.view PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.</description>
+      <description>MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.</description>
       <content>&lt;h1 id=&#34;_mnist-loss-function_&#34;&gt;&lt;em&gt;MNIST Loss Function&lt;/em&gt;&lt;/h1&gt;
-&lt;p&gt;Some basic pytorch functions&lt;/p&gt;
-&lt;h2 id=&#34;torchcat&#34;&gt;torch.cat&lt;/h2&gt;
+&lt;h2 id=&#34;some-basic-python&#34;&gt;some basic python&lt;/h2&gt;
+&lt;h3 id=&#34;zip&#34;&gt;zip&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# zip&lt;/span&gt;
+a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+b&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]
+list(zip(a,b))
+&lt;span style=&#34;color:#75715e&#34;&gt;# [(1, 5), (2, 6), (3, 7), (4, 8)]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-array&#34;&gt;create array&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# [1, 1, 1, 1]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([1, 1, 1, 1, 0, 0, 0])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;some-basic-pytorch-functions&#34;&gt;Some basic pytorch functions&lt;/h2&gt;
+&lt;h3 id=&#34;horizontal-tensor-to-vertical-tensors&#34;&gt;horizontal tensor to vertical tensors&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([1, 1, 1, 1, 0, 0, 0])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unsqueeze(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[1],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [1],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;torchcat&#34;&gt;torch.cat&lt;/h3&gt;
 &lt;p&gt;connect two tensors together
 &lt;a href=&#34;https://blog.csdn.net/qq_39709535/article/details/80803003&#34;&gt;https://blog.csdn.net/qq_39709535/article/details/80803003&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;A&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ones(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#2x3的张量（矩阵）                                     &lt;/span&gt;
@@ -36,7 +57,7 @@ B
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;C&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cat([A,B])
 C&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
 &lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([8, 3])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;tensorview&#34;&gt;Tensor.view&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;tensorview&#34;&gt;Tensor.view&lt;/h3&gt;
 &lt;p&gt;PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.&lt;/p&gt;
 &lt;p&gt;把原先tensor中的數據按照行優先的順序排成一個一維的數據（這裡應該是因為要求地址是連續存儲的），然後按照參數組合成其他維度的tensor。比如說是不管你原先的數據是[ [[1,2,3],[4,5,6]]]還是[1,2,3,4,5,6]，因為它們排成一維向量都是6個元素，所以只要view後面的參數一致，得到的結果都是一樣的。比如，
 example&lt;/p&gt;
@@ -47,6 +68,28 @@ example&lt;/p&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[1., 2.],&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#         [3., 4.],&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#         [5., 6.]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;mnist-loss-function&#34;&gt;MNIST Loss Function&lt;/h2&gt;
+&lt;h2 id=&#34;connect-the-photo&#34;&gt;connect the photo&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;stacked_threes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([6131, 28, 28])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;stacked_sevens&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([6265, 28, 28])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;train_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cat([stacked_threes, stacked_sevens])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;)
+train_x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([12396, 784])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;the above acode,we first connect the stacked_threes(each pixel present by 0-1 number) and
+for each picture , orginal is respenct by a 2d tensor,(28&lt;em&gt;28),turn to 1d tensor 784
+&lt;code&gt;view(-1, 28*28)&lt;/code&gt; mean 28&lt;/em&gt;28 column,-1 mean not specific the row number,just make it can fit the content,becasue we have
+&lt;code&gt;6131+6265=12396&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;add-the-tag-for-each-photo&#34;&gt;add the tag for each photo&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# assign the tag to each image&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# We need a label for each image. We&amp;#39;ll use `1` for 3s and `0` for 7s:&lt;/span&gt;
+train_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor([&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(threes) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(sevens))&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unsqueeze(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+train_x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape,train_y&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# (torch.Size([12396, 784]), torch.Size([12396, 1]))&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# train_X,12396 images,each image total 784 pixels&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#train_y,12396 tag,because eachpicture 1 tag,1 tag inf in each tag&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
