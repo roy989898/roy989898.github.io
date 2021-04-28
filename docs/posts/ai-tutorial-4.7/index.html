@@ -200,7 +200,74 @@ plt<span style="color:#f92672">.</span>scatter(time,speed);
 </code></pre></div><h3 id="step-01-define-the-meaning-of-best">Step 0.1 define the meaning of best<a href="#step-01-define-the-meaning-of-best" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>we use a loss function to define the best, which will return a value based on a prediction and a target, where lower values of the function correspond to &ldquo;better&rdquo; predictions. For continuous data, it&rsquo;s common to use mean squared error:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mse</span>(preds, targets): <span style="color:#66d9ef">return</span> ((preds<span style="color:#f92672">-</span>targets)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>sqrt()
-</code></pre></div>
+</code></pre></div><h3 id="step-1-set-the-apramter-as-a-randome-value">Step 1 set the apramter as a randome value<a href="#step-1-set-the-apramter-as-a-randome-value" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">params<span style="color:#f92672">=</span>None
+params <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>requires_grad_()
+orig_params <span style="color:#f92672">=</span> params<span style="color:#f92672">.</span>clone()
+params
+</code></pre></div><h3 id="step-2-calculate-the-predict">Step 2 calculate the predict<a href="#step-2-calculate-the-predict" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">preds <span style="color:#f92672">=</span> f(time, params)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">show_preds</span>(preds, ax<span style="color:#f92672">=</span>None):
+    <span style="color:#66d9ef">if</span> ax <span style="color:#f92672">is</span> None: ax<span style="color:#f92672">=</span>plt<span style="color:#f92672">.</span>subplots()[<span style="color:#ae81ff">1</span>]
+    ax<span style="color:#f92672">.</span>scatter(time, speed)
+    <span style="color:#75715e"># to_npconvert tensor to numpy arry</span>
+    ax<span style="color:#f92672">.</span>scatter(time, to_np(preds), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+    ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#f92672">-</span><span style="color:#ae81ff">300</span>,<span style="color:#ae81ff">100</span>)
+
+show_preds(preds)
+</code></pre></div><p><img src="/img/ai_t/t1/pred1.PNG" alt="pred1"></p>
+<h3 id="step-3-calculate-the-losses">Step 3 calculate the losses<a href="#step-3-calculate-the-losses" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">loss <span style="color:#f92672">=</span> mse(preds, speed)
+loss
+<span style="color:#75715e"># tensor(25.1871, grad_fn=&lt;SqrtBackward&gt;)</span>
+</code></pre></div><h3 id="step-4--know-the-gradients">Step 4  know the gradients<a href="#step-4--know-the-gradients" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">loss<span style="color:#f92672">.</span>backward()
+params<span style="color:#f92672">.</span>grad
+<span style="color:#75715e"># the a b c gradients</span>
+<span style="color:#75715e"># tensor([-3.1634, -0.2709, -0.3931])</span>
+</code></pre></div><h3 id="step-5--step-the-weights">Step 5  Step the weights<a href="#step-5--step-the-weights" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">lr <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-5</span>
+<span style="color:#75715e"># assign the chnaged parameter to the params</span>
+params<span style="color:#f92672">.</span>data <span style="color:#f92672">-=</span> lr <span style="color:#f92672">*</span> params<span style="color:#f92672">.</span>grad
+params<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> None
+</code></pre></div><p>Let&rsquo;s see if the loss has improved:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># Let&#39;s see if the loss has improved:</span>
+preds <span style="color:#f92672">=</span> f(time,params)
+mse(preds, speed)
+show_preds(preds)
+<span style="color:#75715e"># improve a little bit</span>
+</code></pre></div><p><img src="/img/ai_t/t1/ip.PNG" alt="pred1"></p>
+<h3 id="step-6--repeat-it">step 6 , repeat it<a href="#step-6--repeat-it" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h1 id="we-use-a-for-loop-to-do-multi-time">we use a for loop to do multi time<a href="#we-use-a-for-loop-to-do-multi-time" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">apply_step</span>(params, prn<span style="color:#f92672">=</span>True):
+    preds <span style="color:#f92672">=</span> f(time, params)
+    loss <span style="color:#f92672">=</span> mse(preds, speed)
+    loss<span style="color:#f92672">.</span>backward()
+    params<span style="color:#f92672">.</span>data <span style="color:#f92672">-=</span> lr <span style="color:#f92672">*</span> params<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>data
+    params<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> None
+    <span style="color:#66d9ef">if</span> prn: <span style="color:#66d9ef">print</span>(loss<span style="color:#f92672">.</span>item())
+    <span style="color:#66d9ef">return</span> preds
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>): apply_step(params)
+
+<span style="color:#75715e"># 160.42279052734375</span>
+<span style="color:#75715e"># 160.14772033691406</span>
+<span style="color:#75715e"># 159.87269592285156</span>
+<span style="color:#75715e"># 159.59768676757812</span>
+<span style="color:#75715e"># 159.3227081298828</span>
+<span style="color:#75715e"># 159.04774475097656</span>
+<span style="color:#75715e"># 158.7728271484375</span>
+<span style="color:#75715e"># 158.4979248046875</span>
+<span style="color:#75715e"># 158.22305297851562</span>
+<span style="color:#75715e"># 157.9481964111328</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">_,axs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">3</span>))
+<span style="color:#66d9ef">for</span> ax <span style="color:#f92672">in</span> axs: show_preds(apply_step(params, False), ax)
+plt<span style="color:#f92672">.</span>tight_layout()
+</code></pre></div><p><img src="/img/ai_t/t1/4p.PNG" alt="4p"></p>
+<h3 id="step7-stop">Step7 stop<a href="#step7-stop" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>we do 10 round ,than stop**</p>
+
       </div></div>
 
   

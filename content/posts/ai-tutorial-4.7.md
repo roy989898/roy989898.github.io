@@ -61,3 +61,105 @@ we use a loss function to define the best, which will return a value based on a 
 ```py
 def mse(preds, targets): return ((preds-targets)**2).mean().sqrt()
 ```
+
+### Step 1 set the apramter as a randome value
+```py
+params=None
+params = torch.randn(3).requires_grad_()
+orig_params = params.clone()
+params
+```
+
+### Step 2 calculate the predict
+
+```py
+preds = f(time, params)
+
+def show_preds(preds, ax=None):
+    if ax is None: ax=plt.subplots()[1]
+    ax.scatter(time, speed)
+    # to_npconvert tensor to numpy arry
+    ax.scatter(time, to_np(preds), color='red')
+    ax.set_ylim(-300,100)
+
+show_preds(preds)
+```
+
+![pred1](/img/ai_t/t1/pred1.PNG)
+
+### Step 3 calculate the losses
+
+```py
+loss = mse(preds, speed)
+loss
+# tensor(25.1871, grad_fn=<SqrtBackward>)
+```
+
+### Step 4  know the gradients
+
+```py
+loss.backward()
+params.grad
+# the a b c gradients
+# tensor([-3.1634, -0.2709, -0.3931])
+```
+
+### Step 5  Step the weights
+
+```py
+lr = 1e-5
+# assign the chnaged parameter to the params
+params.data -= lr * params.grad
+params.grad = None
+```
+
+Let's see if the loss has improved:
+
+```py
+
+# Let's see if the loss has improved:
+preds = f(time,params)
+mse(preds, speed)
+show_preds(preds)
+# improve a little bit
+```
+![pred1](/img/ai_t/t1/ip.PNG)
+
+
+### step 6 , repeat it
+# we use a for loop to do multi time
+```py
+def apply_step(params, prn=True):
+    preds = f(time, params)
+    loss = mse(preds, speed)
+    loss.backward()
+    params.data -= lr * params.grad.data
+    params.grad = None
+    if prn: print(loss.item())
+    return preds
+```
+
+```py
+for i in range(10): apply_step(params)
+
+# 160.42279052734375
+# 160.14772033691406
+# 159.87269592285156
+# 159.59768676757812
+# 159.3227081298828
+# 159.04774475097656
+# 158.7728271484375
+# 158.4979248046875
+# 158.22305297851562
+# 157.9481964111328
+```
+
+```py
+_,axs = plt.subplots(1,4,figsize=(12,3))
+for ax in axs: show_preds(apply_step(params, False), ax)
+plt.tight_layout()
+```
+![4p](/img/ai_t/t1/4p.PNG)
+
+### Step7 stop
+we do 10 round ,than stop**

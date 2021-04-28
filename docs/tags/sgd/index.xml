@@ -50,7 +50,74 @@ plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(time,speed);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-01-define-the-meaning-of-best&#34;&gt;Step 0.1 define the meaning of best&lt;/h3&gt;
 &lt;p&gt;we use a loss function to define the best, which will return a value based on a prediction and a target, where lower values of the function correspond to &amp;ldquo;better&amp;rdquo; predictions. For continuous data, it&amp;rsquo;s common to use mean squared error:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mse&lt;/span&gt;(preds, targets): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ((preds&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;targets)&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqrt()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-1-set-the-apramter-as-a-randome-value&#34;&gt;Step 1 set the apramter as a randome value&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;params&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;None
+params &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;requires_grad_()
+orig_params &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;clone()
+params
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-2-calculate-the-predict&#34;&gt;Step 2 calculate the predict&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f(time, params)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;show_preds&lt;/span&gt;(preds, ax&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;None):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ax &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; None: ax&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subplots()[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+    ax&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(time, speed)
+    &lt;span style=&#34;color:#75715e&#34;&gt;# to_npconvert tensor to numpy arry&lt;/span&gt;
+    ax&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(time, to_np(preds), color&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;)
+    ax&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;set_ylim(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;300&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;)
+
+show_preds(preds)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/pred1.PNG&#34; alt=&#34;pred1&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-3-calculate-the-losses&#34;&gt;Step 3 calculate the losses&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(preds, speed)
+loss
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(25.1871, grad_fn=&amp;lt;SqrtBackward&amp;gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-4--know-the-gradients&#34;&gt;Step 4  know the gradients&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;span style=&#34;color:#75715e&#34;&gt;# the a b c gradients&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([-3.1634, -0.2709, -0.3931])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-5--step-the-weights&#34;&gt;Step 5  Step the weights&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;lr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1e-5&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# assign the chnaged parameter to the params&lt;/span&gt;
+params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; lr &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&amp;rsquo;s see if the loss has improved:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# Let&amp;#39;s see if the loss has improved:&lt;/span&gt;
+preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f(time,params)
+mse(preds, speed)
+show_preds(preds)
+&lt;span style=&#34;color:#75715e&#34;&gt;# improve a little bit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/ip.PNG&#34; alt=&#34;pred1&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-6--repeat-it&#34;&gt;step 6 , repeat it&lt;/h3&gt;
+&lt;h1 id=&#34;we-use-a-for-loop-to-do-multi-time&#34;&gt;we use a for loop to do multi time&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;apply_step&lt;/span&gt;(params, prn&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True):
+    preds &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f(time, params)
+    loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mse(preds, speed)
+    loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+    params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; lr &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data
+    params&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; prn: &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item())
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; preds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;): apply_step(params)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 160.42279052734375&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 160.14772033691406&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 159.87269592285156&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 159.59768676757812&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 159.3227081298828&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 159.04774475097656&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 158.7728271484375&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 158.4979248046875&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 158.22305297851562&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 157.9481964111328&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;_,axs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subplots(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,figsize&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ax &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; axs: show_preds(apply_step(params, False), ax)
+plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;tight_layout()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/4p.PNG&#34; alt=&#34;4p&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step7-stop&#34;&gt;Step7 stop&lt;/h3&gt;
+&lt;p&gt;we do 10 round ,than stop**&lt;/p&gt;
+</content>
     </item>
     
     <item>
