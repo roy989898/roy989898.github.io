@@ -90,6 +90,25 @@ print(a.view(3,2))
 #         [5., 6.]])
 ```
 
+### torch.randn
+create a list of random numberless
+```py
+torch.randn(8)
+# tensor([ 0.9912,  0.4679, -0.2049, -0.7409,  0.3618,  1.9199, -0.2254, -0.3417])
+
+```
+
+```py
+torch.randn((8,1))
+# tensor([[ 0.3040],
+#         [-0.6890],
+#         [-1.1267],
+#         [-0.2858],
+#         [-1.0935],
+#         [ 1.1351],
+#         [ 0.7592],
+#         [-3.5945]])
+```
 ## MNIST Loss Function
 ### Prepare the train data
 #### connect the photo
@@ -142,4 +161,22 @@ x.shape,y
 valid_x = torch.cat([valid_3_tens, valid_7_tens]).view(-1, 28*28)
 valid_y = tensor([1]*len(valid_3_tens) + [0]*len(valid_7_tens)).unsqueeze(1)
 valid_dset = list(zip(valid_x,valid_y))
+```
+
+### create random init param
+
+```py
+def init_params(size, std=1.0): return (torch.randn(size)*std).requires_grad_()
+```
+
+```py
+# weneed a vertical 2d array,show we need (28*28,1),not only 28*28
+weights = init_params((28*28,1))
+# weights
+```
+The function `weights*pixels` won't be flexible enough—it is always equal to 0 when the pixels are equal to 0 (i.e., its *intercept* is 0). You might remember from high school math that the formula for a line is `y=w*x+b`; we still need the `b`. We'll initialize it to a random number too:
+```py
+bias = init_params(1)
+# why??????
+bias
 ```
