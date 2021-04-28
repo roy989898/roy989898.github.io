@@ -110,6 +110,7 @@ validate_epoch(linear1)
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;):
     train_epoch(linear1, lr, params)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(validate_epoch(linear1), end&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#75715e&#34;&gt;# 0.7656 0.875 0.9165 0.936 0.9443 0.954 0.9565 0.9575 0.9589 0.9599 0.9619 0.9628 0.9643 0.9662 0.9672 0.9682 0.9692 0.9697 0.9702 0.9702 &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     

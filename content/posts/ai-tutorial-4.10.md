@@ -177,4 +177,5 @@ validate_epoch(linear1)
 for i in range(20):
     train_epoch(linear1, lr, params)
     print(validate_epoch(linear1), end=' ')
+    # 0.7656 0.875 0.9165 0.936 0.9443 0.954 0.9565 0.9575 0.9589 0.9599 0.9619 0.9628 0.9643 0.9662 0.9672 0.9682 0.9692 0.9697 0.9702 0.9702 
 ```
