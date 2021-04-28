@@ -102,3 +102,14 @@ for each picture , orginal is respenct by a 2d tensor,(28*28),turn to 1d tensor 
 `6131+6265=12396`
 
 ## add the tag for each photo
+
+```py
+
+# assign the tag to each image
+# We need a label for each image. We'll use `1` for 3s and `0` for 7s:
+train_y = tensor([1]*len(threes) + [0]*len(sevens)).unsqueeze(1)
+train_x.shape,train_y.shape
+# (torch.Size([12396, 784]), torch.Size([12396, 1]))
+# train_X,12396 images,each image total 784 pixels
+#train_y,12396 tag,because eachpicture 1 tag,1 tag inf in each tag
+```
