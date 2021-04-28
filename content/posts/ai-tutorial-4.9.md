@@ -13,6 +13,21 @@ showFullContent = false
 we already have a SGD loss function,we can go to `Step`  
 which is to change or update the weights based on the gradients. This is called an optimization step.
 
+# basic Python
+## string.ascii_lowercase
+```py
+string.ascii_lowercase
+# abcdefghijklmnopqrstuvwxyz
+```
+# basic Pytorch
+## enumerate
+```py
+#  L is something liek list
+# enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。
+ds = L(enumerate(string.ascii_lowercase))
+ds
+# [(0, 'a'),(1, 'b'),(2, 'c'),(3, 'd'),(4, 'e'),(5, 'f'),(6, 'g'),(7, 'h'),(8, 'i'),(9, 'j')...]
+```
 # optimization step
 ![sgd_step](/img/ai_t/t1/sgd_step.PNG)
 ## why Mini-Batches
