@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 4.10 Combine together"
+title = "Ai Tutorial 4.10 Put it all together"
 date = "2021-04-28T16:52:44+08:00"
 author = ""
 authorTwitter = "" #do not include @
@@ -9,3 +9,15 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+# Put it all together
+
+ each epoch is like this
+
+```py
+# basic example
+# for x,y in dl:
+#     pred = model(x)
+#     loss = loss_func(pred, y)
+#     loss.backward()
+#     parameters -= parameters.grad * lr
+```
