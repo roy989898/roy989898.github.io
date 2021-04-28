@@ -10,8 +10,20 @@ description = ""
 showFullContent = false
 +++
 # _MNIST Loss Function_
-Some basic pytorch functions
-## torch.cat
+
+## some basic python 
+### create array 
+```py
+[1]*4
+# [1, 1, 1, 1]
+```
+```py
+tensor([1]*4 + [0]*3)
+# tensor([1, 1, 1, 1, 0, 0, 0])
+```
+
+## Some basic pytorch functions
+### torch.cat
 connect two tensors together
 https://blog.csdn.net/qq_39709535/article/details/80803003
 
@@ -37,7 +49,7 @@ C.shape
 # torch.Size([8, 3])
 ```
 
-## Tensor.view
+### Tensor.view
 PyTorch allows a tensor to be a View of an existing tensor. View tensor shares the same underlying data with its base tensor.  
 
 把原先tensor中的數據按照行優先的順序排成一個一維的數據（這裡應該是因為要求地址是連續存儲的），然後按照參數組合成其他維度的tensor。比如說是不管你原先的數據是[ [[1,2,3],[4,5,6]]]還是[1,2,3,4,5,6]，因為它們排成一維向量都是6個元素，所以只要view後面的參數一致，得到的結果都是一樣的。比如，
