@@ -6,7 +6,40 @@
     <description>Recent content in pytorch on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Apr 2021 19:56:41 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 11:15:32 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.5 Gredient</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.5/</link>
+      <pubDate>Wed, 28 Apr 2021 11:15:32 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.5/</guid>
+      <description>Gradients explain for the Gredient 
+calculate for the gradient in program def f(x): return x**2 the function in 4.4
+# select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt ```python # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example </description>
+      <content>&lt;h1 id=&#34;_gradients_&#34;&gt;&lt;em&gt;Gradients&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.khanacademy.org/math/differential-calculus/dc-diff-intro&#34;&gt;explain for the Gredient
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;calculate-for-the-gradient-in-program&#34;&gt;calculate for the gradient in program&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://roy989898.github.io/posts/ai-tutorial-4.4/&#34; title=&#34;the function in 4.4&#34;&gt;the function in 4.4&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# select a tensor to calculate the grad&lt;/span&gt;
+xt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tensor(&lt;span style=&#34;color:#ae81ff&#34;&gt;3.&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;requires_grad_()
+xt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;yt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f(xt)
+yt
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;``&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;`&lt;/span&gt;python
+&lt;span style=&#34;color:#75715e&#34;&gt;# calculate the gradients&lt;/span&gt;
+yt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# see the grad,answer is 6&lt;/span&gt;
+xt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;grad
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(6.)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;another-example&#34;&gt;another example&lt;/h2&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 4.4 Stochastic Gradient Descent 隨機梯度下降 (SGD)</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.4/</link>

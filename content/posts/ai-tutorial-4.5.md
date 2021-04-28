@@ -15,9 +15,32 @@ showFullContent = false
 
 ## calculate for the gradient in program
 ```py
+
 def f(x): return x**2
 
 ```
+
  [the function in 4.4]({{< ref "posts/ai-tutorial-4.4.md" >}} "the function in 4.4")
 
- 
+```python
+ # select a tensor to calculate the grad
+xt = tensor(3.).requires_grad_()
+xt
+```
+
+```python
+yt = f(xt)
+yt
+
+```python
+# calculate the gradients
+yt.backward()
+```
+
+``` python
+# see the grad,answer is 6
+xt.grad
+# tensor(6.)
+```
+
+## another example
