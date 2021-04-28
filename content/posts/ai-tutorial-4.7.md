@@ -12,7 +12,10 @@ showFullContent = false
 
 
 # _An End-to-End SGD Example_
-we want to find the smallest value  
+we want to find the smallest value
+
+
+## Some useful function
 craete a 0-19 torch array 
 ```py
 time = torch.arange(0,20).float(); time
@@ -40,3 +43,14 @@ speed = torch.randn(20)*3 + 0.75*(time-9.5)**2 + 1
 plt.scatter(time,speed);
 ```
 ![car_speed](/img/ai_t/t1/car_speed.PNG)
+
+## use SGD to find the smallest value for
+### Step 0 gues the functions
+we nedd to find the a,b,c that make the loss is the lowset
+(time**2)+(b*time)+c
+
+```py
+def f(t, params):
+    a,b,c = params
+    return a*(t**2) + (b*t) + c
+```
