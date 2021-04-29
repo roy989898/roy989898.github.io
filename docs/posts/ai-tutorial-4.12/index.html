@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 4.12 Adding a Nonlinearity :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.12/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 4.12 Adding a Nonlinearity">
+<meta property="og:description" content="Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex." />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.12/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-29 14:45:20 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.12/">Ai Tutorial 4.12 Adding a Nonlinearity</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-29 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/nonlinearity/">Nonlinearity</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="adding-a-nonlinearity">Adding a Nonlinearity<a href="#adding-a-nonlinearity" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_net</span>(xb): 
+    res <span style="color:#f92672">=</span> xb<span style="color:#a6e22e">@w1</span> <span style="color:#f92672">+</span> b1
+    res <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>max(tensor(<span style="color:#ae81ff">0.0</span>))
+    res <span style="color:#f92672">=</span> res<span style="color:#a6e22e">@w2</span> <span style="color:#f92672">+</span> b2
+    <span style="color:#66d9ef">return</span> res
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># init the w and b just like we did in the previous section:</span>
+w1 <span style="color:#f92672">=</span> init_params((<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">30</span>))
+b1 <span style="color:#f92672">=</span> init_params(<span style="color:#ae81ff">30</span>)
+w2 <span style="color:#f92672">=</span> init_params((<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">1</span>))
+b2 <span style="color:#f92672">=</span> init_params(<span style="color:#ae81ff">1</span>)
+</code></pre></div><p>why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.</p>
+<p>w2 neeed to match w1,so 30 too</p>
+<h2 id="rectified-linear-unit-整流線性單元relu">rectified linear unit ,整流線性單元,RelU<a href="#rectified-linear-unit-整流線性單元relu" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>what is res.max(tensor(0.0))???rectified linear unit ,整流線性單元,RelU,in other words, replace every negative number with a zero. This tiny function is also available in PyTorch as F.relu:</p>
+<p>Why ????? The basic idea is that by using more linear layers,  can have our model do more computation, and therefore model more complex functions. But because when we multiply things together and then add them up multiple times, that could be replaced by multiplying different things together and adding them up just once! That is to say, a series of any number of linear layers in a row can be replaced with a single linear layer with a different set of parameters.</p>
+<p>But if we put a nonlinear function between them, such as max, then this is no longer true. Now each linear layer is actually somewhat decoupled from the other ones, and can do its own useful work. The max function is particularly interesting, because it operates as a simple if statement.</p>
+<p>為什麼 ？？？？？ 基本思想是，通過使用更多的線性層，可以使我們的模型進行更多的計算，從而為更複雜的函數建模。 但是，因為當我們將事物相乘然後多次相加時，可以通過將不同事物相乘並僅相加一次來代替！ 也就是說，可以將一行中任意數量的線性層中的一系列序列替換為具有不同參數集的單個線性層。</p>
+<p>但是，如果我們在它們之間放置一個非線性函數（例如max），則不再適用。 現在，每個線性層實際上都已與其他線性層解耦，並且可以做自己有用的工作。 max函數特別有趣，因為它作為簡單的if語句運行。</p>
+<p>Amazingly enough, it can be mathematically proven that this little function can solve any computable problem to an arbitrarily high level of accuracy, if you can find the right parameters for w1 and w2 and if you make these matrices big enough. For any arbitrarily wiggly function, we can approximate it as a bunch of lines joined together; to make it closer to the wiggly function, we just have to use shorter lines. This is known as the universal approximation theorem. The three lines of code that we have here are known as layers. The first and third are known as linear layers, and the second line of code is known variously as a nonlinearity, or activation function.</p>
+<p>Just like in the previous section, we can replace this code with something a bit simpler, by taking advantage of PyTorch:</p>
+<p>足夠令人驚訝的是，如果可以找到w1和w2的正確參數，並且使這些矩陣足夠大，則可以用數學方式證明此小函數可以以任意高的精度解決任何可計算的問題。 對於任何任意擺動的函數，我們可以將其近似為一束連接在一起的線。 為了使其更接近任意擺動的函數，我們只需要使用較短的線即可。 這被稱為通用近似定理。 我們在這裡擁有的三行代碼稱為層。 第一和第三層被稱為線性層，第二行代碼被不同地稱為非線性或激活函數。</p>
+<p>就像在上一節中一樣，我們可以利用PyTorch將代碼替換為更簡單的代碼：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># floow the sequence Linear -&gt;ReLU-&gt;Linear</span>
+simple_net <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+    nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">30</span>),
+    nn<span style="color:#f92672">.</span>ReLU(),
+    nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">1</span>)
+)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn <span style="color:#f92672">=</span> Learner(dls, simple_net, opt_func<span style="color:#f92672">=</span>SGD,
+                loss_func<span style="color:#f92672">=</span>mnist_loss, metrics<span style="color:#f92672">=</span>batch_accuracy)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># lr  =0.1</span>
+<span style="color:#75715e"># eopch num 40</span>
+learn<span style="color:#f92672">.</span>fit(<span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">0.1</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plt<span style="color:#f92672">.</span>plot(L(learn<span style="color:#f92672">.</span>recorder<span style="color:#f92672">.</span>values)<span style="color:#f92672">.</span>itemgot(<span style="color:#ae81ff">2</span>));
+</code></pre></div><p><img src="/img/ai_t/t1/sl.PNG" alt="sl">
+we can see that, 1.A function that can solve any problem to any level of accuracy (the neural network) given the correct set of parameters
+2.A way to find the best set of parameters for any function (stochastic gradient descent)</p>
+<h1 id="going-deeper">Going Deeper<a href="#going-deeper" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>if this can approximate any function with a single nonlinearity with two linear layers,why we nee to go deeper???? because performance With a deeper model (that is, one with more layers) we do not need to use as many parameters; it turns out that we can use smaller matrices with more layers, and get better results than we would get with larger matrices, and few layers.</p>
+<p>that mean we can train the mode lquicky,smaller memory</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># 18 layer,only one epoch,90%!!!</span>
+dls <span style="color:#f92672">=</span> ImageDataLoaders<span style="color:#f92672">.</span>from_folder(path)
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet18, pretrained<span style="color:#f92672">=</span>False,
+                    loss_func<span style="color:#f92672">=</span>F<span style="color:#f92672">.</span>cross_entropy, metrics<span style="color:#f92672">=</span>accuracy)
+learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.1</span>)
+</code></pre></div>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.11/">
+                <span class="button__text">Ai Tutorial 4.11 Creating an Optimizer</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

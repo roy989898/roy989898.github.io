@@ -79,3 +79,17 @@ plt.plot(L(learn.recorder.values).itemgot(2));
 ![sl](/img/ai_t/t1/sl.PNG)
 we can see that, 1.A function that can solve any problem to any level of accuracy (the neural network) given the correct set of parameters
 2.A way to find the best set of parameters for any function (stochastic gradient descent)
+
+# Going Deeper
+
+if this can approximate any function with a single nonlinearity with two linear layers,why we nee to go deeper???? because performance With a deeper model (that is, one with more layers) we do not need to use as many parameters; it turns out that we can use smaller matrices with more layers, and get better results than we would get with larger matrices, and few layers.
+
+that mean we can train the mode lquicky,smaller memory
+
+```py
+# 18 layer,only one epoch,90%!!!
+dls = ImageDataLoaders.from_folder(path)
+learn = cnn_learner(dls, resnet18, pretrained=False,
+                    loss_func=F.cross_entropy, metrics=accuracy)
+learn.fit_one_cycle(1, 0.1)
+```

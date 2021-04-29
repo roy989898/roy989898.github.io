@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nonlinearity on Terminal</title>
+    <link>https://roy989898.github.io/tags/nonlinearity/</link>
+    <description>Recent content in Nonlinearity on Terminal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Apr 2021 14:45:20 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/nonlinearity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 4.12 Adding a Nonlinearity</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-4.12/</link>
+      <pubDate>Thu, 29 Apr 2021 14:45:20 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-4.12/</guid>
+      <description>Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.</description>
+      <content>&lt;h1 id=&#34;adding-a-nonlinearity&#34;&gt;Adding a Nonlinearity&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;simple_net&lt;/span&gt;(xb): 
+    res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xb&lt;span style=&#34;color:#a6e22e&#34;&gt;@w1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b1
+    res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max(tensor(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;))
+    res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res&lt;span style=&#34;color:#a6e22e&#34;&gt;@w2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b2
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# init the w and b just like we did in the previous section:&lt;/span&gt;
+w1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params((&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;))
+b1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params(&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;)
+w2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params((&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+b2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; init_params(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.&lt;/p&gt;
+&lt;p&gt;w2 neeed to match w1,so 30 too&lt;/p&gt;
+&lt;h2 id=&#34;rectified-linear-unit-整流線性單元relu&#34;&gt;rectified linear unit ,整流線性單元,RelU&lt;/h2&gt;
+&lt;p&gt;what is res.max(tensor(0.0))???rectified linear unit ,整流線性單元,RelU,in other words, replace every negative number with a zero. This tiny function is also available in PyTorch as F.relu:&lt;/p&gt;
+&lt;p&gt;Why ????? The basic idea is that by using more linear layers,  can have our model do more computation, and therefore model more complex functions. But because when we multiply things together and then add them up multiple times, that could be replaced by multiplying different things together and adding them up just once! That is to say, a series of any number of linear layers in a row can be replaced with a single linear layer with a different set of parameters.&lt;/p&gt;
+&lt;p&gt;But if we put a nonlinear function between them, such as max, then this is no longer true. Now each linear layer is actually somewhat decoupled from the other ones, and can do its own useful work. The max function is particularly interesting, because it operates as a simple if statement.&lt;/p&gt;
+&lt;p&gt;為什麼 ？？？？？ 基本思想是，通過使用更多的線性層，可以使我們的模型進行更多的計算，從而為更複雜的函數建模。 但是，因為當我們將事物相乘然後多次相加時，可以通過將不同事物相乘並僅相加一次來代替！ 也就是說，可以將一行中任意數量的線性層中的一系列序列替換為具有不同參數集的單個線性層。&lt;/p&gt;
+&lt;p&gt;但是，如果我們在它們之間放置一個非線性函數（例如max），則不再適用。 現在，每個線性層實際上都已與其他線性層解耦，並且可以做自己有用的工作。 max函數特別有趣，因為它作為簡單的if語句運行。&lt;/p&gt;
+&lt;p&gt;Amazingly enough, it can be mathematically proven that this little function can solve any computable problem to an arbitrarily high level of accuracy, if you can find the right parameters for w1 and w2 and if you make these matrices big enough. For any arbitrarily wiggly function, we can approximate it as a bunch of lines joined together; to make it closer to the wiggly function, we just have to use shorter lines. This is known as the universal approximation theorem. The three lines of code that we have here are known as layers. The first and third are known as linear layers, and the second line of code is known variously as a nonlinearity, or activation function.&lt;/p&gt;
+&lt;p&gt;Just like in the previous section, we can replace this code with something a bit simpler, by taking advantage of PyTorch:&lt;/p&gt;
+&lt;p&gt;足夠令人驚訝的是，如果可以找到w1和w2的正確參數，並且使這些矩陣足夠大，則可以用數學方式證明此小函數可以以任意高的精度解決任何可計算的問題。 對於任何任意擺動的函數，我們可以將其近似為一束連接在一起的線。 為了使其更接近任意擺動的函數，我們只需要使用較短的線即可。 這被稱為通用近似定理。 我們在這裡擁有的三行代碼稱為層。 第一和第三層被稱為線性層，第二行代碼被不同地稱為非線性或激活函數。&lt;/p&gt;
+&lt;p&gt;就像在上一節中一樣，我們可以利用PyTorch將代碼替換為更簡單的代碼：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# floow the sequence Linear -&amp;gt;ReLU-&amp;gt;Linear&lt;/span&gt;
+simple_net &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Sequential(
+    nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Linear(&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;),
+    nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ReLU(),
+    nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Linear(&lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Learner(dls, simple_net, opt_func&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;SGD,
+                loss_func&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mnist_loss, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;batch_accuracy)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lr  =0.1&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# eopch num 40&lt;/span&gt;
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit(&lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot(L(learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recorder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;values)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;itemgot(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/sl.PNG&#34; alt=&#34;sl&#34;&gt;
+we can see that, 1.A function that can solve any problem to any level of accuracy (the neural network) given the correct set of parameters
+2.A way to find the best set of parameters for any function (stochastic gradient descent)&lt;/p&gt;
+&lt;h1 id=&#34;going-deeper&#34;&gt;Going Deeper&lt;/h1&gt;
+&lt;p&gt;if this can approximate any function with a single nonlinearity with two linear layers,why we nee to go deeper???? because performance With a deeper model (that is, one with more layers) we do not need to use as many parameters; it turns out that we can use smaller matrices with more layers, and get better results than we would get with larger matrices, and few layers.&lt;/p&gt;
+&lt;p&gt;that mean we can train the mode lquicky,smaller memory&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 18 layer,only one epoch,90%!!!&lt;/span&gt;
+dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ImageDataLoaders&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;from_folder(path)
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet18, pretrained&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;False,
+                    loss_func&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cross_entropy, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;accuracy)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+  </channel>
+</rss>
