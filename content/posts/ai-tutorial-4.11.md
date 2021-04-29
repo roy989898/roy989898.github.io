@@ -94,6 +94,11 @@ learn = Learner(dls, nn.Linear(28*28,1), opt_func=SGD,
                 loss_func=mnist_loss, metrics=batch_accuracy)
 ```
 
+nn.Linear:how to predict the value
+opt_func:howw to change the weight
+loss_func:how to calculate the loss
+metrics:how to calculate the metrics
+
 [mnist_loss]({{< ref "posts/ai-tutorial-4.8.md#better-loss-finction" >}} "mnist_loss")
 [batch_accuracy]({{< ref "posts/ai-tutorial-4.10.md#put-above-together-to-create-calc_grad-functions" >}} "batch_accuracy")
 
