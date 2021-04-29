@@ -10,6 +10,7 @@ description = ""
 showFullContent = false
 +++
 Your First Model on fastai framework
+
 ```python
 
 !pip install -Uqq fastbook

@@ -10,10 +10,12 @@ description = ""
 showFullContent = false
 +++
 # _Gradients_
+
 [explain for the Gredient
 ](https://www.khanacademy.org/math/differential-calculus/dc-diff-intro)
 
 ## calculate for the gradient in program
+
 ```py
 
 def f(x): return x**2
@@ -33,6 +35,7 @@ yt = f(xt)
 yt
 
 ```
+
 ```py
 # calculate the gradients
 yt.backward()

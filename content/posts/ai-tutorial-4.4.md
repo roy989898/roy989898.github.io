@@ -10,7 +10,8 @@ description = ""
 showFullContent = false
 +++
 # _SGD_
-Instead of trying to find the similarity between an image and an "ideal image," we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8. This can be represented as a function and set of weight values for each possible category—for instance the probability of being the number 8:    
+
+Instead of trying to find the similarity between an image and an "ideal image," we could instead look at each individual pixel and come up with a set of weights for each one, such that the highest weights are associated with those pixels most likely to be black for a particular category. For instance, pixels toward the bottom right are not very likely to be activated for a 7, so they should have a low weight for a 7, but they are likely to be activated for an 8, so they should have a high weight for an 8. This can be represented as a function and set of weight values for each possible category—for instance the probability of being the number 8:
 
 與其嘗試查找圖像與“理想圖像”之間的相似性，不如查看每個單獨的像素並為每個像素提出一組權重，以使最高的權重與最有可能與之相關的那些像素相關聯。 對於特定類別為黑色。 例如，朝右下角移動的像素不太可能為7激活，因此對於7,像素應該具有較低的權重，但對於8,像素應該很容易被激活，因此對於8,像素應該具有較高的權重.這可以表示為每個可能類別的一個函數和一組權重值，例如，成為數字8的概率：  
 `def pr_eight(x,w): return (x*w).sum()`  
@@ -22,7 +23,6 @@ want to find the specific values for the vector w that causes the result of our 
 
 想要找到向量w的特定值，該值導致函數的結果對於那些實際上是8s的圖像來說較高，而對於那些不是8s的圖像來說較低。 搜索最佳向量w是搜索識別8s的最佳函數的一種方式。
 
-
 1. Initialize the weights.初始化權重。
 2. For each image, use these weights to predict whether it appears to be a 3 or a 7.對於每個圖像，使用這些權重來預測它是3還是7。
 3. Based on these predictions, calculate how good the model is (its loss).根據這些預測，計算模型的好壞（損失）。
@@ -31,7 +31,6 @@ want to find the specific values for the vector w that causes the result of our 
 6. Go back to the step 2, and repeat the process.返回到步驟2，並重複該過程。
 7. Iterate until you decide to stop the training process (for instance, because the model is good enough or you don't want to wait any longer).重複進行直到您決定停止訓練過程為止（例如，因為模型足夠好或者您不想再等待了）。
 
-   
 ![sgd_step](/img/ai_t/t1/sgd_step.PNG)
 
 There are many different ways to do each of these seven steps
@@ -46,6 +45,7 @@ There are many different ways to do each of these seven steps
   一旦我們確定了訓練模型的時間（在前面的列表中給出了一些建議），我們就會應用該決定。 這就是應用該決定的地方。 對於我們的數字分類器，我們將繼續訓練直到模型的準確性開始變差或用完為止。
 
 ## simple example of SGD
+
 ```py
 def f(x): return x**2
 ```
@@ -62,6 +62,7 @@ The sequence of steps we described earlier starts by picking some random value f
 plot_function(f, 'x', 'x**2')
 plt.scatter(-1.5, f(-1.5), color='red');
 ```
+
 ![sgd_step](/img/ai_t/t1/2pr.PNG)
 
 if we increased or decreased our parameter by a little bit—the adjustment. This is simply the slope at a particular point:
