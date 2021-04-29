@@ -10,8 +10,9 @@ description = ""
 showFullContent = false
 +++
 
+# Creating an Optimizer
 
-we can make the above code more general to use
+## we can make the above code more general to use
 
 ```py
 
@@ -68,4 +69,46 @@ def train_model(model, epochs):
 
 train_model(linear_model, 20)
 # same with above code
+```
+
+## Actually ,fastai already have the same thing
+
+to replace the BasicOptim
+
+```py
+linear_model = nn.Linear(28*28,1)
+opt = SGD(linear_model.parameters(), lr)
+train_model(linear_model, 20)
+
+```
+
+to replace the train train_model
+
+```py
+dls = DataLoaders(dl, valid_dl)
+```
+
+```py
+
+learn = Learner(dls, nn.Linear(28*28,1), opt_func=SGD,
+                loss_func=mnist_loss, metrics=batch_accuracy)
+```
+
+```py
+learn.fit(10, lr=lr)
+```
+
+```py
+# epoch train_loss valid_loss batch_accuracy time
+# 0 0.636991 0.503566 0.495584 00:00
+# 1 0.553366 0.176069 0.857704 00:00
+# 2 0.202398 0.188561 0.829244 00:00
+# 3 0.088171 0.108241 0.912169 00:00
+# 4 0.046019 0.078468 0.932287 00:00
+# 5 0.029606 0.062658 0.947498 00:00
+# 6 0.022893 0.052850 0.955839 00:00
+# 7 0.019928 0.046356 0.962218 00:00
+# 8 0.018433 0.041814 0.966143 00:00
+# 9 0.017540 0.038480 0.968106 00:00
+
 ```

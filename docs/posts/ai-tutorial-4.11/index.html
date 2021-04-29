@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ai Tutorial 4.11 Creating an Optimizer :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.11/" />
+
+
+
+
+<link rel="stylesheet" href="https://roy989898.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://roy989898.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://roy989898.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://roy989898.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ai Tutorial 4.11 Creating an Optimizer">
+<meta property="og:description" content="Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p." />
+<meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.11/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="https://roy989898.github.io/">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-29 11:23:16 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Pom&#39;s Programmer Blog
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://roy989898.github.io/posts/ai-tutorial-4.11/">Ai Tutorial 4.11 Creating an Optimizer</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-29 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+    
+    #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="creating-an-optimizer">Creating an Optimizer<a href="#creating-an-optimizer" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="we-can-make-the-above-code-more-general-to-use">we can make the above code more general to use<a href="#we-can-make-the-above-code-more-general-to-use" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># use nn.Linear to replace the linear1</span>
+<span style="color:#75715e"># it do the same thing with the linear1 and init_params</span>
+linear_model <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#  we can get the paramater, weight,basic</span>
+w,b <span style="color:#f92672">=</span> linear_model<span style="color:#f92672">.</span>parameters()
+w<span style="color:#f92672">.</span>shape,b<span style="color:#f92672">.</span>shape,b
+
+<span style="color:#75715e"># (torch.Size([1, 784]), torch.Size([1]), Parameter containing:</span>
+<span style="color:#75715e">#  tensor([-0.0180], requires_grad=True))</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BasicOptim</span>:
+    <span style="color:#66d9ef">def</span> __init__(self,params,lr): self<span style="color:#f92672">.</span>params,self<span style="color:#f92672">.</span>lr <span style="color:#f92672">=</span> list(params),lr
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">step</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>params: p<span style="color:#f92672">.</span>data <span style="color:#f92672">-=</span> p<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>data <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>lr
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">zero_grad</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>params: p<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> None
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">opt <span style="color:#f92672">=</span> BasicOptim(linear_model<span style="color:#f92672">.</span>parameters(), lr)
+</code></pre></div><p>simplfy the trainb loop</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># use it</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train_epoch</span>(model):
+    <span style="color:#66d9ef">for</span> xb,yb <span style="color:#f92672">in</span> dl:
+        calc_grad(xb, yb, model)
+        opt<span style="color:#f92672">.</span>step()
+        opt<span style="color:#f92672">.</span>zero_grad()
+</code></pre></div><p><a href="https://roy989898.github.io/posts/ai-tutorial-4.10/#put-above-together-to-create-calc_grad-functions" title="calc_grad">calc_grad</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train_model</span>(model, epochs):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(epochs):
+        train_epoch(model)
+        <span style="color:#66d9ef">print</span>(validate_epoch(model), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39; &#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+train_model(linear_model, <span style="color:#ae81ff">20</span>)
+<span style="color:#75715e"># same with above code</span>
+</code></pre></div><h2 id="actually-fastai-already-have-the-same-thing">Actually ,fastai already have the same thing<a href="#actually-fastai-already-have-the-same-thing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>to replace the BasicOptim</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">linear_model <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>)
+opt <span style="color:#f92672">=</span> SGD(linear_model<span style="color:#f92672">.</span>parameters(), lr)
+train_model(linear_model, <span style="color:#ae81ff">20</span>)
+
+</code></pre></div><p>to replace the train train_model</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">dls <span style="color:#f92672">=</span> DataLoaders(dl, valid_dl)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+learn <span style="color:#f92672">=</span> Learner(dls, nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>), opt_func<span style="color:#f92672">=</span>SGD,
+                loss_func<span style="color:#f92672">=</span>mnist_loss, metrics<span style="color:#f92672">=</span>batch_accuracy)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn<span style="color:#f92672">.</span>fit(<span style="color:#ae81ff">10</span>, lr<span style="color:#f92672">=</span>lr)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># epoch train_loss valid_loss batch_accuracy time</span>
+<span style="color:#75715e"># 0 0.636991 0.503566 0.495584 00:00</span>
+<span style="color:#75715e"># 1 0.553366 0.176069 0.857704 00:00</span>
+<span style="color:#75715e"># 2 0.202398 0.188561 0.829244 00:00</span>
+<span style="color:#75715e"># 3 0.088171 0.108241 0.912169 00:00</span>
+<span style="color:#75715e"># 4 0.046019 0.078468 0.932287 00:00</span>
+<span style="color:#75715e"># 5 0.029606 0.062658 0.947498 00:00</span>
+<span style="color:#75715e"># 6 0.022893 0.052850 0.955839 00:00</span>
+<span style="color:#75715e"># 7 0.019928 0.046356 0.962218 00:00</span>
+<span style="color:#75715e"># 8 0.018433 0.041814 0.966143 00:00</span>
+<span style="color:#75715e"># 9 0.017540 0.038480 0.968106 00:00</span>
+
+</code></pre></div>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/">
+                <span class="button__text">Ai Tutorial 4.10 Put it all together</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://roy989898.github.io/assets/main.js"></script>
+<script src="https://roy989898.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
