@@ -93,3 +93,27 @@ learn = cnn_learner(dls, resnet18, pretrained=False,
                     loss_func=F.cross_entropy, metrics=accuracy)
 learn.fit_one_cycle(1, 0.1)
 ```
+
+# Some term
+
+**Activations**:: Numbers that are calculated (both by linear and nonlinear layers)
+**Parameters**:: Numbers that are randomly initialized, and optimized (that is, the numbers that define the model)
+
+Our activations and parameters are all contained in tensors. These are simply regularly shaped arrays—for example, a matrix. Matrices have rows and columns; we call these the axes or dimensions. The number of dimensions of a tensor is its rank. There are some special tensors:
+
+Rank zero: scalar Rank one: vector Rank two: matrix
+
+A neural network contains a number of layers. Each layer is either linear or nonlinear. We generally alternate between these two kinds of layers in a neural network. Sometimes people refer to both a linear layer and its subsequent nonlinearity together as a single layer. Yes, this is confusing. Sometimes a nonlinearity is referred to as an **activation function**.
+
+## Deep learning vocabulary
+
+| Term | Meaning|
+| ---- | ---- |
+|ReLU | Function that returns 0 for negative numbers and doesn't change positive numbers.|
+|Mini-batch | A small group of inputs and labels gathered together in two arrays. A gradient descent step is updated on this batch (rather than a whole epoch).|
+|Forward pass | Applying the model to some input and computing the predictions.|
+|Loss | A value that represents how well (or badly) our model is doing.|
+|Gradient | The derivative of the loss with respect to some parameter of the model.|
+|Backward pass | Computing the gradients of the loss with respect to all model parameters.|
+|Gradient descent | Taking a step in the directions opposite to the gradients to make the model parameters a little bit better.|
+|Learning rate | The size of the step we take when applying SGD to update the parameters of the model.
