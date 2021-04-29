@@ -203,9 +203,9 @@ train_model(linear_model, <span style="color:#ae81ff">20</span>)
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
 learn <span style="color:#f92672">=</span> Learner(dls, nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>), opt_func<span style="color:#f92672">=</span>SGD,
                 loss_func<span style="color:#f92672">=</span>mnist_loss, metrics<span style="color:#f92672">=</span>batch_accuracy)
-</code></pre></div><p>nn.Linear:how to predict the value
-opt_func:howw to change the weight
-loss_func:how to calculate the loss
+</code></pre></div><p>nn.Linear:how to predict the value<br>
+opt_func:howw to change the weight<br>
+loss_func:how to calculate the loss<br>
 metrics:how to calculate the metrics</p>
 <p><a href="https://roy989898.github.io/posts/ai-tutorial-4.8/#better-loss-finction" title="mnist_loss">mnist_loss</a>
 <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/#put-above-together-to-create-calc_grad-functions" title="batch_accuracy">batch_accuracy</a></p>
