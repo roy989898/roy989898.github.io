@@ -138,3 +138,75 @@ Softmax is the first part of the cross-entropy loss—the second part is log lik
 直觀上，softmax函數確實希望從其他類別中選擇一個類別，因此當我們知道每張圖片都有一個確定的標籤時，訓練分類器是理想的選擇。 （請注意，在推理過程中它可能不太理想，因為您可能希望模型有時告訴您，它無法識別訓練中看到的任何課程，並且不選一個課程，因為它的激活分數稍高在這種情況下，最好使用多個二進制輸出列訓練模型，每個輸出列都使用S型激活。）
 
 ## Log Likelihood
+
+```py
+# old
+def mnist_loss(inputs, targets):
+    inputs = inputs.sigmoid()
+    return torch.where(targets==1, 1-inputs, inputs).mean()
+```
+
+```py
+# tag
+# 0 is7, 1 is3?????
+targ = tensor([0,1,0,1,1,0])
+```
+
+```py
+# these are the softmax activations:
+# left is 3,rightis 7 probility
+sm_acts
+
+# tensor([[0.7795, 0.2205],
+#         [0.8902, 0.1098],
+#         [0.1517, 0.8483],
+#         [0.5245, 0.4755],
+#         [0.9956, 0.0044],
+#         [0.8464, 0.1536]])
+```
+
+```py
+# get the taged probility
+idx = range(6)
+sm_acts[idx, targ]
+# tensor([0.7795, 0.1098, 0.1517, 0.4755, 0.0044, 0.8464])
+
+```
+
+```py
+# is 3? 
+# 0 is3, 1 is 7
+
+#hide_input
+from IPython.display import HTML
+df = pd.DataFrame(sm_acts, columns=["3","7"])
+df['targ'] = targ
+df['idx'] = idx
+df['loss'] = sm_acts[range(6), targ]
+t = df.style.hide_index()
+#To have html code compatible with our script
+html = t._repr_html_().split('</style>')[1]
+html = re.sub(r'<table id="([^"]+)"\s*>', r'<table >', html)
+display(HTML(html))
+
+
+# 3 7 targ idx loss
+# 0.779514 0.220486 0 0 0.779514
+# 0.890204 0.109796 1 1 0.109796
+# 0.151727 0.848273 0 2 0.151727
+# 0.524483 0.475517 1 3 0.475517
+# 0.995573 0.004427 1 4 0.004427
+# 0.846414 0.153586 0 5 0.846414
+
+```
+
+the above is log likehold
+
+Pytorch have a function that do the samething with the sm_acts[],but it recive negative number nll_loss
+
+```py
+
+# do the same thing of sm_acts[range(n), targ],except it takes the negative, because when applying the log afterward, we will have negative numbers
+F.nll_loss(sm_acts, targ, reduction='none')
+# tensor([-0.7795, -0.1098, -0.1517, -0.4755, -0.0044, -0.8464])
+```

@@ -229,7 +229,60 @@ Taking the exponential ensures all our numbers are positive, and then dividing b
 <p>Softmax is the first part of the cross-entropy loss—the second part is log likelihood.</p>
 <p>取指數可確保我們所有的數字都是正數，然後除以和可確保我們將擁有一堆加起來為1的數字。指數也具有很好的屬性：如果x中的數字之一比其他稍大一些,放大（因為它會以指數形式增長）（這是指數增長），這意味著在softmax中，該數字將接近於1。</p>
 <p>直觀上，softmax函數確實希望從其他類別中選擇一個類別，因此當我們知道每張圖片都有一個確定的標籤時，訓練分類器是理想的選擇。 （請注意，在推理過程中它可能不太理想，因為您可能希望模型有時告訴您，它無法識別訓練中看到的任何課程，並且不選一個課程，因為它的激活分數稍高在這種情況下，最好使用多個二進制輸出列訓練模型，每個輸出列都使用S型激活。）</p>
+<h2 id="log-likelihood">Log Likelihood<a href="#log-likelihood" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># old</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mnist_loss</span>(inputs, targets):
+    inputs <span style="color:#f92672">=</span> inputs<span style="color:#f92672">.</span>sigmoid()
+    <span style="color:#66d9ef">return</span> torch<span style="color:#f92672">.</span>where(targets<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>inputs, inputs)<span style="color:#f92672">.</span>mean()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># tag</span>
+<span style="color:#75715e"># 0 is7, 1 is3?????</span>
+targ <span style="color:#f92672">=</span> tensor([<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># these are the softmax activations:</span>
+<span style="color:#75715e"># left is 3,rightis 7 probility</span>
+sm_acts
 
+<span style="color:#75715e"># tensor([[0.7795, 0.2205],</span>
+<span style="color:#75715e">#         [0.8902, 0.1098],</span>
+<span style="color:#75715e">#         [0.1517, 0.8483],</span>
+<span style="color:#75715e">#         [0.5245, 0.4755],</span>
+<span style="color:#75715e">#         [0.9956, 0.0044],</span>
+<span style="color:#75715e">#         [0.8464, 0.1536]])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># get the taged probility</span>
+idx <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">6</span>)
+sm_acts[idx, targ]
+<span style="color:#75715e"># tensor([0.7795, 0.1098, 0.1517, 0.4755, 0.0044, 0.8464])</span>
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># is 3? </span>
+<span style="color:#75715e"># 0 is3, 1 is 7</span>
+
+<span style="color:#75715e">#hide_input</span>
+<span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> HTML
+df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(sm_acts, columns<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;3&#34;</span>,<span style="color:#e6db74">&#34;7&#34;</span>])
+df[<span style="color:#e6db74">&#39;targ&#39;</span>] <span style="color:#f92672">=</span> targ
+df[<span style="color:#e6db74">&#39;idx&#39;</span>] <span style="color:#f92672">=</span> idx
+df[<span style="color:#e6db74">&#39;loss&#39;</span>] <span style="color:#f92672">=</span> sm_acts[range(<span style="color:#ae81ff">6</span>), targ]
+t <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>hide_index()
+<span style="color:#75715e">#To have html code compatible with our script</span>
+html <span style="color:#f92672">=</span> t<span style="color:#f92672">.</span>_repr_html_()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;&lt;/style&gt;&#39;</span>)[<span style="color:#ae81ff">1</span>]
+html <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;&lt;table id=&#34;([^&#34;]+)&#34;\s*&gt;&#39;</span>, <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;&lt;table &gt;&#39;</span>, html)
+display(HTML(html))
+
+
+<span style="color:#75715e"># 3 7 targ idx loss</span>
+<span style="color:#75715e"># 0.779514 0.220486 0 0 0.779514</span>
+<span style="color:#75715e"># 0.890204 0.109796 1 1 0.109796</span>
+<span style="color:#75715e"># 0.151727 0.848273 0 2 0.151727</span>
+<span style="color:#75715e"># 0.524483 0.475517 1 3 0.475517</span>
+<span style="color:#75715e"># 0.995573 0.004427 1 4 0.004427</span>
+<span style="color:#75715e"># 0.846414 0.153586 0 5 0.846414</span>
+
+</code></pre></div><p>the above is log likehold</p>
+<p>Pytorch have a function that do the samething with the sm_acts[],but it recive negative number nll_loss</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># do the same thing of sm_acts[range(n), targ],except it takes the negative, because when applying the log afterward, we will have negative numbers</span>
+F<span style="color:#f92672">.</span>nll_loss(sm_acts, targ, reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+<span style="color:#75715e"># tensor([-0.7795, -0.1098, -0.1517, -0.4755, -0.0044, -0.8464])</span>
+</code></pre></div>
       </div></div>
 
   
