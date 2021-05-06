@@ -68,3 +68,68 @@ len(preds[0]),preds[0].sum()
 ```
 
 ## Softmax
+
+```py
+# if we have 6 picture,and 2 type
+acts = torch.randn((6,2))*2
+acts
+# first column is confident of the 3 ,second is the column of the 7
+# tensor([[-0.9916, -2.2545],
+#         [ 0.1560, -1.9368],
+#         [-0.6164,  1.1047],
+#         [-2.0798, -2.1778],
+#         [ 1.6429, -3.7728],
+#         [-1.2445, -2.9512]])
+```
+
+```py
+acts.sigmoid()
+# we can not direct use sigmoid,because c1+c2!=1, we hope the probaility of 7 and 3 sum is 1
+```
+
+we can calculate the relative of the 7 and 3
+
+```py
+acts[:,0]
+# get the first column
+# tensor([-0.9916,  0.1560, -0.6164, -2.0798,  1.6429, -1.2445])
+```
+
+```py
+
+# this is first column
+f_c=(acts[:,0]-acts[:,1]).sigmoid()
+f_c
+# second column is 1- first column softmax do this thing
+```
+
+```py
+s_c=1-f_c
+```
+softmax do this thing
+```py
+
+def softmax(x): return exp(x) / exp(x).sum(dim=1, keepdim=True)
+# exp is e**8 ,e is 2.718
+```
+```py
+sm_acts = torch.softmax(acts, dim=1)
+sm_acts
+# tensor([[0.7795, 0.2205],
+#         [0.8902, 0.1098],
+#         [0.1517, 0.8483],
+#         [0.5245, 0.4755],
+#         [0.9956, 0.0044],
+#         [0.8464, 0.1536]])
+```
+
+softmax is the multi-category equivalent of sigmoid—we have to use it any time we have more than two categories and the probabilities of the categories must add to 1, and we often use it even when there are just two categories, just to make things a bit more consistent.  
+Taking the exponential ensures all our numbers are positive, and then dividing by the sum ensures we are going to have a bunch of numbers that add up to 1. The exponential also has a nice property: if one of the numbers in our activations x is slightly bigger than the others, the exponential will amplify this (since it grows, well... exponentially), which means that in the softmax, that number will be closer to 1.
+
+Intuitively, the softmax function really wants to pick one class among the others, so it's ideal for training a classifier when we know each picture has a definite label. (Note that it may be less ideal during inference, as you might want your model to sometimes tell you it doesn't recognize any of the classes that it has seen during training, and not pick a class because it has a slightly bigger activation score. In this case, it might be better to train a model using multiple binary output columns, each using a sigmoid activation.)
+
+Softmax is the first part of the cross-entropy loss—the second part is log likelihood.
+
+取指數可確保我們所有的數字都是正數，然後除以和可確保我們將擁有一堆加起來為1的數字。指數也具有很好的屬性：如果x中的數字之一比其他稍大一些,放大（因為它會以指數形式增長）（這是指數增長），這意味著在softmax中，該數字將接近於1。
+
+直觀上，softmax函數確實希望從其他類別中選擇一個類別，因此當我們知道每張圖片都有一個確定的標籤時，訓練分類器是理想的選擇。 （請注意，在推理過程中它可能不太理想，因為您可能希望模型有時告訴您，它無法識別訓練中看到的任何課程，並且不選一個課程，因為它的激活分數稍高在這種情況下，最好使用多個二進制輸出列訓練模型，每個輸出列都使用S型激活。）

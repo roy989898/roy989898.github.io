@@ -45,6 +45,46 @@ preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
 len(preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]),preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum()
 &lt;span style=&#34;color:#75715e&#34;&gt;# (37, tensor(1.))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;softmax&#34;&gt;Softmax&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# if we have 6 picture,and 2 type&lt;/span&gt;
+acts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randn((&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;))&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+acts
+&lt;span style=&#34;color:#75715e&#34;&gt;# first column is confident of the 3 ,second is the column of the 7&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[-0.9916, -2.2545],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ 0.1560, -1.9368],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-0.6164,  1.1047],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-2.0798, -2.1778],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ 1.6429, -3.7728],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.2445, -2.9512]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;acts&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
+&lt;span style=&#34;color:#75715e&#34;&gt;# we can not direct use sigmoid,because c1+c2!=1, we hope the probaility of 7 and 3 sum is 1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we can calculate the relative of the 7 and 3&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;acts[:,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# get the first column&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([-0.9916,  0.1560, -0.6164, -2.0798,  1.6429, -1.2445])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# this is first column&lt;/span&gt;
+f_c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(acts[:,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;acts[:,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
+f_c
+&lt;span style=&#34;color:#75715e&#34;&gt;# second column is 1- first column softmax do this thing&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;s_c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;f_c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;softmax do this thing&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;softmax&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; exp(x) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; exp(x)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum(dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, keepdim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
+&lt;span style=&#34;color:#75715e&#34;&gt;# exp is e**8 ,e is 2.718&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;sm_acts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;softmax(acts, dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+sm_acts
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[0.7795, 0.2205],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.8902, 0.1098],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.1517, 0.8483],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.5245, 0.4755],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.9956, 0.0044],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.8464, 0.1536]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;softmax is the multi-category equivalent of sigmoid—we have to use it any time we have more than two categories and the probabilities of the categories must add to 1, and we often use it even when there are just two categories, just to make things a bit more consistent.&lt;br&gt;
+Taking the exponential ensures all our numbers are positive, and then dividing by the sum ensures we are going to have a bunch of numbers that add up to 1. The exponential also has a nice property: if one of the numbers in our activations x is slightly bigger than the others, the exponential will amplify this (since it grows, well&amp;hellip; exponentially), which means that in the softmax, that number will be closer to 1.&lt;/p&gt;
+&lt;p&gt;Intuitively, the softmax function really wants to pick one class among the others, so it&amp;rsquo;s ideal for training a classifier when we know each picture has a definite label. (Note that it may be less ideal during inference, as you might want your model to sometimes tell you it doesn&amp;rsquo;t recognize any of the classes that it has seen during training, and not pick a class because it has a slightly bigger activation score. In this case, it might be better to train a model using multiple binary output columns, each using a sigmoid activation.)&lt;/p&gt;
+&lt;p&gt;Softmax is the first part of the cross-entropy loss—the second part is log likelihood.&lt;/p&gt;
+&lt;p&gt;取指數可確保我們所有的數字都是正數，然後除以和可確保我們將擁有一堆加起來為1的數字。指數也具有很好的屬性：如果x中的數字之一比其他稍大一些,放大（因為它會以指數形式增長）（這是指數增長），這意味著在softmax中，該數字將接近於1。&lt;/p&gt;
+&lt;p&gt;直觀上，softmax函數確實希望從其他類別中選擇一個類別，因此當我們知道每張圖片都有一個確定的標籤時，訓練分類器是理想的選擇。 （請注意，在推理過程中它可能不太理想，因為您可能希望模型有時告訴您，它無法識別訓練中看到的任何課程，並且不選一個課程，因為它的激活分數稍高在這種情況下，最好使用多個二進制輸出列訓練模型，每個輸出列都使用S型激活。）&lt;/p&gt;
 </content>
     </item>
     
