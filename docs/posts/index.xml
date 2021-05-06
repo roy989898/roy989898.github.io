@@ -6,7 +6,48 @@
     <description>Recent content in Posts on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 May 2021 16:15:02 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 May 2021 16:55:28 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 5.2  Cross-entropy loss</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-5.2/</link>
+      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-5.2/</guid>
+      <description>Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
+Cross-entropy loss can use for more than 2 category
+Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3, 224, 224]) our batch isze is 64,so we can see the list is 64 item.</description>
+      <content>&lt;h1 id=&#34;cross-entropy-loss&#34;&gt;Cross-entropy loss&lt;/h1&gt;
+&lt;p&gt;fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.&lt;/p&gt;
+&lt;p&gt;Cross-entropy loss can use for more than 2 category&lt;/p&gt;
+&lt;h2 id=&#34;viewing-activations-and-labels&#34;&gt;Viewing Activations and Labels&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;x,y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;one_batch()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([64, 3, 224, 224])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;our batch isze is 64,so we can see the list is 64 item.0-36,37 type&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;y
+&lt;span style=&#34;color:#75715e&#34;&gt;# TensorCategory([ 7,  1,  0, 14, 19,  9,  2, 35, 12,  0, 26, 34, 18, 21,  5,  8,  0, 35,  8,  8, 28, 35, 17, 34, 21,  3, 17, 19, 18, 22,  9, 12, 34, 10, 35, 25, 13, 18, 32, 36, 20, 26,  5, 18, 31,  6,  7,  9,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          3,  1,  0, 30,  2,  4, 12, 24, 30,  1, 30, 20, 30, 21,  3, 12], device=&amp;#39;cuda:0&amp;#39;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;see the predict&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;preds,target &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get_preds(dl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[(x,y)])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;target
+&lt;span style=&#34;color:#75715e&#34;&gt;# TensorCategory([ 7,  1,  0, 14, 19,  9,  2, 35, 12,  0, 26, 34, 18, 21,  5,  8,  0, 35,  8,  8, 28, 35, 17, 34, 21,  3, 17, 19, 18, 22,  9, 12, 34, 10, 35, 25, 13, 18, 32, 36, 20, 26,  5, 18, 31,  6,  7,  9,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          3,  1,  0, 30,  2,  4, 12, 24, 30,  1, 30, 20, 30, 21,  3, 12])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# preds containe 64 pred, becasue beatch size is 64,probilitiesof 37 type ,because it contain 37 type&lt;/span&gt;
+preds&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([64, 37])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# between 0-1,&lt;/span&gt;
+preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([2.7509e-08, 4.1222e-08, 3.7762e-06, 4.6692e-07, 6.6490e-06, 1.6953e-08, 2.9940e-05, 9.9975e-01, 1.9381e-04, 2.9978e-09, 1.0564e-08, 1.0974e-07, 3.9340e-07, 1.0617e-08, 7.8258e-09, 4.8307e-08,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         2.9032e-07, 8.0013e-09, 2.2539e-08, 5.3139e-07, 1.7915e-08, 1.0556e-07, 3.6633e-06, 5.3050e-06, 1.2096e-07, 6.5162e-08, 4.3347e-09, 9.6756e-08, 5.2215e-06, 2.0169e-07, 1.5412e-07, 8.8911e-07,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         2.2806e-07, 1.2523e-07, 6.1131e-09, 6.0672e-08, 3.3345e-07])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# add them all is 1&lt;/span&gt;
+len(preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]),preds[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum()
+&lt;span style=&#34;color:#75715e&#34;&gt;# (37, tensor(1.))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;softmax&#34;&gt;Softmax&lt;/h2&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 5.1 Image Classification 1</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-5.1/</link>
