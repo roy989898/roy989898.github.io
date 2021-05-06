@@ -78,13 +78,14 @@ dls = pets.dataloaders(path/"images")
 #  item_tfms=Resize(460),
 #                  batch_tfms=aug_transforms(size=224, min_scale=0.75))
 ```
+
 we apply the aug_transforms at gpu to a batch of image,but before that,we need to make the image to the smae size,yhan pass the sendor to the GPU,
 so we apply Resize(460) to each item at CPU.  
 first step:  
 Crop full width or height: This is in item_tfms, so it's applied to each individual image before it is copied to the GPU. It's used to ensure all images are the same size. On the training set, the crop area is chosen randomly. On the validation set, the center square of the image is always chosen.
 we crop them to a bigger(460) square.Why bigger? because we wnat to have  have spare margin to allow further augmentation transforms on their inner regions without creating empty zones.if performed after resizing down to the augmented size, various common data augmentation transforms might introduce spurious empty zones, degrade data, or both .e.g. rotating an image by 45 degrees fills corner regions of the new bounds with emptiness, which will not teach the model anything.This transformation works by resizing to a square, using a large crop size. On the training set, the crop area is chosen randomly, and the size of the crop is selected to cover the entire width or height of the image, whichever is smaller.  
 second step:  
-Random crop and augment: This is in batch_tfms, 
+Random crop and augment: This is in batch_tfms,
 at second step,GPU is used for all data augmentation,with a single interpolation(make the picture more clear) at the end.
 On the training set, the random crop and any other augmentations are done first.  
 我們將gpu上的aug_transforms應用於一批圖像，但是在此之前，我們需要將圖像調整為smae大小，然後將發送方傳遞到GPU，
@@ -97,3 +98,17 @@ On the training set, the random crop and any other augmentations are done first.
 第二步，將GPU用於所有數據擴充，最後進行一次插值（使畫面更清晰）。
 在訓練集上，首先進行隨機裁剪和任何其他擴充。
 ![tr](/img/ai_t/t1/att_00060.png)
+
+## Checking and Debugging a DataBlock
+
+```py
+# show some image
+dls.show_batch(nrows=1, ncols=3)
+
+```
+
+![check](/img/ai_t/t1/check.PNG)
+
+we should check all the data,that the tag is correct,we can check by our eyes,or by the [model]({{< ref "posts/ai-tutorial-2#start-create-the-model" >}} "model")
+
+
