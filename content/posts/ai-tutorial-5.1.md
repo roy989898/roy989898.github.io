@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 5.1"
+title = "Ai Tutorial 5.1 Image Classification 1"
 date = "2021-05-06T16:15:02+08:00"
 author = ""
 authorTwitter = "" #do not include @
@@ -9,7 +9,7 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-# Image Classification
+# Image Classification 1
 
 ```py
 #hide
@@ -101,6 +101,8 @@ On the training set, the random crop and any other augmentations are done first.
 
 ## Checking and Debugging a DataBlock
 
+Checking
+
 ```py
 # show some image
 dls.show_batch(nrows=1, ncols=3)
@@ -111,4 +113,119 @@ dls.show_batch(nrows=1, ncols=3)
 
 we should check all the data,that the tag is correct,we can check by our eyes,or by the [model]({{< ref "posts/ai-tutorial-2#start-create-the-model" >}} "model")
 
+Debugging
 
+error because the image size is different
+
+```py
+#hide_output
+pets1 = DataBlock(blocks = (ImageBlock, CategoryBlock),
+                 get_items=get_image_files, 
+                 splitter=RandomSplitter(seed=42),
+                 get_y=using_attr(RegexLabeller(r'(.+)_\d+.jpg$'), 'name'))
+pets1.summary(path/"images")
+```
+
+```py
+Setting-up type transforms pipelines
+Collecting items from /home/jhoward/.fastai/data/oxford-iiit-pet/images
+Found 7390 items
+2 datasets of sizes 5912,1478
+Setting up Pipeline: PILBase.create
+Setting up Pipeline: partial -> Categorize
+
+Building one sample
+  Pipeline: PILBase.create
+    starting from
+      /home/jhoward/.fastai/data/oxford-iiit-pet/images/american_pit_bull_terrier_31.jpg
+    applying PILBase.create gives
+      PILImage mode=RGB size=500x414
+  Pipeline: partial -> Categorize
+    starting from
+      /home/jhoward/.fastai/data/oxford-iiit-pet/images/american_pit_bull_terrier_31.jpg
+    applying partial gives
+      american_pit_bull_terrier
+    applying Categorize gives
+      TensorCategory(13)
+
+Final sample: (PILImage mode=RGB size=500x414, TensorCategory(13))
+
+
+Setting up after_item: Pipeline: ToTensor
+Setting up before_batch: Pipeline: 
+Setting up after_batch: Pipeline: IntToFloatTensor
+
+Building one batch
+Applying item_tfms to the first sample:
+  Pipeline: ToTensor
+    starting from
+      (PILImage mode=RGB size=500x414, TensorCategory(13))
+    applying ToTensor gives
+      (TensorImage of size 3x414x500, TensorCategory(13))
+
+Adding the next 3 samples
+
+No before_batch transform to apply
+
+Collating items in a batch
+Error! It's not possible to collate your items in a batch
+Could not collate the 0-th members of your tuples because got the following shapes
+torch.Size([3, 414, 500]),torch.Size([3, 375, 500]),torch.Size([3, 500, 281]),torch.Size([3, 203, 300])
+---------------------------------------------------------------------------
+RuntimeError                              Traceback (most recent call last)
+<ipython-input-11-8c0a3d421ca2> in <module>
+      4                  splitter=RandomSplitter(seed=42),
+      5                  get_y=using_attr(RegexLabeller(r'(.+)_\d+.jpg$'), 'name'))
+----> 6 pets1.summary(path/"images")
+
+~/git/fastai/fastai/data/block.py in summary(self, source, bs, show_batch, **kwargs)
+    182         why = _find_fail_collate(s)
+    183         print("Make sure all parts of your samples are tensors of the same size" if why is None else why)
+--> 184         raise e
+    185 
+    186     if len([f for f in dls.train.after_batch.fs if f.name != 'noop'])!=0:
+
+~/git/fastai/fastai/data/block.py in summary(self, source, bs, show_batch, **kwargs)
+    176     print("\nCollating items in a batch")
+    177     try:
+--> 178         b = dls.train.create_batch(s)
+    179         b = retain_types(b, s[0] if is_listy(s) else s)
+    180     except Exception as e:
+
+~/git/fastai/fastai/data/load.py in create_batch(self, b)
+    125     def retain(self, res, b):  return retain_types(res, b[0] if is_listy(b) else b)
+    126     def create_item(self, s):  return next(self.it) if s is None else self.dataset[s]
+--> 127     def create_batch(self, b): return (fa_collate,fa_convert)[self.prebatched](b)
+    128     def do_batch(self, b): return self.retain(self.create_batch(self.before_batch(b)), b)
+    129     def to(self, device): self.device = device
+
+~/git/fastai/fastai/data/load.py in fa_collate(t)
+     44     b = t[0]
+     45     return (default_collate(t) if isinstance(b, _collate_types)
+---> 46             else type(t[0])([fa_collate(s) for s in zip(*t)]) if isinstance(b, Sequence)
+     47             else default_collate(t))
+     48 
+
+~/git/fastai/fastai/data/load.py in <listcomp>(.0)
+     44     b = t[0]
+     45     return (default_collate(t) if isinstance(b, _collate_types)
+---> 46             else type(t[0])([fa_collate(s) for s in zip(*t)]) if isinstance(b, Sequence)
+     47             else default_collate(t))
+     48 
+
+~/git/fastai/fastai/data/load.py in fa_collate(t)
+     43 def fa_collate(t):
+     44     b = t[0]
+---> 45     return (default_collate(t) if isinstance(b, _collate_types)
+     46             else type(t[0])([fa_collate(s) for s in zip(*t)]) if isinstance(b, Sequence)
+     47             else default_collate(t))
+
+~/anaconda3/lib/python3.7/site-packages/torch/utils/data/_utils/collate.py in default_collate(batch)
+     53             storage = elem.storage()._new_shared(numel)
+     54             out = elem.new(storage)
+---> 55         return torch.stack(batch, 0, out=out)
+     56     elif elem_type.__module__ == 'numpy' and elem_type.__name__ != 'str_' \
+     57             and elem_type.__name__ != 'string_':
+
+RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 414 and 375 in dimension 2 at /opt/conda/conda-bld/pytorch_1579022060824/work/aten/src/TH/generic/THTensor.cpp:612
+```

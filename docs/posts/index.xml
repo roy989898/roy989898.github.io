@@ -6,7 +6,191 @@
     <description>Recent content in Posts on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Apr 2021 14:45:20 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 May 2021 16:15:02 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 5.1 Image Classification 1</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-5.1/</link>
+      <pubDate>Thu, 06 May 2021 16:15:02 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-5.1/</guid>
+      <description>Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&amp;#39;(.+)_\d+.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.+)_\d+.jpg$&amp;#39;), &amp;#39;name&amp;#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0.</description>
+      <content>&lt;h1 id=&#34;image-classification-1&#34;&gt;Image Classification 1&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#hide&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook
+fastbook&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setup_book()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#hide&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastbook &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;``````&lt;/span&gt;py
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.vision.all &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; untar_data(URLs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;PETS)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#hide&lt;/span&gt;
+Path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;BASE_PATH &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; path
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;see-the-image&#34;&gt;See the image&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;images&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;get-the-file-name&#34;&gt;Get the file name&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;fname &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;images&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ls()[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# Path(&amp;#39;images/havanese_158.jpg&amp;#39;)&lt;/span&gt;
+fname&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;name
+&lt;span style=&#34;color:#75715e&#34;&gt;# havanese_158.jpg&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;use regex to get the file name&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;re&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;findall(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(.+)_\d+.jpg$&amp;#39;&lt;/span&gt;, fname&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;name)
+&lt;span style=&#34;color:#75715e&#34;&gt;# [&amp;#39;havanese&amp;#39;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;prepare-the-data&#34;&gt;Prepare the data&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;pets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(blocks &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (ImageBlock, CategoryBlock),
+                 get_items&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_image_files, 
+                 splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RandomSplitter(seed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;),
+                 get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;using_attr(RegexLabeller(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(.+)_\d+.jpg$&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;),
+                 item_tfms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;Resize(&lt;span style=&#34;color:#ae81ff&#34;&gt;460&lt;/span&gt;),
+                 batch_tfms&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;aug_transforms(size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;224&lt;/span&gt;, min_scale&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.75&lt;/span&gt;))
+dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataloaders(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;images&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# this is presizing&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  item_tfms=Resize(460),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#                  batch_tfms=aug_transforms(size=224, min_scale=0.75))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we apply the aug_transforms at gpu to a batch of image,but before that,we need to make the image to the smae size,yhan pass the sendor to the GPU,
+so we apply Resize(460) to each item at CPU.&lt;br&gt;
+first step:&lt;br&gt;
+Crop full width or height: This is in item_tfms, so it&amp;rsquo;s applied to each individual image before it is copied to the GPU. It&amp;rsquo;s used to ensure all images are the same size. On the training set, the crop area is chosen randomly. On the validation set, the center square of the image is always chosen.
+we crop them to a bigger(460) square.Why bigger? because we wnat to have  have spare margin to allow further augmentation transforms on their inner regions without creating empty zones.if performed after resizing down to the augmented size, various common data augmentation transforms might introduce spurious empty zones, degrade data, or both .e.g. rotating an image by 45 degrees fills corner regions of the new bounds with emptiness, which will not teach the model anything.This transformation works by resizing to a square, using a large crop size. On the training set, the crop area is chosen randomly, and the size of the crop is selected to cover the entire width or height of the image, whichever is smaller.&lt;br&gt;
+second step:&lt;br&gt;
+Random crop and augment: This is in batch_tfms,
+at second step,GPU is used for all data augmentation,with a single interpolation(make the picture more clear) at the end.
+On the training set, the random crop and any other augmentations are done first.&lt;br&gt;
+我們將gpu上的aug_transforms應用於一批圖像，但是在此之前，我們需要將圖像調整為smae大小，然後將發送方傳遞到GPU，
+因此我們將Resize（460）應用於CPU的每個項目。
+第一步：
+裁剪全寬或全高：這位於item_tfms中，因此在將其複製到GPU之前將其應用於每個單獨的圖像。用於確保所有圖像的尺寸相同。在訓練集上，隨機選擇作物面積。在驗證集上，始終選擇圖像的中心正方形。
+我們將它們裁剪到更大的（460）平方。為什麼更大？因為我們擁有足夠的餘量以允許在其內部區域上進行進一步的增強變換而不會創建空白區域，如果在縮小大小到增大大小之後執行此操作，則各種常見的數據增強變換可能會引入虛假的空白區域，降級數據或同時出現這兩種情況。將圖像旋轉45度會以空的方式填充新邊界的角區域，這將不會對模型產生任何影響。此轉換通過使用大作物大小將尺寸調整為正方形來進行。在訓練集上，隨機選擇作物區域，並選擇作物的大小以覆蓋圖像的整個寬度或高度，以較小者為準。
+第二步：
+隨機裁剪和擴充：這在batch_tfms中，
+第二步，將GPU用於所有數據擴充，最後進行一次插值（使畫面更清晰）。
+在訓練集上，首先進行隨機裁剪和任何其他擴充。
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/att_00060.png&#34; alt=&#34;tr&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;checking-and-debugging-a-datablock&#34;&gt;Checking and Debugging a DataBlock&lt;/h2&gt;
+&lt;p&gt;Checking&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show some image&lt;/span&gt;
+dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show_batch(nrows&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, ncols&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/check.PNG&#34; alt=&#34;check&#34;&gt;&lt;/p&gt;
+&lt;p&gt;we should check all the data,that the tag is correct,we can check by our eyes,or by the &lt;a href=&#34;https://roy989898.github.io/posts/ai-tutorial-2/#start-create-the-model&#34; title=&#34;model&#34;&gt;model&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Debugging&lt;/p&gt;
+&lt;p&gt;error because the image size is different&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#hide_output&lt;/span&gt;
+pets1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(blocks &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (ImageBlock, CategoryBlock),
+                 get_items&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_image_files, 
+                 splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RandomSplitter(seed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;),
+                 get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;using_attr(RegexLabeller(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(.+)_\d+.jpg$&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;))
+pets1&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;summary(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;images&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;Setting&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;up type transforms pipelines
+Collecting items &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;home&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;jhoward&lt;span style=&#34;color:#f92672&#34;&gt;/.&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;oxford&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;iiit&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;pet&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;images
+Found &lt;span style=&#34;color:#ae81ff&#34;&gt;7390&lt;/span&gt; items
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; datasets of sizes &lt;span style=&#34;color:#ae81ff&#34;&gt;5912&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1478&lt;/span&gt;
+Setting up Pipeline: PILBase&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create
+Setting up Pipeline: partial &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Categorize
+
+Building one sample
+  Pipeline: PILBase&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create
+    starting &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;home&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;jhoward&lt;span style=&#34;color:#f92672&#34;&gt;/.&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;oxford&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;iiit&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;pet&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;images&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;american_pit_bull_terrier_31&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;jpg
+    applying PILBase&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create gives
+      PILImage mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RGB size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;x414
+  Pipeline: partial &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Categorize
+    starting &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;home&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;jhoward&lt;span style=&#34;color:#f92672&#34;&gt;/.&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;oxford&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;iiit&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;pet&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;images&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;american_pit_bull_terrier_31&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;jpg
+    applying partial gives
+      american_pit_bull_terrier
+    applying Categorize gives
+      TensorCategory(&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;)
+
+Final sample: (PILImage mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RGB size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;x414, TensorCategory(&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;))
+
+
+Setting up after_item: Pipeline: ToTensor
+Setting up before_batch: Pipeline: 
+Setting up after_batch: Pipeline: IntToFloatTensor
+
+Building one batch
+Applying item_tfms to the first sample:
+  Pipeline: ToTensor
+    starting &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt;
+      (PILImage mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RGB size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;x414, TensorCategory(&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;))
+    applying ToTensor gives
+      (TensorImage of size &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;x414x500, TensorCategory(&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;))
+
+Adding the next &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; samples
+
+No before_batch transform to apply
+
+Collating items &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; a batch
+Error&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt; It&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s not possible to collate your items in a batch&lt;/span&gt;
+Could &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; collate the &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;th members of your tuples because got the following shapes
+torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Size([&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;414&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;]),torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Size([&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;375&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;]),torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Size([&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;281&lt;/span&gt;]),torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Size([&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;203&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;300&lt;/span&gt;])
+&lt;span style=&#34;color:#f92672&#34;&gt;---------------------------------------------------------------------------&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;RuntimeError&lt;/span&gt;                              Traceback (most recent call last)
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ipython&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;input&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;c0a3d421ca2&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;module&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;                  splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;RandomSplitter(seed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;),
+      &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;                  get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;using_attr(RegexLabeller(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(.+)_\d+.jpg$&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#f92672&#34;&gt;----&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt; pets1&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;summary(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;images&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;block&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; summary(self, source, bs, show_batch, &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;kwargs)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;182&lt;/span&gt;         why &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _find_fail_collate(s)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;183&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Make sure all parts of your samples are tensors of the same size&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; why &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; None &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; why)
+&lt;span style=&#34;color:#f92672&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;184&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;raise&lt;/span&gt; e
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;185&lt;/span&gt; 
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;186&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len([f &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;after_batch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fs &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;noop&amp;#39;&lt;/span&gt;])&lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;block&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; summary(self, source, bs, show_batch, &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;kwargs)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;176&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Collating items in a batch&amp;#34;&lt;/span&gt;)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;177&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;span style=&#34;color:#f92672&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;178&lt;/span&gt;         b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create_batch(s)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;179&lt;/span&gt;         b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; retain_types(b, s[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; is_listy(s) &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; s)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;180&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;load&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; create_batch(self, b)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;125&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;retain&lt;/span&gt;(self, res, b):  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; retain_types(res, b[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; is_listy(b) &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; b)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;126&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create_item&lt;/span&gt;(self, s):  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; next(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;it) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; None &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataset[s]
+&lt;span style=&#34;color:#f92672&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;create_batch&lt;/span&gt;(self, b): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (fa_collate,fa_convert)[self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;prebatched](b)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;do_batch&lt;/span&gt;(self, b): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;retain(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create_batch(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;before_batch(b)), b)
+    &lt;span style=&#34;color:#ae81ff&#34;&gt;129&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt;(self, device): self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;device &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; device
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;load&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; fa_collate(t)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;44&lt;/span&gt;     b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (default_collate(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, _collate_types)
+&lt;span style=&#34;color:#f92672&#34;&gt;---&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;46&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; type(t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])([fa_collate(s) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; zip(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;t)]) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, Sequence)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;47&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; default_collate(t))
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;48&lt;/span&gt; 
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;load&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;listcomp&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;44&lt;/span&gt;     b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (default_collate(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, _collate_types)
+&lt;span style=&#34;color:#f92672&#34;&gt;---&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;46&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; type(t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])([fa_collate(s) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; zip(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;t)]) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, Sequence)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;47&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; default_collate(t))
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;48&lt;/span&gt; 
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;git&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;fastai&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;load&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; fa_collate(t)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;43&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fa_collate&lt;/span&gt;(t):
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;44&lt;/span&gt;     b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#f92672&#34;&gt;---&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (default_collate(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, _collate_types)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;46&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; type(t[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])([fa_collate(s) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; zip(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;t)]) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b, Sequence)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;47&lt;/span&gt;             &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; default_collate(t))
+
+&lt;span style=&#34;color:#f92672&#34;&gt;~/&lt;/span&gt;anaconda3&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;python3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;packages&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;utils&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;_utils&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;collate&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;py &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; default_collate(batch)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;53&lt;/span&gt;             storage &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; elem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;storage()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_new_shared(numel)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;54&lt;/span&gt;             out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; elem&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(storage)
+&lt;span style=&#34;color:#f92672&#34;&gt;---&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stack(batch, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, out&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;out)
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; elem_type&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__module__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;numpy&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; elem_type&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__name__ &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;str_&amp;#39;&lt;/span&gt; \
+     &lt;span style=&#34;color:#ae81ff&#34;&gt;57&lt;/span&gt;             &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; elem_type&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__name__ &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;string_&amp;#39;&lt;/span&gt;:
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;RuntimeError&lt;/span&gt;: invalid argument &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;: Sizes of tensors must match &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dimension &lt;span style=&#34;color:#ae81ff&#34;&gt;0.&lt;/span&gt; Got &lt;span style=&#34;color:#ae81ff&#34;&gt;414&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;375&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dimension &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; at &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;opt&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;conda&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;conda&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bld&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;pytorch_1579022060824&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;work&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;aten&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;src&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;TH&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;generic&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;THTensor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cpp:&lt;span style=&#34;color:#ae81ff&#34;&gt;612&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 4.12 Adding a Nonlinearity</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-4.12/</link>
