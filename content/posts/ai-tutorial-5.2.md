@@ -106,12 +106,15 @@ f_c
 ```py
 s_c=1-f_c
 ```
+
 softmax do this thing
+
 ```py
 
 def softmax(x): return exp(x) / exp(x).sum(dim=1, keepdim=True)
 # exp is e**8 ,e is 2.718
 ```
+
 ```py
 sm_acts = torch.softmax(acts, dim=1)
 sm_acts
@@ -133,3 +136,5 @@ Softmax is the first part of the cross-entropy loss—the second part is log lik
 取指數可確保我們所有的數字都是正數，然後除以和可確保我們將擁有一堆加起來為1的數字。指數也具有很好的屬性：如果x中的數字之一比其他稍大一些,放大（因為它會以指數形式增長）（這是指數增長），這意味著在softmax中，該數字將接近於1。
 
 直觀上，softmax函數確實希望從其他類別中選擇一個類別，因此當我們知道每張圖片都有一個確定的標籤時，訓練分類器是理想的選擇。 （請注意，在推理過程中它可能不太理想，因為您可能希望模型有時告訴您，它無法識別訓練中看到的任何課程，並且不選一個課程，因為它的激活分數稍高在這種情況下，最好使用多個二進制輸出列訓練模型，每個輸出列都使用S型激活。）
+
+## Log Likelihood
