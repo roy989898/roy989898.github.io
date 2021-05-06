@@ -229,3 +229,10 @@ RuntimeError                              Traceback (most recent call last)
 
 RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 414 and 375 in dimension 2 at /opt/conda/conda-bld/pytorch_1579022060824/work/aten/src/TH/generic/THTensor.cpp:612
 ```
+
+now we can train it
+
+```py
+learn = cnn_learner(dls, resnet34, metrics=error_rate)
+learn.fine_tune(2)
+```
