@@ -6,7 +6,10 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Improving Our Model " />
+<meta name="description" content="My Code 
+Source Code 
+Improving Our Model we will explain a little bit more about transfer learning and how to fine-tune our pretrained model as best as possible, without breaking the pretrained weights.
+The Learning Rate Finder if lr too small, many epochs to train our model,waste time,and every time we do a complete pass through the data, we give our model a chance to memorize it.also remember the validate data" />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-5.4/" />
@@ -41,7 +44,10 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 5.4 Image Classification &gt;2 types Improving Our Model">
-<meta property="og:description" content="Improving Our Model " />
+<meta property="og:description" content="My Code 
+Source Code 
+Improving Our Model we will explain a little bit more about transfer learning and how to fine-tune our pretrained model as best as possible, without breaking the pretrained weights.
+The Learning Rate Finder if lr too small, many epochs to train our model,waste time,and every time we do a complete pass through the data, we give our model a chance to memorize it.also remember the validate data" />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-5.4/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -160,7 +166,74 @@
   
 
   <div class="post-content"><div>
-        <h1 id="improving-our-model">Improving Our Model<a href="#improving-our-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing">My Code
+</a></p>
+<p><a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd">Source Code
+</a></p>
+<h1 id="improving-our-model">Improving Our Model<a href="#improving-our-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>we will explain a little bit more about transfer learning and how to fine-tune our pretrained model as best as possible, without breaking the pretrained weights.</p>
+<h2 id="the-learning-rate-finder">The Learning Rate Finder<a href="#the-learning-rate-finder" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>if lr too small, many epochs to train our model,waste time,and every time we do a complete pass through the data, we give our model a chance to memorize it.also remember the validate data</p>
+<p>set it very high frist,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet34, metrics<span style="color:#f92672">=</span>error_rate)
+learn<span style="color:#f92672">.</span>fine_tune(<span style="color:#ae81ff">1</span>, base_lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 2.568456 6.223738 0.496617 01:07</span>
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 3.971391 2.541565 0.698917 01:12</span>
+</code></pre></div><p>the way to find the best LR:<br>
+simple concept: use a very LR start,train a one mini-batch,&gt; increase the LR by some percentage (e.g., doubling it each time),than repeat,until the loss gets worse, instead of better,This is the point where we know we have gone too far. We then select a learning rate a bit lower than this point. Our advice is to pick either:</p>
+<ol>
+<li>One order of magnitude less than where the minimum loss was achieved (i.e., the minimum divided by 10)</li>
+<li>The last point where the loss was clearly decreasing</li>
+</ol>
+<p>fastai will help you to find this 2 point Both these rules usually give around the same value</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># default start LR is 1e-3=10^-3</span>
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet34, metrics<span style="color:#f92672">=</span>error_rate)
+lr_min,lr_steep <span style="color:#f92672">=</span> learn<span style="color:#f92672">.</span>lr_find()
+
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Minimum/10: {lr_min:.2e}, steepest point: {lr_steep:.2e}&#34;</span>)
+<span style="color:#75715e"># Minimum/10: 1.00e-02, steepest point: 2.51e-03</span>
+</code></pre></div><p><code>1e-3 mean 10^-3</code></p>
+<p><img src="/img/ai_t/t1/lrf.PNG" alt="sgd_LRFstep">
+for the picture,we can seeif LR &gt; 1e-1,the loss increase,but 1-e-1 too high,becasu already leave the loss decrease phase<br>
+we use 3e-3 at here(follow the book),we still can use 8.32e-03 and 2.09e-03</p>
+<h2 id="unfreezing-and-transfer-learning">Unfreezing and Transfer Learning<a href="#unfreezing-and-transfer-learning" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>what is transfer learning??? We saw that the basic idea is that a pretrained model, trained potentially on millions of data points (such as ImageNet), is fine-tuned for some other task.</p>
+<p>Our challenge when fine-tuning is to replace the random weights in our added linear layers with weights that correctly achieve our desired task (classifying pet breeds) without breaking the carefully pretrained weights and the other layers. There is actually a very simple trick to allow this to happen: tell the optimizer to only update the weights in those randomly added final layers. Don&rsquo;t change the weights in the rest of the neural network at all. This is called freezing those pretrained layers.</p>
+<p>進行微調時，我們面臨的挑戰是在不破壞經過精心訓練的砝碼和其他層的情況下，用能夠正確完成我們期望任務（對寵物品種進行分類）的砝碼替換添加的線性層中的隨機砝碼。 實際上，有一個很簡單的技巧可以使這種情況發生：告訴優化器僅更新那些隨機添加的最終層中的權重。 完全不要更改神經網絡其餘部分的權重。 這稱為凍結那些預訓練的層。</p>
+<p>When we create a model from a pretrained network fastai automatically freezes all of the pretrained layers for us. When we call the fine_tune method fastai does two things:</p>
+<p>Trains the randomly added layers for one epoch, with all other layers frozen.<br>
+Unfreezes all of the layers, and trains them all for the number of epochs requested</p>
+<p>try implement</p>
+<p>First of all we will train the randomly added layers for three epochs, using fit_one_cycle
+fit_one_cycle is the suggested way to train models without using fine_tune. We&rsquo;ll see why later in the book; in short, what fit_one_cycle does is to start training at a low learning rate, gradually increase it for the first section of training, and then gradually decrease it again for the last section of training.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># here only train the randomly added layers</span>
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet34, metrics<span style="color:#f92672">=</span>error_rate)
+learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3e-3</span>)
+
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 1.149184 0.357759 0.112314 01:07</span>
+<span style="color:#75715e"># 1 0.516031 0.269226 0.082544 01:07</span>
+<span style="color:#75715e"># 2 0.307812 0.237481 0.071719 01:07</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># unfreeze the model</span>
+learn<span style="color:#f92672">.</span>unfreeze()
+</code></pre></div><p>run lr_find again to find the LR, because having more layers to train, and weights that have already been trained for three epochs, means our previously found learning rate isn&rsquo;t appropriate any more:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn<span style="color:#f92672">.</span>lr_find()
+</code></pre></div><p><img src="/img/ai_t/t1/lr2.PNG" alt="lr2"></p>
+<p><strong>important</strong>!!!!!!we should not use the lr_steep at here,because our model has been trained already. Here we have a somewhat flat area before a sharp increase, and we should take a point well before that sharp increase—for instance, 1e-5. The point with the maximum gradient isn&rsquo;t what we look for here and should be ignored.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#  train all layer</span>
+learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81ff">6</span>, lr_max<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-5</span>)
+
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 0.245116 0.232571 0.071042 01:12</span>
+<span style="color:#75715e"># 1 0.244692 0.223327 0.069689 01:12</span>
+<span style="color:#75715e"># 2 0.214002 0.217773 0.068336 01:13</span>
+<span style="color:#75715e"># 3 0.194007 0.214042 0.066306 01:12</span>
+<span style="color:#75715e"># 4 0.180974 0.212813 0.067659 01:11</span>
+<span style="color:#75715e"># 5 0.183777 0.215303 0.064953 01:12</span>
+</code></pre></div><p>The deepest layers of model might not need as high a learning rate as the last ones, so we should probably use different learning rates for those—this is known as using discriminative learning rates.</p>
+<h2 id="discriminative-learning-rates">Discriminative Learning Rates<a href="#discriminative-learning-rates" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 
       </div></div>
 

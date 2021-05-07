@@ -13,8 +13,78 @@
       <pubDate>Fri, 07 May 2021 14:42:55 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-5.4/</guid>
-      <description>Improving Our Model </description>
-      <content>&lt;h1 id=&#34;improving-our-model&#34;&gt;Improving Our Model&lt;/h1&gt;
+      <description>My Code 
+Source Code 
+Improving Our Model we will explain a little bit more about transfer learning and how to fine-tune our pretrained model as best as possible, without breaking the pretrained weights.
+The Learning Rate Finder if lr too small, many epochs to train our model,waste time,and every time we do a complete pass through the data, we give our model a chance to memorize it.also remember the validate data</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing&#34;&gt;My Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd&#34;&gt;Source Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;improving-our-model&#34;&gt;Improving Our Model&lt;/h1&gt;
+&lt;p&gt;we will explain a little bit more about transfer learning and how to fine-tune our pretrained model as best as possible, without breaking the pretrained weights.&lt;/p&gt;
+&lt;h2 id=&#34;the-learning-rate-finder&#34;&gt;The Learning Rate Finder&lt;/h2&gt;
+&lt;p&gt;if lr too small, many epochs to train our model,waste time,and every time we do a complete pass through the data, we give our model a chance to memorize it.also remember the validate data&lt;/p&gt;
+&lt;p&gt;set it very high frist,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet34, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fine_tune(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, base_lr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 2.568456 6.223738 0.496617 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 3.971391 2.541565 0.698917 01:12&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;the way to find the best LR:&lt;br&gt;
+simple concept: use a very LR start,train a one mini-batch,&amp;gt; increase the LR by some percentage (e.g., doubling it each time),than repeat,until the loss gets worse, instead of better,This is the point where we know we have gone too far. We then select a learning rate a bit lower than this point. Our advice is to pick either:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;One order of magnitude less than where the minimum loss was achieved (i.e., the minimum divided by 10)&lt;/li&gt;
+&lt;li&gt;The last point where the loss was clearly decreasing&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fastai will help you to find this 2 point Both these rules usually give around the same value&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# default start LR is 1e-3=10^-3&lt;/span&gt;
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet34, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+lr_min,lr_steep &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lr_find()
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Minimum/10: {lr_min:.2e}, steepest point: {lr_steep:.2e}&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# Minimum/10: 1.00e-02, steepest point: 2.51e-03&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;1e-3 mean 10^-3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/lrf.PNG&#34; alt=&#34;sgd_LRFstep&#34;&gt;
+for the picture,we can seeif LR &amp;gt; 1e-1,the loss increase,but 1-e-1 too high,becasu already leave the loss decrease phase&lt;br&gt;
+we use 3e-3 at here(follow the book),we still can use 8.32e-03 and 2.09e-03&lt;/p&gt;
+&lt;h2 id=&#34;unfreezing-and-transfer-learning&#34;&gt;Unfreezing and Transfer Learning&lt;/h2&gt;
+&lt;p&gt;what is transfer learning??? We saw that the basic idea is that a pretrained model, trained potentially on millions of data points (such as ImageNet), is fine-tuned for some other task.&lt;/p&gt;
+&lt;p&gt;Our challenge when fine-tuning is to replace the random weights in our added linear layers with weights that correctly achieve our desired task (classifying pet breeds) without breaking the carefully pretrained weights and the other layers. There is actually a very simple trick to allow this to happen: tell the optimizer to only update the weights in those randomly added final layers. Don&amp;rsquo;t change the weights in the rest of the neural network at all. This is called freezing those pretrained layers.&lt;/p&gt;
+&lt;p&gt;進行微調時，我們面臨的挑戰是在不破壞經過精心訓練的砝碼和其他層的情況下，用能夠正確完成我們期望任務（對寵物品種進行分類）的砝碼替換添加的線性層中的隨機砝碼。 實際上，有一個很簡單的技巧可以使這種情況發生：告訴優化器僅更新那些隨機添加的最終層中的權重。 完全不要更改神經網絡其餘部分的權重。 這稱為凍結那些預訓練的層。&lt;/p&gt;
+&lt;p&gt;When we create a model from a pretrained network fastai automatically freezes all of the pretrained layers for us. When we call the fine_tune method fastai does two things:&lt;/p&gt;
+&lt;p&gt;Trains the randomly added layers for one epoch, with all other layers frozen.&lt;br&gt;
+Unfreezes all of the layers, and trains them all for the number of epochs requested&lt;/p&gt;
+&lt;p&gt;try implement&lt;/p&gt;
+&lt;p&gt;First of all we will train the randomly added layers for three epochs, using fit_one_cycle
+fit_one_cycle is the suggested way to train models without using fine_tune. We&amp;rsquo;ll see why later in the book; in short, what fit_one_cycle does is to start training at a low learning rate, gradually increase it for the first section of training, and then gradually decrease it again for the last section of training.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# here only train the randomly added layers&lt;/span&gt;
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet34, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3e-3&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 1.149184 0.357759 0.112314 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.516031 0.269226 0.082544 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.307812 0.237481 0.071719 01:07&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# unfreeze the model&lt;/span&gt;
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unfreeze()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;run lr_find again to find the LR, because having more layers to train, and weights that have already been trained for three epochs, means our previously found learning rate isn&amp;rsquo;t appropriate any more:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lr_find()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/lr2.PNG&#34; alt=&#34;lr2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;important&lt;/strong&gt;!!!!!!we should not use the lr_steep at here,because our model has been trained already. Here we have a somewhat flat area before a sharp increase, and we should take a point well before that sharp increase—for instance, 1e-5. The point with the maximum gradient isn&amp;rsquo;t what we look for here and should be ignored.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#  train all layer&lt;/span&gt;
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, lr_max&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1e-5&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 0.245116 0.232571 0.071042 01:12&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.244692 0.223327 0.069689 01:12&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.214002 0.217773 0.068336 01:13&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3 0.194007 0.214042 0.066306 01:12&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4 0.180974 0.212813 0.067659 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5 0.183777 0.215303 0.064953 01:12&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The deepest layers of model might not need as high a learning rate as the last ones, so we should probably use different learning rates for those—this is known as using discriminative learning rates.&lt;/p&gt;
+&lt;h2 id=&#34;discriminative-learning-rates&#34;&gt;Discriminative Learning Rates&lt;/h2&gt;
 </content>
     </item>
     
