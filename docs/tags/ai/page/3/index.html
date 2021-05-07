@@ -162,8 +162,9 @@
         <div class="post-content">
           
           
-          Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
-Taking the Log plot_function(torch.log, min=-5,max=4) log in python
+          My Code 
+Source Code 
+Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.
           
           
         </div>
@@ -212,7 +213,9 @@ Taking the Log plot_function(torch.log, min=-5,max=4) log in python
         <div class="post-content">
           
           
-          Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
+          My Code 
+Source Code 
+Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
 Cross-entropy loss can use for more than 2 category
 Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3, 224, 224]) our batch isze is 64,so we can see the list is 64 item.
           
@@ -259,8 +262,10 @@ Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3
         <div class="post-content">
           
           
-          Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.+)_\d+.jpg$&#39;), &#39;name&#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0.
+          My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.
           
           
         </div>
@@ -305,7 +310,8 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div class="post-content">
           
           
-          Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.
+          My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels.
           
           
         </div>
@@ -350,7 +356,8 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div class="post-content">
           
           
-          Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p.
+          My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.
           
           
         </div>
@@ -395,7 +402,8 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div class="post-content">
           
           
-          Put it all together each epoch is like this
+          My Code Source Code
+Put it all together each epoch is like this
 # basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
 weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
 dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data
@@ -447,7 +455,7 @@ dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch
         <div class="post-content">
           
           
-          we already have a SGD loss function,we can go to Step
+          My Code Source Code we already have a SGD loss function,we can go to Step
 which is to change or update the weights based on the gradients. This is called an optimization step.
 basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &#39;a&#39;),(1, &#39;b&#39;),(2, &#39;c&#39;),(3, &#39;d&#39;),(4, &#39;e&#39;),(5, &#39;f&#39;),(6, &#39;g&#39;),(7, &#39;h&#39;),(8, &#39;i&#39;),(9, &#39;j&#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow,
           
@@ -500,7 +508,8 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div class="post-content">
           
           
-          MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.
+          My Code Source Code
+MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.
           
           
         </div>
@@ -549,11 +558,12 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div class="post-content">
           
           
-          An End-to-End SGD Example we want to find the smallest value
+          My Code Source Code
+An End-to-End SGD Example we want to find the smallest value
 Some useful function craete a 0-19 torch array
 time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
 # 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
-# simulate a car speed # torch.randn(20)*3 is some random noise time = torch.
+# simulate a car speed # torch.
           
           
         </div>
@@ -600,7 +610,8 @@ time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7
         <div class="post-content">
           
           
-          Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder).
+          My Code Source Code
+Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder).
           
           
         </div>
@@ -733,10 +744,9 @@ time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7
         <div class="post-content">
           
           
-          Computing Metrics Using Broadcasting Metric a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.
+          My Code Source Code
+Computing Metrics Using Broadcasting Metric a metric is a number that is calculated based on the predictions of our model, and the correct labels in our dataset, in order to tell us how good our model is.
 we want to calculate our metric over a validation set. This is so that we don&rsquo;t inadvertently overfit—that is, train a model to work well only on our training data
-指標是根據我們的模型預測和數據集中的正確標籤計算出的數字，目的是告訴我們我們的模型有多好。
-我們要根據驗證集計算指標。 這樣一來，我們就不會無意間過度擬合-也就是說，訓練模型只能在訓練數據上有效地工作
           
           
         </div>
@@ -779,7 +789,8 @@ we want to calculate our metric over a validation set. This is so that we don&rs
         <div class="post-content">
           
           
-          NumPy Arrays and PyTorch Tensors they almost the same but NumPy Arrays not support GPU
+          My Code Source Code
+NumPy Arrays and PyTorch Tensors they almost the same but NumPy Arrays not support GPU
 data = [[1,2,3],[4,5,6]] arr = array (data) tns = tensor(data) arr # numpy # array([[1, 2, 3], # [4, 5, 6]]) tns # pytorch # tensor([[1, 2, 3], # [4, 5, 6]]) tns[1] # get index 1 # tensor([4, 5, 6]) tns[:,1] # all first axis,index 1 at ssecond axis # tensor([2, 5]) tns[1,1:3] # first axis :1,sendoc axis 1-3(exclude) # tensor([5, 6]) tns+1 # tensor([[2, 3, 4], # [5, 6, 7]]) tns*1.
           
           
@@ -823,7 +834,8 @@ data = [[1,2,3],[4,5,6]] arr = array (data) tns = tensor(data) arr # numpy # arr
         <div class="post-content">
           
           
-          Get the number sample !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastai.vision.all import * from fastbook import * matplotlib.rc(&#39;image&#39;, cmap=&#39;Greys&#39;) path = untar_data(URLs.MNIST_SAMPLE) Path.BASE_PATH = path path.ls() [Path(&lsquo;valid&rsquo;),Path(&lsquo;train&rsquo;),Path(&lsquo;labels.csv&rsquo;)] train group use to train,valid group use to test
+          ' My Code Source Code
+Get the number sample !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastai.vision.all import * from fastbook import * matplotlib.rc(&#39;image&#39;, cmap=&#39;Greys&#39;) path = untar_data(URLs.MNIST_SAMPLE) Path.BASE_PATH = path path.ls() [Path(&lsquo;valid&rsquo;),Path(&lsquo;train&rsquo;),Path(&lsquo;labels.csv&rsquo;)] train group use to train,valid group use to test
 (path/&#39;train&#39;).ls() # [Path(&#39;train/7&#39;),Path(&#39;train/3&#39;)] threes = (path/&#39;train&#39;/&#39;3&#39;).ls().sorted() sevens = (path/&#39;train&#39;/&#39;7&#39;).ls().sorted() threes # (#6131) [Path(&#39;train/3/10.png&#39;),Path(&#39;train/3/10000.png&#39;),Path(&#39;train/3/10011.png&#39;),Path(&#39;train/3/10031.png&#39;),Path(&#39;train/3/10034.png&#39;),Path(&#39;train/3/10042.png&#39;),Path(&#39;train/3/10052.png&#39;),Path(&#39;train/3/1007.png&#39;),Path(&#39;train/3/10074.png&#39;),Path(&#39;train/3/10091.png&#39;)...] open a image to see
 im3_path = threes[1]im3 = Image.open(im3_path)im3array(im3).shape # a 28 * 28 image # (28, 28) turn the image into a 2 d array show row 4:10(not include),column 4:10(not include)
           
@@ -868,7 +880,8 @@ im3_path = threes[1]im3 = Image.open(im3_path)im3array(im3).shape # a 28 * 28
         <div class="post-content">
           
           
-          Build your Bear reconigize model Download image we use the Azure bing image search API
+          My Code Source COde
+Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
 !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &#39;secret_key_from_bing&#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &#34;https://api.bing.microsoft.com/v7.0/images/search&#34; headers = {&#34;Ocp-Apim-Subscription-Key&#34; : key} # search_term = &#34;grizzly bear&#34; params = {&#34;q&#34;: search_term, &#34;license&#34;: &#34;public&#34;, &#34;imageType&#34;: &#34;photo&#34;,&#34;count&#34;:&#39;150&#39;} response = requests.
           
@@ -954,8 +967,8 @@ you need to apply the key for free
         <div class="post-content">
           
           
-          Your First Model on fastai framework
-!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
+          MyCode Source Code
+Your First Model on fastai framework !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
           
           
         </div>

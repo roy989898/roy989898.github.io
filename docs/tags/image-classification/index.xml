@@ -13,9 +13,15 @@
       <pubDate>Thu, 06 May 2021 16:15:02 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-5.1/</guid>
-      <description>Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&amp;#39;(.+)_\d+.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.+)_\d+.jpg$&amp;#39;), &amp;#39;name&amp;#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0.</description>
-      <content>&lt;h1 id=&#34;image-classification-1&#34;&gt;Image Classification 1&lt;/h1&gt;
+      <description>My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&amp;#39;(.+)_\d+.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing&#34;&gt;My Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd&#34;&gt;Source Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;image-classification-1&#34;&gt;Image Classification 1&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#hide&lt;/span&gt;
 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;Uqq fastbook
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; fastbook

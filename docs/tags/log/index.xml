@@ -13,9 +13,14 @@
       <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-5.3/</guid>
-      <description>Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
-Taking the Log plot_function(torch.log, min=-5,max=4) log in python</description>
-      <content>&lt;h1 id=&#34;cross-entropy-loss-2&#34;&gt;Cross-entropy loss 2&lt;/h1&gt;
+      <description>My Code 
+Source Code 
+Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing&#34;&gt;My Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd&#34;&gt;Source Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;cross-entropy-loss-2&#34;&gt;Cross-entropy loss 2&lt;/h1&gt;
 &lt;p&gt;although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!&lt;/p&gt;
 &lt;h2 id=&#34;taking-the-log&#34;&gt;Taking the Log&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log, min&lt;span style=&#34;color:#f92672&#34;&gt;=-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,max&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)

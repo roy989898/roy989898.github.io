@@ -190,7 +190,9 @@ x is the image, represented as a vector—in other words, with all of the rows s
 <h2 id="simple-example-of-sgd">simple example of SGD<a href="#simple-example-of-sgd" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x): <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(f, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;x**2&#39;</span>)
-</code></pre></div><p><img src="/img/ai_t/t1/x2p.PNG" alt="sgd_step"></p>
+</code></pre></div><p><a href="https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb">Source Code</a>
+<img src="/img/ai_t/t1/x2p.PNG" alt="sgd_step"></p>
 <p>The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(f, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;x**2&#39;</span>)
 plt<span style="color:#f92672">.</span>scatter(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>, f(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>);

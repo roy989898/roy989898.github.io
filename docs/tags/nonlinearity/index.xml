@@ -13,8 +13,11 @@
       <pubDate>Thu, 29 Apr 2021 14:45:20 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.12/</guid>
-      <description>Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.</description>
-      <content>&lt;h1 id=&#34;adding-a-nonlinearity&#34;&gt;Adding a Nonlinearity&lt;/h1&gt;
+      <description>My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;adding-a-nonlinearity&#34;&gt;Adding a Nonlinearity&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;simple_net&lt;/span&gt;(xb): 
     res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xb&lt;span style=&#34;color:#a6e22e&#34;&gt;@w1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b1
     res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max(tensor(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;))

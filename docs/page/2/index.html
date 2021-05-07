@@ -170,7 +170,8 @@
         <div class="post-content">
           
           
-          Put it all together each epoch is like this
+          My Code Source Code
+Put it all together each epoch is like this
 # basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
 weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
 dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data
@@ -222,7 +223,7 @@ dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch
         <div class="post-content">
           
           
-          we already have a SGD loss function,we can go to Step
+          My Code Source Code we already have a SGD loss function,we can go to Step
 which is to change or update the weights based on the gradients. This is called an optimization step.
 basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &#39;a&#39;),(1, &#39;b&#39;),(2, &#39;c&#39;),(3, &#39;d&#39;),(4, &#39;e&#39;),(5, &#39;f&#39;),(6, &#39;g&#39;),(7, &#39;h&#39;),(8, &#39;i&#39;),(9, &#39;j&#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow,
           
@@ -275,7 +276,8 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div class="post-content">
           
           
-          MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.
+          My Code Source Code
+MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.
           
           
         </div>
@@ -324,11 +326,12 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div class="post-content">
           
           
-          An End-to-End SGD Example we want to find the smallest value
+          My Code Source Code
+An End-to-End SGD Example we want to find the smallest value
 Some useful function craete a 0-19 torch array
 time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
 # 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
-# simulate a car speed # torch.randn(20)*3 is some random noise time = torch.
+# simulate a car speed # torch.
           
           
         </div>
@@ -375,7 +378,8 @@ time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7
         <div class="post-content">
           
           
-          Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder).
+          My Code Source Code
+Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder).
           
           
         </div>

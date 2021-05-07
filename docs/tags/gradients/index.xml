@@ -13,10 +13,13 @@
       <pubDate>Wed, 28 Apr 2021 11:15:32 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.5/</guid>
-      <description>Gradients explain for the Gredient 
+      <description>My Code Source Code
+Gradients explain for the Gredient 
 calculate for the gradient in program def f(x): return x**2 the function in 4.4
 # select a tensor to calculate the grad xt = tensor(3.).requires_grad_() xt yt = f(xt) yt # calculate the gradients yt.backward() # see the grad,answer is 6 xt.grad # tensor(6.) another example xt = tensor([3.,4.,10.]).requires_grad_() def f(x): return (x**2).sum() yt = f(xt) yt.backward() xt.grad </description>
-      <content>&lt;h1 id=&#34;_gradients_&#34;&gt;&lt;em&gt;Gradients&lt;/em&gt;&lt;/h1&gt;
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;_gradients_&#34;&gt;&lt;em&gt;Gradients&lt;/em&gt;&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.khanacademy.org/math/differential-calculus/dc-diff-intro&#34;&gt;explain for the Gredient
 &lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;calculate-for-the-gradient-in-program&#34;&gt;calculate for the gradient in program&lt;/h2&gt;

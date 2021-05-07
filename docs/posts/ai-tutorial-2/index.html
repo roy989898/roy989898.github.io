@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Build your Bear reconigize model Download image we use the Azure bing image search API
+<meta name="description" content="My Code Source COde
+Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
 !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
 <meta name="keywords" content="" />
@@ -43,7 +44,8 @@ you need to apply the key for free
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 2">
-<meta property="og:description" content="Build your Bear reconigize model Download image we use the Azure bing image search API
+<meta property="og:description" content="My Code Source COde
+Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
 !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &amp;#39;secret_key_from_bing&amp;#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &amp;#34;https://api.bing.microsoft.com/v7.0/images/search&amp;#34; headers = {&amp;#34;Ocp-Apim-Subscription-Key&amp;#34; : key} # search_term = &amp;#34;grizzly bear&amp;#34; params = {&amp;#34;q&amp;#34;: search_term, &amp;#34;license&amp;#34;: &amp;#34;public&amp;#34;, &amp;#34;imageType&amp;#34;: &amp;#34;photo&amp;#34;,&amp;#34;count&amp;#34;:&amp;#39;150&amp;#39;} response = requests." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-2/" />
@@ -158,7 +160,9 @@ you need to apply the key for free
   
 
   <div class="post-content"><div>
-        <h1 id="build-your-bear-reconigize-model">Build your Bear reconigize model<a href="#build-your-bear-reconigize-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/10bYGsmx9OZYmk5xMw0kPAKNaD5ZGn9kr?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/02_production.ipynb">Source COde</a></p>
+<h1 id="build-your-bear-reconigize-model">Build your Bear reconigize model<a href="#build-your-bear-reconigize-model" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="download-image">Download image<a href="#download-image" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>we use the Azure <a href="https://www.microsoft.com/en-us/bing/apis/bing-image-search-api">bing image search API</a></p>
 <p>you need to apply the key for free</p>
@@ -223,9 +227,9 @@ data loader tell fastai 4 thing:</p>
 <li>how to tag the items</li>
 <li>How to create the validation set</li>
 </ol>
-<p>blocks=(ImageBlock, CategoryBlock), mean use the image to predict,<br>
-#CategoryBlock mean target is the category<br>
-get_items=get_image_files ,how to get the image,from files<br>
+<p>blocks=(ImageBlock, CategoryBlock), mean use the image to predict,</p>
+<h1 id="categoryblock-mean-target-is-the-category">CategoryBlock mean target is the category<a href="#categoryblock-mean-target-is-the-category" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>get_items=get_image_files ,how to get the image,from files<br>
 splitter mean how to get the validation set<br>
 get_y mean how to get the Category<br>
 parent_label mean use the parent folder as a category tag<br>

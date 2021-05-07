@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex." />
+<meta name="description" content="My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.12/" />
@@ -41,7 +42,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.12 Adding a Nonlinearity">
-<meta property="og:description" content="Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex." />
+<meta property="og:description" content="My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 &#43; b1 res = res.max(tensor(0.0)) res = res@w2 &#43; b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.12/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -156,7 +158,9 @@
   
 
   <div class="post-content"><div>
-        <h1 id="adding-a-nonlinearity">Adding a Nonlinearity<a href="#adding-a-nonlinearity" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb">Source Code</a></p>
+<h1 id="adding-a-nonlinearity">Adding a Nonlinearity<a href="#adding-a-nonlinearity" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_net</span>(xb): 
     res <span style="color:#f92672">=</span> xb<span style="color:#a6e22e">@w1</span> <span style="color:#f92672">+</span> b1
     res <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>max(tensor(<span style="color:#ae81ff">0.0</span>))

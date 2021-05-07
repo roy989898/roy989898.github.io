@@ -160,8 +160,10 @@
         <div class="post-content">
           
           
-          Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.+)_\d+.jpg$&#39;), &#39;name&#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0.
+          My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.
           
           
         </div>

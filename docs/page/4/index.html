@@ -168,7 +168,8 @@
         <div class="post-content">
           
           
-          Build your Bear reconigize model Download image we use the Azure bing image search API
+          My Code Source COde
+Build your Bear reconigize model Download image we use the Azure bing image search API
 you need to apply the key for free
 !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * from fastai.vision.widgets import * key = &#39;secret_key_from_bing&#39; import requests import matplotlib.pyplot as plt from PIL import Image from io import BytesIO def search_images_bing_min(search_term): search_url = &#34;https://api.bing.microsoft.com/v7.0/images/search&#34; headers = {&#34;Ocp-Apim-Subscription-Key&#34; : key} # search_term = &#34;grizzly bear&#34; params = {&#34;q&#34;: search_term, &#34;license&#34;: &#34;public&#34;, &#34;imageType&#34;: &#34;photo&#34;,&#34;count&#34;:&#39;150&#39;} response = requests.
           
@@ -254,8 +255,8 @@ you need to apply the key for free
         <div class="post-content">
           
           
-          Your First Model on fastai framework
-!pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
+          MyCode Source Code
+Your First Model on fastai framework !pip install -Uqq fastbook import fastbook fastbook.setup_book() from fastbook import * #id first_training #caption Results from the first training from fastai.vision.all import * # get the cat do images path path = untar_data(URLs.PETS)/&#39;images&#39; def is_cat(x): return x[0].isupper() # because we are stuing the image so use ImageDataLoaders # valid_pct=0.2 meankeep 20 % photo image not use on training,for testing # label_func=is_cat mean get the tag of the imag,to detect # is the photos is a cat or dog,if photo name start by Upper case # ,than tha pohot is a cat # item_tfms=Resize(224) resize the photo to 224 dls = ImageDataLoaders.
           
           
         </div>

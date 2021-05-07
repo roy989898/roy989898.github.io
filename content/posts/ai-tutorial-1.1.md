@@ -9,7 +9,9 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-Your First Model on fastai framework
+[MyCode](https://colab.research.google.com/drive/1wp8oHYx2MJq0T9n93DYVi4533QbsK8UT?usp=sharing)
+[Source Code](https://colab.research.google.com/github/fastai/fastbook/blob/master/01_intro.ipynb)
+# Your First Model on fastai framework
 
 ```python
 

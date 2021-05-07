@@ -160,7 +160,8 @@
         <div class="post-content">
           
           
-          Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.
+          My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels.
           
           
         </div>

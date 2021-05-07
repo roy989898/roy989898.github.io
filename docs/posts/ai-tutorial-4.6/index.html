@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
+<meta name="description" content="My Code Source Code
+Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.6/" />
@@ -41,7 +42,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.6 Stepping With a Learning Rate">
-<meta property="og:description" content="Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
+<meta property="og:description" content="My Code Source Code
+Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&amp;rsquo;ll show you a better approach later in this book, called the learning rate finder)." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.6/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -158,7 +160,9 @@
   
 
   <div class="post-content"><div>
-        <h1 id="_stepping-with-a-learning-rate_"><em>Stepping With a Learning Rate</em><a href="#_stepping-with-a-learning-rate_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb">Source Code</a></p>
+<h1 id="_stepping-with-a-learning-rate_"><em>Stepping With a Learning Rate</em><a href="#_stepping-with-a-learning-rate_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder). Once you&rsquo;ve picked a learning rate, you can adjust your parameters using this simple function:
 w -= gradient(w) * lr<br>
 This is known as <em>stepping</em> your parameters, using an <em>optimizer step</em>.

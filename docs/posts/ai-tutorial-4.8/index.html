@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
+<meta name="description" content="My Code Source Code
+MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.8/" />
@@ -41,7 +42,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.8 The MNIST Loss Function">
-<meta property="og:description" content="MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
+<meta property="og:description" content="My Code Source Code
+MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 &#43; [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 &#43; [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.8/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -162,7 +164,9 @@
   
 
   <div class="post-content"><div>
-        <h1 id="_mnist-loss-function_"><em>MNIST Loss Function</em><a href="#_mnist-loss-function_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb">Source Code</a></p>
+<h1 id="_mnist-loss-function_"><em>MNIST Loss Function</em><a href="#_mnist-loss-function_" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="some-basic-python">some basic python<a href="#some-basic-python" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <h3 id="zip">zip<a href="#zip" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># zip</span>

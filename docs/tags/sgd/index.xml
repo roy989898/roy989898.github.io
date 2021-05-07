@@ -13,8 +13,11 @@
       <pubDate>Thu, 29 Apr 2021 11:23:16 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.11/</guid>
-      <description>Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p.</description>
-      <content>&lt;h1 id=&#34;creating-an-optimizer&#34;&gt;Creating an Optimizer&lt;/h1&gt;
+      <description>My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;creating-an-optimizer&#34;&gt;Creating an Optimizer&lt;/h1&gt;
 &lt;h2 id=&#34;we-can-make-the-above-code-more-general-to-use&#34;&gt;we can make the above code more general to use&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# use nn.Linear to replace the linear1&lt;/span&gt;
@@ -89,11 +92,14 @@ metrics:how to calculate the metrics&lt;/p&gt;
       <pubDate>Wed, 28 Apr 2021 16:52:44 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.10/</guid>
-      <description>Put it all together each epoch is like this
+      <description>My Code Source Code
+Put it all together each epoch is like this
 # basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
 weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
 dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data</description>
-      <content>&lt;h1 id=&#34;put-it-all-together&#34;&gt;Put it all together&lt;/h1&gt;
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;put-it-all-together&#34;&gt;Put it all together&lt;/h1&gt;
 &lt;p&gt;each epoch is like this&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# basic example&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# for x,y in dl:&lt;/span&gt;
@@ -196,10 +202,12 @@ validate_epoch(linear1)
       <pubDate>Wed, 28 Apr 2021 16:06:34 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.9/</guid>
-      <description>we already have a SGD loss function,we can go to Step
+      <description>My Code Source Code we already have a SGD loss function,we can go to Step
 which is to change or update the weights based on the gradients. This is called an optimization step.
 basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow,</description>
-      <content>&lt;p&gt;we already have a SGD loss function,we can go to &lt;code&gt;Step&lt;/code&gt;&lt;br&gt;
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;
+we already have a SGD loss function,we can go to &lt;code&gt;Step&lt;/code&gt;&lt;br&gt;
 which is to change or update the weights based on the gradients. This is called an optimization step.&lt;/p&gt;
 &lt;h1 id=&#34;basic-python&#34;&gt;basic Python&lt;/h1&gt;
 &lt;h2 id=&#34;stringascii_lowercase&#34;&gt;string.ascii_lowercase&lt;/h2&gt;
@@ -240,12 +248,15 @@ list(dl)
       <pubDate>Wed, 28 Apr 2021 11:57:33 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.7/</guid>
-      <description>An End-to-End SGD Example we want to find the smallest value
+      <description>My Code Source Code
+An End-to-End SGD Example we want to find the smallest value
 Some useful function craete a 0-19 torch array
 time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]) create randome number
 # 返回一個張量，包含了從標準正態分佈（均值為0，方差為1，即高斯白噪聲）中抽取的一組隨機數。張量的形狀由參數sizes定義。 num=20 t=torch.randn(num) time_f = torch.arange(0,num).float(); time plt.scatter(time_f,t); t simulate a car speed
-# simulate a car speed # torch.randn(20)*3 is some random noise time = torch.</description>
-      <content>&lt;h1 id=&#34;_an-end-to-end-sgd-example_&#34;&gt;&lt;em&gt;An End-to-End SGD Example&lt;/em&gt;&lt;/h1&gt;
+# simulate a car speed # torch.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;_an-end-to-end-sgd-example_&#34;&gt;&lt;em&gt;An End-to-End SGD Example&lt;/em&gt;&lt;/h1&gt;
 &lt;p&gt;we want to find the smallest value&lt;/p&gt;
 &lt;h2 id=&#34;some-useful-function&#34;&gt;Some useful function&lt;/h2&gt;
 &lt;p&gt;craete a 0-19 torch array&lt;/p&gt;
@@ -386,7 +397,9 @@ x is the image, represented as a vector—in other words, with all of the rows s
 &lt;h2 id=&#34;simple-example-of-sgd&#34;&gt;simple example of SGD&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;(x): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(f, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x**2&amp;#39;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/x2p.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;
+&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/x2p.PNG&#34; alt=&#34;sgd_step&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(f, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;x**2&amp;#39;&lt;/span&gt;)
 plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scatter(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;, f(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;), color&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;);

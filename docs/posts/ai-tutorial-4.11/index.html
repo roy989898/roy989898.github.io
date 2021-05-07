@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p." />
+<meta name="description" content="My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-4.11/" />
@@ -41,7 +42,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 4.11 Creating an Optimizer">
-<meta property="og:description" content="Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p." />
+<meta property="og:description" content="My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-4.11/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -156,7 +158,9 @@
   
 
   <div class="post-content"><div>
-        <h1 id="creating-an-optimizer">Creating an Optimizer<a href="#creating-an-optimizer" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing">My Code</a>
+<a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb">Source Code</a></p>
+<h1 id="creating-an-optimizer">Creating an Optimizer<a href="#creating-an-optimizer" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="we-can-make-the-above-code-more-general-to-use">we can make the above code more general to use<a href="#we-can-make-the-above-code-more-general-to-use" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
 <span style="color:#75715e"># use nn.Linear to replace the linear1</span>

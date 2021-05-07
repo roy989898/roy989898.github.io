@@ -9,9 +9,12 @@ tags = ["ai", "fastai","pytorch","寫給程式設計師的深度學習：使用f
 description = ""
 showFullContent = false
 +++
+[My Code](https://colab.research.google.com/drive/10bYGsmx9OZYmk5xMw0kPAKNaD5ZGn9kr?usp=sharing)
+[Source COde](https://colab.research.google.com/github/fastai/fastbook/blob/master/02_production.ipynb)
 # Build your Bear reconigize model
 
 ## Download image
+
 we use the Azure [bing image search API](https://www.microsoft.com/en-us/bing/apis/bing-image-search-api)
 
 you need to apply the key for free
@@ -53,8 +56,8 @@ len(ims)
 
 ```
 
-
 now we can download the iomage to the google drive
+
 ```python
 bear_types = 'grizzly','black','teddy'
 path = Path('bearss')
@@ -73,6 +76,7 @@ for o in bear_types:
 ```
 
 clean the image,remove the fail image
+
 ```python
 fns = get_image_files(path)
 fns
@@ -83,21 +87,23 @@ failed.map(Path.unlink);
 ```
 
 ## intro to create the model
+
 datablock is the templat of a dataloader
 data loader tell fastai 4 thing:
+
 1. what is the type of the inf
 2. how to get the items
 3. how to tag the items
 4. How to create the validation set
 
-
 blocks=(ImageBlock, CategoryBlock), mean use the image to predict,  
-#CategoryBlock mean target is the category  
+# CategoryBlock mean target is the category  
 get_items=get_image_files ,how to get the image,from files  
 splitter mean how to get the validation set  
 get_y mean how to get the Category  
 parent_label mean use the parent folder as a category tag  
 need t oresize all the image to same size,Resize(128)  
+
 ```python
 # datablock is the templat of a dataloader
 # data loader tell fastai 4 thing:
@@ -122,6 +128,7 @@ bears = DataBlock(
     item_tfms=Resize(128))
 
 ```
+
 create the dataloaders,path is the image path,it validate and train the dataloader
 
 ```python
@@ -129,34 +136,41 @@ create the dataloaders,path is the image path,it validate and train the dataload
 dls = bears.dataloaders(path)
 
 ```
+
 see some item in the dataLoader
+
 ```python
 dls.valid.show_batch(max_n=4, nrows=1)
 
 ```
+
 we can see ,at defaukt ,the fastai crop the image to the size 128
 
 ![default](/img/ai_t/t1/default.PNG)
 
 we also can Squish the image
+
 ```python
 bears = bears.new(item_tfms=Resize(128, ResizeMethod.Squish))
 dls = bears.dataloaders(path)
 dls.valid.show_batch(max_n=4, nrows=1)
 ```
+
 ![Squish](/img/ai_t/t1/squizh.PNG)
 
 or pad them
+
 ```python
 bears = bears.new(item_tfms=Resize(128, ResizeMethod.Pad, pad_mode='zeros'))
 dls = bears.dataloaders(path)
 dls.valid.show_batch(max_n=4, nrows=1)
 
 ```
+
 ![pad](/img/ai_t/t1/pad.PNG)
 
+or randomly choose a part to crop the image
 
-or randomly choose a part to crop the image 
 ```python
 # unique=True mean use the sam picture
 # RandomResizedCrop  Crop  different part of the same picture,we can have more data to train,Data Augmentation
@@ -166,10 +180,12 @@ dls = bears.dataloaders(path)
 dls.train.show_batch(max_n=4, nrows=1, unique=True)
 
 ```
+
 ![pad](/img/ai_t/t1/RandomResizedCrop.PNG)
 
 another way to Data Augmentation(資料增強,種通過讓有限的資料產生更多的等價資料來人工擴充套件訓練資料集的技術),not crop,just example, to show  rotation, flipping, perspective warping, brightness changes and contrast changes  
 batch_tfms apply the aug_transforms to batch ,not only items
+
 ```python
 # another way to Data Augmentation,not crop,just example, to show  rotation, flipping, perspective warping, brightness changes and contrast changes
 # production use crop + aug_transforms
@@ -177,6 +193,7 @@ bears = bears.new(item_tfms=Resize(128), batch_tfms=aug_transforms(mult=2))
 dls = bears.dataloaders(path)
 dls.train.show_batch(max_n=8, nrows=2, unique=True)
 ```
+
 ![pad](/img/ai_t/t1/aug_t.PNG)
 
 ## Start create the model
@@ -196,20 +213,22 @@ dls = bears.dataloaders(path)
 learn = cnn_learner(dls, resnet18, metrics=error_rate)
 learn.fine_tune(4)
 ```
+
 ```python
 interp = ClassificationInterpretation.from_learner(learn)
 interp.plot_confusion_matrix()
 ```
+
 ![square](/img/ai_t/t1/square.PNG)
 this is the result box,,to see how many item is worng predict
 we can see some grizzly,put in black
-
 
 ```python
 interp.plot_top_losses(5, nrows=1)
 # we can see some grizzly,put in black
 # the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high
 ```
+
 the number loss,mean the predict is right, but not conficdent,or the answer is wrong,this number will high
 ![pi](/img/ai_t/t1/pl.PNG)
 
@@ -218,11 +237,12 @@ the number loss,mean the predict is right, but not conficdent,or the answer is w
 cleaner = ImageClassifierCleaner(learn)
 cleaner
 ```
-![gui](/img/ai_t/t1/gui.png)
 
+![gui](/img/ai_t/t1/gui.png)
 
 after change the action to the pait(bear colormgroup(valid,train))  
 run below to move and dlete the items
+
 ```python
 print(cleaner.delete())
 print(cleaner.change())
@@ -235,9 +255,11 @@ for idx,cat in cleaner.change():
   except:
     cleaner.fns[idx].unlink()
 ```
-after this process, we can retrain again,run 
+
+after this process, we can retrain again,run
 
 ## Use it
+
 ```python
 uploader = widgets.FileUpload()
 uploader

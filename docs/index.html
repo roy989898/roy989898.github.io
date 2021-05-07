@@ -172,8 +172,9 @@
         <div class="post-content">
           
           
-          Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
-Taking the Log plot_function(torch.log, min=-5,max=4) log in python
+          My Code 
+Source Code 
+Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.
           
           
         </div>
@@ -222,7 +223,9 @@ Taking the Log plot_function(torch.log, min=-5,max=4) log in python
         <div class="post-content">
           
           
-          Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
+          My Code 
+Source Code 
+Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
 Cross-entropy loss can use for more than 2 category
 Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3, 224, 224]) our batch isze is 64,so we can see the list is 64 item.
           
@@ -269,8 +272,10 @@ Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3
         <div class="post-content">
           
           
-          Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.+)_\d+.jpg$&#39;), &#39;name&#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0.
+          My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.
           
           
         </div>
@@ -315,7 +320,8 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div class="post-content">
           
           
-          Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels. You can change that 30 to anything you like, to make the model more or less complex.
+          My Code Source Code
+Adding a Nonlinearity def simple_net(xb): res = xb@w1 + b1 res = res.max(tensor(0.0)) res = res@w2 + b2 return res # init the w and b just like we did in the previous section: w1 = init_params((28*28,30)) b1 = init_params(30) w2 = init_params((30,1)) b2 = init_params(1) why w1 = init_params((28*28,30)) is 30???? That means that the first layer can construct 30 different features, each representing some different mix of pixels.
           
           
         </div>
@@ -360,7 +366,8 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div class="post-content">
           
           
-          Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.params: p.data -= p.
+          My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.
           
           
         </div>

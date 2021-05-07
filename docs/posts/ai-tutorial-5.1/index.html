@@ -6,8 +6,10 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;), &amp;#39;name&amp;#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0." />
+<meta name="description" content="My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-5.1/" />
@@ -42,8 +44,10 @@ re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;hav
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 5.1 Image Classification &gt;2 types 1">
-<meta property="og:description" content="Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
-re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;), &amp;#39;name&amp;#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0." />
+<meta property="og:description" content="My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-5.1/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -158,7 +162,11 @@ re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;hav
   
 
   <div class="post-content"><div>
-        <h1 id="image-classification-1">Image Classification 1<a href="#image-classification-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing">My Code
+</a></p>
+<p><a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd">Source Code
+</a></p>
+<h1 id="image-classification-1">Image Classification 1<a href="#image-classification-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#hide</span>
 <span style="color:#960050;background-color:#1e0010">!</span>pip install <span style="color:#f92672">-</span>Uqq fastbook
 <span style="color:#f92672">import</span> fastbook

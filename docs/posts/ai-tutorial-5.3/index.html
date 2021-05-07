@@ -6,8 +6,9 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
-Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
+<meta name="description" content="My Code 
+Source Code 
+Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0." />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-5.3/" />
@@ -42,8 +43,9 @@ Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2">
-<meta property="og:description" content="Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
-Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
+<meta property="og:description" content="My Code 
+Source Code 
+Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-5.3/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -160,7 +162,11 @@ Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
   
 
   <div class="post-content"><div>
-        <h1 id="cross-entropy-loss-2">Cross-entropy loss 2<a href="#cross-entropy-loss-2" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+        <p><a href="https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing">My Code
+</a></p>
+<p><a href="https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd">Source Code
+</a></p>
+<h1 id="cross-entropy-loss-2">Cross-entropy loss 2<a href="#cross-entropy-loss-2" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!</p>
 <h2 id="taking-the-log">Taking the Log<a href="#taking-the-log" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(torch<span style="color:#f92672">.</span>log, min<span style="color:#f92672">=-</span><span style="color:#ae81ff">5</span>,max<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)

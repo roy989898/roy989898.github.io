@@ -13,8 +13,11 @@
       <pubDate>Wed, 28 Apr 2021 12:44:41 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.8/</guid>
-      <description>MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.</description>
-      <content>&lt;h1 id=&#34;_mnist-loss-function_&#34;&gt;&lt;em&gt;MNIST Loss Function&lt;/em&gt;&lt;/h1&gt;
+      <description>My Code Source Code
+MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;_mnist-loss-function_&#34;&gt;&lt;em&gt;MNIST Loss Function&lt;/em&gt;&lt;/h1&gt;
 &lt;h2 id=&#34;some-basic-python&#34;&gt;some basic python&lt;/h2&gt;
 &lt;h3 id=&#34;zip&#34;&gt;zip&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# zip&lt;/span&gt;

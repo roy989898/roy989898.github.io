@@ -13,10 +13,12 @@
       <pubDate>Wed, 28 Apr 2021 16:06:34 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-4.9/</guid>
-      <description>we already have a SGD loss function,we can go to Step
+      <description>My Code Source Code we already have a SGD loss function,we can go to Step
 which is to change or update the weights based on the gradients. This is called an optimization step.
 basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrstuvwxyz basic Pytorch enumerate # L is something liek list # enumerate() 函數用於將一個可遍歷的數據對象(如列表、元組或字符串)組合為一個索引序列，同時列出數據和數據下標，一般用在for 循環當中。 ds = L(enumerate(string.ascii_lowercase)) ds # [(0, &amp;#39;a&amp;#39;),(1, &amp;#39;b&amp;#39;),(2, &amp;#39;c&amp;#39;),(3, &amp;#39;d&amp;#39;),(4, &amp;#39;e&amp;#39;),(5, &amp;#39;f&amp;#39;),(6, &amp;#39;g&amp;#39;),(7, &amp;#39;h&amp;#39;),(8, &amp;#39;i&amp;#39;),(9, &amp;#39;j&amp;#39;)...] optimization step why Mini-Batches we can one item for 1 epoch,but this will be very slow,</description>
-      <content>&lt;p&gt;we already have a SGD loss function,we can go to &lt;code&gt;Step&lt;/code&gt;&lt;br&gt;
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing&#34;&gt;My Code&lt;/a&gt;
+&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb&#34;&gt;Source Code&lt;/a&gt;
+we already have a SGD loss function,we can go to &lt;code&gt;Step&lt;/code&gt;&lt;br&gt;
 which is to change or update the weights based on the gradients. This is called an optimization step.&lt;/p&gt;
 &lt;h1 id=&#34;basic-python&#34;&gt;basic Python&lt;/h1&gt;
 &lt;h2 id=&#34;stringascii_lowercase&#34;&gt;string.ascii_lowercase&lt;/h2&gt;
