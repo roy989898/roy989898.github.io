@@ -217,7 +217,25 @@ sfm
 <span style="color:#75715e">#         [-1.6675e-01, -1.8735e+00]])</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">F<span style="color:#f92672">.</span>nll_loss(sfm, targ, reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
 <span style="color:#75715e"># tensor([0.2491, 2.2091, 1.8857, 0.7434, 5.4201, 0.1667])</span>
-</code></pre></div>
+</code></pre></div><h1 id="model-interpretation">Model Interpretation<a href="#model-interpretation" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>use a confusion matrix to see where our model is doing well, and where it&rsquo;s doing badly:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#width 600</span>
+interp <span style="color:#f92672">=</span> ClassificationInterpretation<span style="color:#f92672">.</span>from_learner(learn)
+interp<span style="color:#f92672">.</span>plot_confusion_matrix(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">12</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
+</code></pre></div><p><img src="/img/ai_t/t1/pet_matrix.PNG" alt="pet_matrix"></p>
+<p>too diccfcult to read</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># only show the most bad </span>
+<span style="color:#75715e"># min_val 5 mean the wrong at least is 5</span>
+interp<span style="color:#f92672">.</span>most_confused(min_val<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+<span style="color:#75715e"># [(&#39;Ragdoll&#39;, &#39;Birman&#39;, 9),</span>
+<span style="color:#75715e">#  (&#39;american_pit_bull_terrier&#39;, &#39;staffordshire_bull_terrier&#39;, 8),</span>
+<span style="color:#75715e">#  (&#39;Bengal&#39;, &#39;Egyptian_Mau&#39;, 6)]</span>
+<span style="color:#75715e"># actual Egyptian_Mau ,but predict Bengal is9</span>
+
+<span style="color:#75715e"># search at google, we can foind the they really need to classifer by a humanexpert, so it is ok</span>
+
+</code></pre></div><p>new we have a good model,how can we make it better?</p>
+
       </div></div>
 
   

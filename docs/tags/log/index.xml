@@ -71,7 +71,25 @@ sfm
 &lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.6675e-01, -1.8735e+00]])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nll_loss(sfm, targ, reduction&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor([0.2491, 2.2091, 1.8857, 0.7434, 5.4201, 0.1667])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;model-interpretation&#34;&gt;Model Interpretation&lt;/h1&gt;
+&lt;p&gt;use a confusion matrix to see where our model is doing well, and where it&amp;rsquo;s doing badly:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#width 600&lt;/span&gt;
+interp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ClassificationInterpretation&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;from_learner(learn)
+interp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot_confusion_matrix(figsize&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;), dpi&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/pet_matrix.PNG&#34; alt=&#34;pet_matrix&#34;&gt;&lt;/p&gt;
+&lt;p&gt;too diccfcult to read&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# only show the most bad &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# min_val 5 mean the wrong at least is 5&lt;/span&gt;
+interp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;most_confused(min_val&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# [(&amp;#39;Ragdoll&amp;#39;, &amp;#39;Birman&amp;#39;, 9),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  (&amp;#39;american_pit_bull_terrier&amp;#39;, &amp;#39;staffordshire_bull_terrier&amp;#39;, 8),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  (&amp;#39;Bengal&amp;#39;, &amp;#39;Egyptian_Mau&amp;#39;, 6)]&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# actual Egyptian_Mau ,but predict Bengal is9&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# search at google, we can foind the they really need to classifer by a humanexpert, so it is ok&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;new we have a good model,how can we make it better?&lt;/p&gt;
+</content>
     </item>
     
   </channel>

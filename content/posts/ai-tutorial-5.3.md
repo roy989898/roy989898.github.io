@@ -15,6 +15,7 @@ showFullContent = false
 
 [Source Code
 ](https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd)
+
 # Cross-entropy loss 2
 
 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1>=p>=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
@@ -107,3 +108,32 @@ sfm
 F.nll_loss(sfm, targ, reduction='none')
 # tensor([0.2491, 2.2091, 1.8857, 0.7434, 5.4201, 0.1667])
 ```
+
+# Model Interpretation
+
+use a confusion matrix to see where our model is doing well, and where it's doing badly:
+
+```py
+#width 600
+interp = ClassificationInterpretation.from_learner(learn)
+interp.plot_confusion_matrix(figsize=(12,12), dpi=60)
+```
+
+![pet_matrix](/img/ai_t/t1/pet_matrix.PNG)
+
+too diccfcult to read
+
+```py
+# only show the most bad 
+# min_val 5 mean the wrong at least is 5
+interp.most_confused(min_val=5)
+# [('Ragdoll', 'Birman', 9),
+#  ('american_pit_bull_terrier', 'staffordshire_bull_terrier', 8),
+#  ('Bengal', 'Egyptian_Mau', 6)]
+# actual Egyptian_Mau ,but predict Bengal is9
+
+# search at google, we can foind the they really need to classifer by a humanexpert, so it is ok
+
+```
+
+new we have a good model,how can we make it better?
