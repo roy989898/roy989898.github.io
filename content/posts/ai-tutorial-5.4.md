@@ -117,3 +117,97 @@ learn.fit_one_cycle(6, lr_max=1e-5)
 The deepest layers of model might not need as high a learning rate as the last ones, so we should probably use different learning rates for those—this is known as using discriminative learning rates.
 
 ## Discriminative Learning Rates
+
+each level can use different LR,at low level,we can use the lower LR,because they already trained,they have pretrained weights,useful for nearly any task,no need to change so much,at higher level,the pretrained weights is for   much more complex concepts, like "eye" and "sunset," which might not be useful in your task at all,use a faster lr to train them  
+main point:  
+use a lower learning rate for the early layers of the neural network, and a higher learning rate for the later layers (and especially the randomly added layers)
+
+### Basic for the slice
+
+```py
+arr=list(range(10))
+myslice = slice(5)
+arr[myslice]  
+# [0, 1, 2, 3, 4]
+myslice = slice(1,5)
+arr[myslice]  
+# [1, 2, 3, 4]
+myslice = slice(0,5,2)
+arr[myslice]  
+# [0, 2, 4]
+```
+
+```py
+# lr_max=slice(1e-6,1e-4)
+# mean lowest LR is 1e-6,the other layers will scale up to 1e-4
+learn = cnn_learner(dls, resnet34, metrics=error_rate)
+learn.fit_one_cycle(3, 3e-3)
+learn.unfreeze()
+learn.fit_one_cycle(12, lr_max=slice(1e-6,1e-4))
+
+# epoch train_loss valid_loss error_rate time
+# 0 1.131566 0.361410 0.111637 01:06
+# 1 0.544027 0.264487 0.086604 01:06
+# 2 0.316729 0.248465 0.083221 01:07
+# epoch train_loss valid_loss error_rate time
+# 0 0.256258 0.242825 0.085250 01:11
+# 1 0.242427 0.238632 0.080514 01:11
+# 2 0.233899 0.233360 0.083221 01:11
+# 3 0.217217 0.217414 0.075778 01:11
+# 4 0.189038 0.217263 0.070365 01:11
+# 5 0.181181 0.207588 0.069012 01:11
+# 6 0.158933 0.208005 0.070365 01:11
+# 7 0.148363 0.205170 0.068336 01:11
+# 8 0.135392 0.203676 0.069012 01:12
+# 9 0.122220 0.203666 0.065629 01:11
+# 10 0.130100 0.200204 0.065629 01:11
+# 11 0.119578 0.205134 0.069689 01:11
+```
+
+Now the fine-tuning is working great!
+
+we can see the loss chnage
+
+```py
+# plot the loss change
+learn.recorder.plot_loss()
+```
+
+![pLoss](/img/ai_t/t1/p_loss.PNG)
+
+the training loss keeps getting better and better. But notice that eventually the validation loss improvement slows, and sometimes even gets worse! This is the point at which the model is starting to over fit. In particular, the model is becoming overconfident of its predictions. But this does not mean that it is getting less accurate, necessarily. Take a look at the table of training results per epoch, and you will often see that the accuracy continues improving, even as the validation loss gets worse. In the end what matters is your accuracy, or more generally your chosen **metrics**, **not the loss**. The loss is just the function we've given the computer to help us to optimize.
+
+## Number of Epochs
+
+choose the number of epoch that you willing to wait,than watch the above picture, if you see that the metric are still getting better even in your final epochs, then you know that you have not trained for too long.
+
+## Deeper Architectures
+
+a model with more parameters(depper) can model your data more accurately.  
+
+This is why, in practice, architectures tend to come in a small number of variants. For instance, the ResNet architecture that we are using in this chapter comes in variants with 18, 34, 50, 101, and 152 layer, pretrained on ImageNet. A larger (more layers and parameters; sometimes described as the "capacity" of a model) version of a ResNet will always be able to give us a better training loss, but it can suffer more from overfitting, because it has more parameters to overfit with.  
+
+the other problem is,depper, will use more GPU RAM,an duse more time  
+
+nearly all current NVIDIA GPUs support a special feature called**tensor cores** that can dramatically speed up neural network training, by 2-3x. They also require a lot less GPU memory. To enable this feature in fastai, just add to_fp16() after your Learner creation (you also need to import the module).  
+
+You can't really know ahead of time what the best architecture for your particular problem is—you need to try training some. So let's try a ResNet-50 now with mixed precision:  
+
+```py
+  from fastai.callback.fp16 import *
+learn = cnn_learner(dls, resnet50, metrics=error_rate).to_fp16()
+learn.fine_tune(6, freeze_epochs=3)
+# epoch train_loss valid_loss error_rate time
+# 0 1.279959 0.309704 0.102842 01:05
+# 1 0.590101 0.312733 0.101489 01:05
+# 2 0.447781 0.294772 0.088633 01:05
+# epoch train_loss valid_loss error_rate time
+# 0 0.274948 0.280899 0.085250 01:07
+# 1 0.299947 0.331522 0.089310 01:07
+# 2 0.251186 0.292205 0.084574 01:07
+# 3 0.159606 0.241466 0.068336 01:07
+# 4 0.083857 0.210775 0.060893 01:07
+# 5 0.054267 0.210627 0.060893 01:06
+```
+
+try small model first,than try big model

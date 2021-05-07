@@ -234,6 +234,73 @@ learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81f
 <span style="color:#75715e"># 5 0.183777 0.215303 0.064953 01:12</span>
 </code></pre></div><p>The deepest layers of model might not need as high a learning rate as the last ones, so we should probably use different learning rates for those—this is known as using discriminative learning rates.</p>
 <h2 id="discriminative-learning-rates">Discriminative Learning Rates<a href="#discriminative-learning-rates" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>each level can use different LR,at low level,we can use the lower LR,because they already trained,they have pretrained weights,useful for nearly any task,no need to change so much,at higher level,the pretrained weights is for   much more complex concepts, like &ldquo;eye&rdquo; and &ldquo;sunset,&rdquo; which might not be useful in your task at all,use a faster lr to train them<br>
+main point:<br>
+use a lower learning rate for the early layers of the neural network, and a higher learning rate for the later layers (and especially the randomly added layers)</p>
+<h3 id="basic-for-the-slice">Basic for the slice<a href="#basic-for-the-slice" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">arr<span style="color:#f92672">=</span>list(range(<span style="color:#ae81ff">10</span>))
+myslice <span style="color:#f92672">=</span> slice(<span style="color:#ae81ff">5</span>)
+arr[myslice]  
+<span style="color:#75715e"># [0, 1, 2, 3, 4]</span>
+myslice <span style="color:#f92672">=</span> slice(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>)
+arr[myslice]  
+<span style="color:#75715e"># [1, 2, 3, 4]</span>
+myslice <span style="color:#f92672">=</span> slice(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>)
+arr[myslice]  
+<span style="color:#75715e"># [0, 2, 4]</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># lr_max=slice(1e-6,1e-4)</span>
+<span style="color:#75715e"># mean lowest LR is 1e-6,the other layers will scale up to 1e-4</span>
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet34, metrics<span style="color:#f92672">=</span>error_rate)
+learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3e-3</span>)
+learn<span style="color:#f92672">.</span>unfreeze()
+learn<span style="color:#f92672">.</span>fit_one_cycle(<span style="color:#ae81ff">12</span>, lr_max<span style="color:#f92672">=</span>slice(<span style="color:#ae81ff">1e-6</span>,<span style="color:#ae81ff">1e-4</span>))
+
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 1.131566 0.361410 0.111637 01:06</span>
+<span style="color:#75715e"># 1 0.544027 0.264487 0.086604 01:06</span>
+<span style="color:#75715e"># 2 0.316729 0.248465 0.083221 01:07</span>
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 0.256258 0.242825 0.085250 01:11</span>
+<span style="color:#75715e"># 1 0.242427 0.238632 0.080514 01:11</span>
+<span style="color:#75715e"># 2 0.233899 0.233360 0.083221 01:11</span>
+<span style="color:#75715e"># 3 0.217217 0.217414 0.075778 01:11</span>
+<span style="color:#75715e"># 4 0.189038 0.217263 0.070365 01:11</span>
+<span style="color:#75715e"># 5 0.181181 0.207588 0.069012 01:11</span>
+<span style="color:#75715e"># 6 0.158933 0.208005 0.070365 01:11</span>
+<span style="color:#75715e"># 7 0.148363 0.205170 0.068336 01:11</span>
+<span style="color:#75715e"># 8 0.135392 0.203676 0.069012 01:12</span>
+<span style="color:#75715e"># 9 0.122220 0.203666 0.065629 01:11</span>
+<span style="color:#75715e"># 10 0.130100 0.200204 0.065629 01:11</span>
+<span style="color:#75715e"># 11 0.119578 0.205134 0.069689 01:11</span>
+</code></pre></div><p>Now the fine-tuning is working great!</p>
+<p>we can see the loss chnage</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># plot the loss change</span>
+learn<span style="color:#f92672">.</span>recorder<span style="color:#f92672">.</span>plot_loss()
+</code></pre></div><p><img src="/img/ai_t/t1/p_loss.PNG" alt="pLoss"></p>
+<p>the training loss keeps getting better and better. But notice that eventually the validation loss improvement slows, and sometimes even gets worse! This is the point at which the model is starting to over fit. In particular, the model is becoming overconfident of its predictions. But this does not mean that it is getting less accurate, necessarily. Take a look at the table of training results per epoch, and you will often see that the accuracy continues improving, even as the validation loss gets worse. In the end what matters is your accuracy, or more generally your chosen <strong>metrics</strong>, <strong>not the loss</strong>. The loss is just the function we&rsquo;ve given the computer to help us to optimize.</p>
+<h2 id="number-of-epochs">Number of Epochs<a href="#number-of-epochs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>choose the number of epoch that you willing to wait,than watch the above picture, if you see that the metric are still getting better even in your final epochs, then you know that you have not trained for too long.</p>
+<h2 id="deeper-architectures">Deeper Architectures<a href="#deeper-architectures" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>a model with more parameters(depper) can model your data more accurately.</p>
+<p>This is why, in practice, architectures tend to come in a small number of variants. For instance, the ResNet architecture that we are using in this chapter comes in variants with 18, 34, 50, 101, and 152 layer, pretrained on ImageNet. A larger (more layers and parameters; sometimes described as the &ldquo;capacity&rdquo; of a model) version of a ResNet will always be able to give us a better training loss, but it can suffer more from overfitting, because it has more parameters to overfit with.</p>
+<p>the other problem is,depper, will use more GPU RAM,an duse more time</p>
+<p>nearly all current NVIDIA GPUs support a special feature called<strong>tensor cores</strong> that can dramatically speed up neural network training, by 2-3x. They also require a lot less GPU memory. To enable this feature in fastai, just add to_fp16() after your Learner creation (you also need to import the module).</p>
+<p>You can&rsquo;t really know ahead of time what the best architecture for your particular problem is—you need to try training some. So let&rsquo;s try a ResNet-50 now with mixed precision:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">  <span style="color:#f92672">from</span> fastai.callback.fp16 <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet50, metrics<span style="color:#f92672">=</span>error_rate)<span style="color:#f92672">.</span>to_fp16()
+learn<span style="color:#f92672">.</span>fine_tune(<span style="color:#ae81ff">6</span>, freeze_epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 1.279959 0.309704 0.102842 01:05</span>
+<span style="color:#75715e"># 1 0.590101 0.312733 0.101489 01:05</span>
+<span style="color:#75715e"># 2 0.447781 0.294772 0.088633 01:05</span>
+<span style="color:#75715e"># epoch train_loss valid_loss error_rate time</span>
+<span style="color:#75715e"># 0 0.274948 0.280899 0.085250 01:07</span>
+<span style="color:#75715e"># 1 0.299947 0.331522 0.089310 01:07</span>
+<span style="color:#75715e"># 2 0.251186 0.292205 0.084574 01:07</span>
+<span style="color:#75715e"># 3 0.159606 0.241466 0.068336 01:07</span>
+<span style="color:#75715e"># 4 0.083857 0.210775 0.060893 01:07</span>
+<span style="color:#75715e"># 5 0.054267 0.210627 0.060893 01:06</span>
+</code></pre></div><p>try small model first,than try big model</p>
 
       </div></div>
 

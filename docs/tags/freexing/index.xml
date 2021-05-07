@@ -85,6 +85,73 @@ learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;s
 &lt;span style=&#34;color:#75715e&#34;&gt;# 5 0.183777 0.215303 0.064953 01:12&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The deepest layers of model might not need as high a learning rate as the last ones, so we should probably use different learning rates for those—this is known as using discriminative learning rates.&lt;/p&gt;
 &lt;h2 id=&#34;discriminative-learning-rates&#34;&gt;Discriminative Learning Rates&lt;/h2&gt;
+&lt;p&gt;each level can use different LR,at low level,we can use the lower LR,because they already trained,they have pretrained weights,useful for nearly any task,no need to change so much,at higher level,the pretrained weights is for   much more complex concepts, like &amp;ldquo;eye&amp;rdquo; and &amp;ldquo;sunset,&amp;rdquo; which might not be useful in your task at all,use a faster lr to train them&lt;br&gt;
+main point:&lt;br&gt;
+use a lower learning rate for the early layers of the neural network, and a higher learning rate for the later layers (and especially the randomly added layers)&lt;/p&gt;
+&lt;h3 id=&#34;basic-for-the-slice&#34;&gt;Basic for the slice&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;arr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;list(range(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;))
+myslice &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slice(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+arr[myslice]  
+&lt;span style=&#34;color:#75715e&#34;&gt;# [0, 1, 2, 3, 4]&lt;/span&gt;
+myslice &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slice(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+arr[myslice]  
+&lt;span style=&#34;color:#75715e&#34;&gt;# [1, 2, 3, 4]&lt;/span&gt;
+myslice &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; slice(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+arr[myslice]  
+&lt;span style=&#34;color:#75715e&#34;&gt;# [0, 2, 4]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lr_max=slice(1e-6,1e-4)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# mean lowest LR is 1e-6,the other layers will scale up to 1e-4&lt;/span&gt;
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet34, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3e-3&lt;/span&gt;)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unfreeze()
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fit_one_cycle(&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;, lr_max&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;slice(&lt;span style=&#34;color:#ae81ff&#34;&gt;1e-6&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1e-4&lt;/span&gt;))
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 1.131566 0.361410 0.111637 01:06&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.544027 0.264487 0.086604 01:06&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.316729 0.248465 0.083221 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 0.256258 0.242825 0.085250 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.242427 0.238632 0.080514 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.233899 0.233360 0.083221 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3 0.217217 0.217414 0.075778 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4 0.189038 0.217263 0.070365 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5 0.181181 0.207588 0.069012 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 6 0.158933 0.208005 0.070365 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 7 0.148363 0.205170 0.068336 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 8 0.135392 0.203676 0.069012 01:12&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 9 0.122220 0.203666 0.065629 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 10 0.130100 0.200204 0.065629 01:11&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 11 0.119578 0.205134 0.069689 01:11&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now the fine-tuning is working great!&lt;/p&gt;
+&lt;p&gt;we can see the loss chnage&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# plot the loss change&lt;/span&gt;
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recorder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;plot_loss()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/p_loss.PNG&#34; alt=&#34;pLoss&#34;&gt;&lt;/p&gt;
+&lt;p&gt;the training loss keeps getting better and better. But notice that eventually the validation loss improvement slows, and sometimes even gets worse! This is the point at which the model is starting to over fit. In particular, the model is becoming overconfident of its predictions. But this does not mean that it is getting less accurate, necessarily. Take a look at the table of training results per epoch, and you will often see that the accuracy continues improving, even as the validation loss gets worse. In the end what matters is your accuracy, or more generally your chosen &lt;strong&gt;metrics&lt;/strong&gt;, &lt;strong&gt;not the loss&lt;/strong&gt;. The loss is just the function we&amp;rsquo;ve given the computer to help us to optimize.&lt;/p&gt;
+&lt;h2 id=&#34;number-of-epochs&#34;&gt;Number of Epochs&lt;/h2&gt;
+&lt;p&gt;choose the number of epoch that you willing to wait,than watch the above picture, if you see that the metric are still getting better even in your final epochs, then you know that you have not trained for too long.&lt;/p&gt;
+&lt;h2 id=&#34;deeper-architectures&#34;&gt;Deeper Architectures&lt;/h2&gt;
+&lt;p&gt;a model with more parameters(depper) can model your data more accurately.&lt;/p&gt;
+&lt;p&gt;This is why, in practice, architectures tend to come in a small number of variants. For instance, the ResNet architecture that we are using in this chapter comes in variants with 18, 34, 50, 101, and 152 layer, pretrained on ImageNet. A larger (more layers and parameters; sometimes described as the &amp;ldquo;capacity&amp;rdquo; of a model) version of a ResNet will always be able to give us a better training loss, but it can suffer more from overfitting, because it has more parameters to overfit with.&lt;/p&gt;
+&lt;p&gt;the other problem is,depper, will use more GPU RAM,an duse more time&lt;/p&gt;
+&lt;p&gt;nearly all current NVIDIA GPUs support a special feature called&lt;strong&gt;tensor cores&lt;/strong&gt; that can dramatically speed up neural network training, by 2-3x. They also require a lot less GPU memory. To enable this feature in fastai, just add to_fp16() after your Learner creation (you also need to import the module).&lt;/p&gt;
+&lt;p&gt;You can&amp;rsquo;t really know ahead of time what the best architecture for your particular problem is—you need to try training some. So let&amp;rsquo;s try a ResNet-50 now with mixed precision:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.callback.fp16 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet50, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error_rate)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_fp16()
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fine_tune(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, freeze_epochs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 1.279959 0.309704 0.102842 01:05&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.590101 0.312733 0.101489 01:05&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.447781 0.294772 0.088633 01:05&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss error_rate time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 0.274948 0.280899 0.085250 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.299947 0.331522 0.089310 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.251186 0.292205 0.084574 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3 0.159606 0.241466 0.068336 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4 0.083857 0.210775 0.060893 01:07&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5 0.054267 0.210627 0.060893 01:06&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;try small model first,than try big model&lt;/p&gt;
 </content>
     </item>
     
