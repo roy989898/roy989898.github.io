@@ -6,11 +6,11 @@
     <description>Recent content in Tags on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 May 2021 16:55:28 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 May 2021 11:46:30 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ai</title>
       <link>https://roy989898.github.io/tags/ai/</link>
-      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/tags/ai/</guid>
       <description></description>
@@ -20,7 +20,7 @@
     <item>
       <title>cross-entropy loss</title>
       <link>https://roy989898.github.io/tags/cross-entropy-loss/</link>
-      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/tags/cross-entropy-loss/</guid>
       <description></description>
@@ -30,7 +30,7 @@
     <item>
       <title>fastai</title>
       <link>https://roy989898.github.io/tags/fastai/</link>
-      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/tags/fastai/</guid>
       <description></description>
@@ -38,9 +38,19 @@
     </item>
     
     <item>
+      <title>log</title>
+      <link>https://roy989898.github.io/tags/log/</link>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/tags/log/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
       <title>pytorch</title>
       <link>https://roy989898.github.io/tags/pytorch/</link>
-      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/tags/pytorch/</guid>
       <description></description>
@@ -50,9 +60,29 @@
     <item>
       <title>寫給程式設計師的深度學習：使用fastai和PyTorch</title>
       <link>https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/</link>
-      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Log Likelihood</title>
+      <link>https://roy989898.github.io/tags/log-likelihood/</link>
+      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/tags/log-likelihood/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>softmax</title>
+      <link>https://roy989898.github.io/tags/softmax/</link>
+      <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/tags/softmax/</guid>
       <description></description>
       <content></content>
     </item>

@@ -140,6 +140,51 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://roy989898.github.io/posts/ai-tutorial-5.3/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-07
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/cross-entropy-loss/">cross-entropy loss</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/log/">log</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/ai-tutorial-5.3/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://roy989898.github.io/posts/ai-tutorial-5.2/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1</a>
         </h1>
         <div class="post-meta">
@@ -161,6 +206,10 @@
             #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
             
             #<a href="https://roy989898.github.io/tags/cross-entropy-loss/">cross-entropy loss</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/log-likelihood/">Log Likelihood</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/softmax/">softmax</a>&nbsp;
             
           </span>
         
@@ -317,54 +366,6 @@ re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare 
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-4.11/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/">Ai Tutorial 4.10 Put it all together</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-28
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          Put it all together each epoch is like this
-# basic example # for x,y in dl: # pred = model(x) # loss = loss_func(pred, y) # loss.backward() # parameters -= parameters.grad * lr re-initialize our parameters:
-weights = init_params((28*28,1)) bias = init_params(1) weights.shape # torch.Size([784, 1]) create DataLoader of train data from Dataset
-dl = DataLoader(dset, batch_size=256) xb,yb = first(dl) xb.shape,yb.shape (torch.Size([784]), tensor([1])) # (torch.Size([784]), tensor([1])) create DataLoader of valid data valid data
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-4.10/">Read more →</a>
         </div>
         
       </div>
