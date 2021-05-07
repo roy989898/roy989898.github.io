@@ -8,13 +8,65 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 07 May 2021 11:46:30 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2</title>
+      <title>Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-5.3/</link>
       <pubDate>Fri, 07 May 2021 11:46:30 +0800</pubDate>
       
       <guid>https://roy989898.github.io/posts/ai-tutorial-5.3/</guid>
-      <description></description>
-      <content></content>
+      <description>Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
+Taking the Log plot_function(torch.log, min=-5,max=4) log in python</description>
+      <content>&lt;h1 id=&#34;cross-entropy-loss-2&#34;&gt;Cross-entropy loss 2&lt;/h1&gt;
+&lt;p&gt;although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!&lt;/p&gt;
+&lt;h2 id=&#34;taking-the-log&#34;&gt;Taking the Log&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;plot_function(torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log, min&lt;span style=&#34;color:#f92672&#34;&gt;=-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,max&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/log.PNG&#34; alt=&#34;log&#34;&gt;&lt;/p&gt;
+&lt;p&gt;log in python&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b&lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;a
+a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; log(y,b)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;log(a&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;b) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; log(a)&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;log(b)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;at default, the pYtorch use e=2.718 as the log basic&lt;/p&gt;
+&lt;p&gt;in the Pytorch,nll_loss awsume you get the log of the softmax,so it do not the log.
+softmax+log+nll_loss==log_softmax+nll_loss==nn.CrossEntropyLoss()&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# log_softmax -&amp;gt;nll_loss,cross-entropy loss!!!!!&lt;/span&gt;
+loss_func &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;CrossEntropyLoss()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss_func(acts, targ)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(1.7790)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;same&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# same&lt;/span&gt;
+F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cross_entropy(acts, targ)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor(1.7790)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# at default,will take all the loss mean&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# reduction=&amp;#39;none&amp;#39; disable&lt;/span&gt;
+nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;CrossEntropyLoss(reduction&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;)(acts, targ)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we do some testing to prove &lt;code&gt;softmax+log+nll_loss==log_softmax+nll_loss==nn.CrossEntropyLoss()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;sm_acts2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;softmax(acts, dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+sm_acts2
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[0.7795, 0.2205],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.8902, 0.1098],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.1517, 0.8483],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.5245, 0.4755],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.9956, 0.0044],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [0.8464, 0.1536]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log(sm_acts2)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[-2.4908e-01, -1.5119e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.1630e-01, -2.2091e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.8857e+00, -1.6455e-01],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-6.4534e-01, -7.4335e-01],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-4.4367e-03, -5.4201e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.6675e-01, -1.8735e+00]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test ,equal the above code,softmax + log&lt;/span&gt;
+sfm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_softmax(acts, dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+sfm
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[-2.4908e-01, -1.5119e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.1630e-01, -2.2091e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.8857e+00, -1.6455e-01],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-6.4534e-01, -7.4335e-01],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-4.4366e-03, -5.4201e+00],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.6675e-01, -1.8735e+00]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nll_loss(sfm, targ, reduction&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([0.2491, 2.2091, 1.8857, 0.7434, 5.4201, 0.1667])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>

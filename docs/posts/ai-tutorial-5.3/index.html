@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   
-    <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2 :: Terminal</title>
+    <title>Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2 :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="" />
+<meta name="description" content="Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
+Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
 <meta name="keywords" content=", " />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://roy989898.github.io/posts/ai-tutorial-5.3/" />
@@ -40,8 +41,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2">
-<meta property="og:description" content="" />
+<meta property="og:title" content="Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2">
+<meta property="og:description" content="Cross-entropy loss 2 although softmax&#43; log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&amp;gt;=p&amp;gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
+Taking the Log plot_function(torch.log, min=-5,max=4) log in python" />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-5.3/" />
 <meta property="og:site_name" content="Terminal" />
 
@@ -125,7 +127,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://roy989898.github.io/posts/ai-tutorial-5.3/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2</a></h1>
+    <a href="https://roy989898.github.io/posts/ai-tutorial-5.3/">Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -157,7 +159,60 @@
 
   
 
-  <div class="post-content"></div>
+  <div class="post-content"><div>
+        <h1 id="cross-entropy-loss-2">Cross-entropy loss 2<a href="#cross-entropy-loss-2" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!</p>
+<h2 id="taking-the-log">Taking the Log<a href="#taking-the-log" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">plot_function(torch<span style="color:#f92672">.</span>log, min<span style="color:#f92672">=-</span><span style="color:#ae81ff">5</span>,max<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+</code></pre></div><p><img src="/img/ai_t/t1/log.PNG" alt="log"></p>
+<p>log in python</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">y <span style="color:#f92672">=</span> b<span style="color:#f92672">**</span>a
+a <span style="color:#f92672">=</span> log(y,b)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">log(a<span style="color:#f92672">*</span>b) <span style="color:#f92672">=</span> log(a)<span style="color:#f92672">+</span>log(b)
+</code></pre></div><p>at default, the pYtorch use e=2.718 as the log basic</p>
+<p>in the Pytorch,nll_loss awsume you get the log of the softmax,so it do not the log.
+softmax+log+nll_loss==log_softmax+nll_loss==nn.CrossEntropyLoss()</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># log_softmax -&gt;nll_loss,cross-entropy loss!!!!!</span>
+loss_func <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>CrossEntropyLoss()
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">loss_func(acts, targ)
+<span style="color:#75715e"># tensor(1.7790)</span>
+</code></pre></div><p>same</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># same</span>
+F<span style="color:#f92672">.</span>cross_entropy(acts, targ)
+<span style="color:#75715e"># tensor(1.7790)</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># at default,will take all the loss mean</span>
+<span style="color:#75715e"># reduction=&#39;none&#39; disable</span>
+nn<span style="color:#f92672">.</span>CrossEntropyLoss(reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)(acts, targ)
+</code></pre></div><p>we do some testing to prove <code>softmax+log+nll_loss==log_softmax+nll_loss==nn.CrossEntropyLoss()</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">sm_acts2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>softmax(acts, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+sm_acts2
+<span style="color:#75715e"># tensor([[0.7795, 0.2205],</span>
+<span style="color:#75715e">#         [0.8902, 0.1098],</span>
+<span style="color:#75715e">#         [0.1517, 0.8483],</span>
+<span style="color:#75715e">#         [0.5245, 0.4755],</span>
+<span style="color:#75715e">#         [0.9956, 0.0044],</span>
+<span style="color:#75715e">#         [0.8464, 0.1536]])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">torch<span style="color:#f92672">.</span>log(sm_acts2)
+<span style="color:#75715e"># tensor([[-2.4908e-01, -1.5119e+00],</span>
+<span style="color:#75715e">#         [-1.1630e-01, -2.2091e+00],</span>
+<span style="color:#75715e">#         [-1.8857e+00, -1.6455e-01],</span>
+<span style="color:#75715e">#         [-6.4534e-01, -7.4335e-01],</span>
+<span style="color:#75715e">#         [-4.4367e-03, -5.4201e+00],</span>
+<span style="color:#75715e">#         [-1.6675e-01, -1.8735e+00]])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># test ,equal the above code,softmax + log</span>
+sfm<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>log_softmax(acts, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+sfm
+<span style="color:#75715e"># tensor([[-2.4908e-01, -1.5119e+00],</span>
+<span style="color:#75715e">#         [-1.1630e-01, -2.2091e+00],</span>
+<span style="color:#75715e">#         [-1.8857e+00, -1.6455e-01],</span>
+<span style="color:#75715e">#         [-6.4534e-01, -7.4335e-01],</span>
+<span style="color:#75715e">#         [-4.4366e-03, -5.4201e+00],</span>
+<span style="color:#75715e">#         [-1.6675e-01, -1.8735e+00]])</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">F<span style="color:#f92672">.</span>nll_loss(sfm, targ, reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+<span style="color:#75715e"># tensor([0.2491, 2.2091, 1.8857, 0.7434, 5.4201, 0.1667])</span>
+</code></pre></div>
+      </div></div>
 
   
   

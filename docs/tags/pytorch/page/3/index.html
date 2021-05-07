@@ -130,7 +130,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-5.3/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 2</a>
+          <a href="https://roy989898.github.io/posts/ai-tutorial-5.3/">Ai Tutorial 5.3 Image Classification &gt;2 types Cross-entropy loss 2</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -161,6 +161,9 @@
 
         <div class="post-content">
           
+          
+          Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1&gt;=p&gt;=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
+Taking the Log plot_function(torch.log, min=-5,max=4) log in python
           
           
         </div>
