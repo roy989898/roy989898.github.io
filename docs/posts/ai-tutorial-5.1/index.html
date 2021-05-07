@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Ai Tutorial 5.1 Image Classification 1 :: Terminal</title>
+    <title>Ai Tutorial 5.1 Image Classification &gt;2 types 1 :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +41,7 @@ re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;hav
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ai Tutorial 5.1 Image Classification 1">
+<meta property="og:title" content="Ai Tutorial 5.1 Image Classification &gt;2 types 1">
 <meta property="og:description" content="Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&amp;#34;images&amp;#34;).ls() Get the file name fname = (path/&amp;#34;images&amp;#34;).ls()[1] # Path(&amp;#39;images/havanese_158.jpg&amp;#39;) fname.name # havanese_158.jpg use regex to get the file name
 re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;havanese&amp;#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;), &amp;#39;name&amp;#39;), item_tfms=Resize(460), batch_tfms=aug_transforms(size=224, min_scale=0." />
 <meta property="og:url" content="https://roy989898.github.io/posts/ai-tutorial-5.1/" />
@@ -127,7 +127,7 @@ re.findall(r&amp;#39;(.&#43;)_\d&#43;.jpg$&amp;#39;, fname.name) # [&amp;#39;hav
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://roy989898.github.io/posts/ai-tutorial-5.1/">Ai Tutorial 5.1 Image Classification 1</a></h1>
+    <a href="https://roy989898.github.io/posts/ai-tutorial-5.1/">Ai Tutorial 5.1 Image Classification &gt;2 types 1</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -349,7 +349,7 @@ learn<span style="color:#f92672">.</span>fine_tune(<span style="color:#ae81ff">2
         <span class="button previous">
             <a href="https://roy989898.github.io/posts/ai-tutorial-5.2/">
                 <span class="button__icon">←</span>
-                <span class="button__text">Ai Tutorial 5.2  Cross-entropy loss</span>
+                <span class="button__text">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss</span>
             </a>
         </span>
         

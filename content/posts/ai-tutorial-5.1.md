@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 5.1 Image Classification 1"
+title = "Ai Tutorial 5.1 Image Classification >2 types 1"
 date = "2021-05-06T16:15:02+08:00"
 author = ""
 authorTwitter = "" #do not include @

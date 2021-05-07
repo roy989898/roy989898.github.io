@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 5.2  Cross-entropy loss"
+title = "Ai Tutorial 5.2 Image Classification >2 types Cross-entropy loss"
 date = "2021-05-06T16:55:28+08:00"
 author = ""
 authorTwitter = "" #do not include @
