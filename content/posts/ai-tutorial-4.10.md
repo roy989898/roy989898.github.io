@@ -9,6 +9,8 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+[My Code](https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing)
+[Source Code](https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb)
 # Put it all together
 
  each epoch is like this

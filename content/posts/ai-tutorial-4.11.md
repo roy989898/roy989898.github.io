@@ -9,7 +9,8 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
-
+[My Code](https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing)
+[Source Code](https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb)
 # Creating an Optimizer
 
 ## we can make the above code more general to use

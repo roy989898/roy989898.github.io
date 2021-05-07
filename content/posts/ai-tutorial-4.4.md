@@ -53,7 +53,8 @@ def f(x): return x**2
 ```py
 plot_function(f, 'x', 'x**2')
 ```
-
+[My Code](https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing)
+[Source Code](https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb)
 ![sgd_step](/img/ai_t/t1/x2p.PNG)
 
 The sequence of steps we described earlier starts by picking some random value for a parameter, and calculating the value of the loss:

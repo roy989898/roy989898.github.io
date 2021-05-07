@@ -8,7 +8,9 @@ tags = ["ai", "fastai","pytorch","寫給程式設計師的深度學習：使用f
 keywords = ["", ""]
 description = ""
 showFullContent = false
-+++
++++'
+[My Code](https://colab.research.google.com/drive/1rMfM4H92wklMLDydjnChmJMHoJ3OS6SL?usp=sharing)
+[Source Code](https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb)
 # _Get the number sample_
 ```py
 !pip install -Uqq fastbook
