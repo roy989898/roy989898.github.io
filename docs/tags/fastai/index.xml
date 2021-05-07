@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 06 May 2021 16:55:28 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/tags/fastai/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss</title>
+      <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-5.2/</link>
       <pubDate>Thu, 06 May 2021 16:55:28 +0800</pubDate>
       
@@ -138,7 +138,8 @@ display(HTML(html))
 &lt;span style=&#34;color:#75715e&#34;&gt;# do the same thing of sm_acts[range(n), targ],except it takes the negative, because when applying the log afterward, we will have negative numbers&lt;/span&gt;
 F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nll_loss(sm_acts, targ, reduction&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;)
 &lt;span style=&#34;color:#75715e&#34;&gt;# tensor([-0.7795, -0.1098, -0.1517, -0.4755, -0.0044, -0.8464])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we can see thta the Log Likelihood get the number is bigger when the distance is close,but we want when the distance is close,the loss number is close, we handle this problem later&lt;/p&gt;
+</content>
     </item>
     
     <item>

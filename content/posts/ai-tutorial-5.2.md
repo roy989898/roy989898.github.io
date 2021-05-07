@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 5.2 Image Classification >2 types Cross-entropy loss"
+title = "Ai Tutorial 5.2 Image Classification >2 types Cross-entropy loss 1"
 date = "2021-05-06T16:55:28+08:00"
 author = ""
 authorTwitter = "" #do not include @
@@ -210,3 +210,6 @@ Pytorch have a function that do the samething with the sm_acts[],but it recive n
 F.nll_loss(sm_acts, targ, reduction='none')
 # tensor([-0.7795, -0.1098, -0.1517, -0.4755, -0.0044, -0.8464])
 ```
+
+
+we can see thta the Log Likelihood get the number is bigger when the distance is close,but we want when the distance is close,the loss number is close, we handle this problem later

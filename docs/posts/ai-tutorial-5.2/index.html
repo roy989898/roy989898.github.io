@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss :: Terminal</title>
+    <title>Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1 :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@ Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss">
+<meta property="og:title" content="Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1">
 <meta property="og:description" content="Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
 Cross-entropy loss can use for more than 2 category
 Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3, 224, 224]) our batch isze is 64,so we can see the list is 64 item." />
@@ -129,7 +129,7 @@ Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://roy989898.github.io/posts/ai-tutorial-5.2/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss</a></h1>
+    <a href="https://roy989898.github.io/posts/ai-tutorial-5.2/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -282,7 +282,8 @@ display(HTML(html))
 <span style="color:#75715e"># do the same thing of sm_acts[range(n), targ],except it takes the negative, because when applying the log afterward, we will have negative numbers</span>
 F<span style="color:#f92672">.</span>nll_loss(sm_acts, targ, reduction<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
 <span style="color:#75715e"># tensor([-0.7795, -0.1098, -0.1517, -0.4755, -0.0044, -0.8464])</span>
-</code></pre></div>
+</code></pre></div><p>we can see thta the Log Likelihood get the number is bigger when the distance is close,but we want when the distance is close,the loss number is close, we handle this problem later</p>
+
       </div></div>
 
   
