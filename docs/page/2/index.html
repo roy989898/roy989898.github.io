@@ -140,6 +140,52 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://roy989898.github.io/posts/ai-tutorial-4.11/">Ai Tutorial 4.11 Creating an Optimizer</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-04-29
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/sgd/">SGD</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          My Code Source Code
+Creating an Optimizer we can make the above code more general to use # use nn.Linear to replace the linear1 # it do the same thing with the linear1 and init_params linear_model = nn.Linear(28*28,1) # we can get the paramater, weight,basic w,b = linear_model.parameters() w.shape,b.shape,b # (torch.Size([1, 784]), torch.Size([1]), Parameter containing: # tensor([-0.0180], requires_grad=True)) class BasicOptim: def __init__(self,params,lr): self.params,self.lr = list(params),lr def step(self, *args, **kwargs): for p in self.
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/ai-tutorial-4.11/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://roy989898.github.io/posts/ai-tutorial-4.10/">Ai Tutorial 4.10 Put it all together</a>
         </h1>
         <div class="post-meta">
@@ -340,54 +386,6 @@ time = torch.arange(0,20).float(); time # tensor([ 0., 1., 2., 3., 4., 5., 6., 7
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-4.7/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-4.6/">Ai Tutorial 4.6 Stepping With a Learning Rate</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-28
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/lr/">LR</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/stepping/">stepping</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          My Code Source Code
-Stepping With a Learning Rate when we get the gradient,we cau use it calculate the new paramter . Nearly all approaches start with the basic idea of multiplying the gradient by some small number, called the learning rate (LR). The learning rate is often a number between 0.001 and 0.1, although it could be anything Often, people select a learning rate just by trying a few, and finding which results in the best model after training (we&rsquo;ll show you a better approach later in this book, called the learning rate finder).
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-4.6/">Read more →</a>
         </div>
         
       </div>
