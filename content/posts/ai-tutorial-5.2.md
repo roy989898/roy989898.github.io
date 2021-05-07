@@ -9,6 +9,11 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+[My Code
+](https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing)
+
+[Source Code
+](https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd)
 # Cross-entropy loss
 
 fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.

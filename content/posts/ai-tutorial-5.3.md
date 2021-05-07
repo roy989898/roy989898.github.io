@@ -9,6 +9,12 @@ keywords = ["", ""]
 description = ""
 showFullContent = false
 +++
+
+[My Code
+](https://colab.research.google.com/drive/1Rqum2194iz5nXH26PPoBMpKM71wQ4eYI?usp=sharing)
+
+[Source Code
+](https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb#scrollTo=YOTrrdP7BuWd)
 # Cross-entropy loss 2
 
 although softmax+ log Likelihood look like very suitable as a loss function.But the problem is we are using probabilities, 1>=p>=0.That mean when the model see 0.99 and 0.999, they are very close,but in another sense, 0.999 is 10 times more confident than 0.99. So, we want to transform our numbers between 0 and 1 to instead be between negative infinity and 0.Log!!!!!
