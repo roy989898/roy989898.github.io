@@ -6,7 +6,168 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 May 2021 15:03:29 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 15:29:00 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 6.2 Other Computer Vision Problems-Multi-Label Classification.2 Data Block</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-6.2/</link>
+      <pubDate>Sun, 16 May 2021 15:29:00 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-6.2/</guid>
+      <description>My Code 
+Source Code 
+Problems-Multi-Label Classification.2 Data Block Data Block in fast api and pytorch,we use Dataset and DataLoader to access the data
+Pytorch
+ Dataset:A collection that returns a tuple of your independent(image) and dependent variable(tag) for a single item DataLoader:: An iterator that provides a stream of mini-batches, where each mini-batch is a tuple of a batch of independent variables and a batch of dependent variables  Fastai provide</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/drive/1VzYTbBKx-JPfJ1FaLHOhG1Hpf3GNdG5C?usp=sharing&#34;&gt;My Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://colab.research.google.com/github/fastai/fastbook/blob/master/06_multicat.ipynb&#34;&gt;Source Code
+&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;problems-multi-label-classification2--data-block&#34;&gt;Problems-Multi-Label Classification.2  Data Block&lt;/h1&gt;
+&lt;h2 id=&#34;data-block&#34;&gt;Data Block&lt;/h2&gt;
+&lt;p&gt;in fast api and pytorch,we use Dataset and DataLoader to access the data&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Pytorch&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dataset:A collection that returns a tuple of your independent(image) and dependent variable(tag) for a single item&lt;/li&gt;
+&lt;li&gt;DataLoader:: An iterator that provides a stream of mini-batches, where each mini-batch is a tuple of a batch of independent variables and a batch of dependent variables&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Fastai provide&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Datasets:: An object that contains a training Dataset and a validation Dataset&lt;/li&gt;
+&lt;li&gt;DataLoaders:: An object that contains a training DataLoader and a validation DataLoader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; fastai.vision.all &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; untar_data(URLs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;PASCAL_2007)
+&lt;span style=&#34;color:#75715e&#34;&gt;# use the path read the csv to the dataframe&lt;/span&gt;
+df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;train.csv&amp;#39;&lt;/span&gt;)
+df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
+&lt;span style=&#34;color:#75715e&#34;&gt;# fname labels is_valid&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 000005.jpg chair True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 000007.jpg car True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 000009.jpg horse person True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3 000012.jpg car False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4 000016.jpg bicycle True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;try to build a Datablock,not correct&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock()
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# datasets contain train dataset and train dataset&lt;/span&gt;
+len(dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train),len(dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;valid)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (4009, 1002)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;
+x,y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+x,y
+&lt;span style=&#34;color:#75715e&#34;&gt;# we can see that the x an  y is the same,this is not right&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (fname       008663.jpg&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  labels      car person&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  is_valid         False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  Name: 4346, dtype: object, fname       008663.jpg&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  labels      car person&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  is_valid         False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  Name: 4346, dtype: object)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;build a Data block in correct way
+we need to tell datablock,what is indepedent vairable (x) and depedent vairable(y) in the data frame&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;df
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/df.PNG&#34; alt=&#34;df&#34;&gt;&lt;/p&gt;
+&lt;p&gt;tell date block that,fname is the x,u is the labels&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(get_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;lambda&lt;/span&gt; r: r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;fname&amp;#39;&lt;/span&gt;], get_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;lambda&lt;/span&gt; r: r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;labels&amp;#39;&lt;/span&gt;])
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# (&amp;#39;005620.jpg&amp;#39;, &amp;#39;aeroplane&amp;#39;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;same ,use function,not lambda&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_x&lt;/span&gt;(r): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;fname&amp;#39;&lt;/span&gt;]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_y&lt;/span&gt;(r): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;labels&amp;#39;&lt;/span&gt;]
+dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(get_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_x, get_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_y)
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (&amp;#39;002549.jpg&amp;#39;, &amp;#39;tvmonitor&amp;#39;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;better,x is path, and y is more than two tag&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_x&lt;/span&gt;(r): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; path&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;train&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;fname&amp;#39;&lt;/span&gt;]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_y&lt;/span&gt;(r): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; r[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;labels&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;)
+dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(get_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_x, get_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_y)
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# (Path(&amp;#39;/root/.fastai/data/pascal_2007/train/002844.jpg&amp;#39;), [&amp;#39;train&amp;#39;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;more better,MultiCategoryBlock ,can return one-hot encoding&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ategoryBlock return a number,MultiCategoryBlock return multi number&lt;/span&gt;
+dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(blocks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(ImageBlock, MultiCategoryBlock),
+                   get_x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_x, get_y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_y)
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 mean the image is the type,we can have a fix length of the array&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (PILImage mode=RGB size=500x375,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  TensorMultiCategory([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;try to show the tag&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;# TensorMultiCategory([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.])&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# this mean we have 20 avliable tag,and this picture tag is index 11 tag&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;get the 1 index number&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# get the index when ==1&lt;/span&gt;
+torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;where(dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# (TensorMultiCategory([11]),)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;show the tag&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show the tag&lt;/span&gt;
+idxs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;where(dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+idxs
+&lt;span style=&#34;color:#75715e&#34;&gt;# TensorMultiCategory([11])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;vocab[idxs]
+&lt;span style=&#34;color:#75715e&#34;&gt;# [&amp;#39;dog&amp;#39;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;handle is valid in the csv
+at default,datablock random select he item to be valid item of train item&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;is_valid&amp;#39;&lt;/span&gt;]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0        True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1        True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2        True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3       False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4        True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         ...  &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5006     True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5007     True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5008     True&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5009    False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5010    False&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# Name: is_valid, Length: 5011, dtype: bool&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;get the not is_valid index&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index[&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;is_valid&amp;#39;&lt;/span&gt;]]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Int64Index([   3,    5,    9,   11,   13,   14,   15,   16,   17,   20,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#             ...&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#             4991, 4993, 4996, 4998, 4999, 5000, 5001, 5004, 5009, 5010],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#            dtype=&amp;#39;int64&amp;#39;, length=2501)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;splitter&lt;/span&gt;(df):
+    train &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index[&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;is_valid&amp;#39;&lt;/span&gt;]]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;tolist()
+    valid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index[df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;is_valid&amp;#39;&lt;/span&gt;]]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;tolist()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; train,valid
+
+dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(blocks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(ImageBlock, MultiCategoryBlock),
+                   splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;splitter,
+                   get_x&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_x, 
+                   get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_y)
+
+dsets &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datasets(df)
+dsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (PILImage mode=RGB size=500x333,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  TensorMultiCategory([0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Final&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;dblock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DataBlock(blocks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(ImageBlock, MultiCategoryBlock),
+                   splitter&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;splitter,
+                   get_x&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_x, 
+                   get_y&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;get_y,
+                   item_tfms &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; RandomResizedCrop(&lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;, min_scale&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.35&lt;/span&gt;))
+dls &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dblock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataloaders(df)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# show some sample&lt;/span&gt;
+dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show_batch(nrows&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, ncols&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/batch_6.2.PNG&#34; alt=&#34;batch_6&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 6.1 Other Computer Vision Problems-Multi-Label Classification.1</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-6.1/</link>

@@ -140,6 +140,54 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://roy989898.github.io/posts/ai-tutorial-5.1/">Ai Tutorial 5.1 Image Classification &gt;2 types 1</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-06
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/image-classification/">Image Classification</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          My Code 
+Source Code 
+Image Classification 1 #hide !pip install -Uqq fastbook import fastbook fastbook.setup_book() #hide from fastbook import * ``````py from fastai.vision.all import * path = untar_data(URLs.PETS) #hide Path.BASE_PATH = path See the image path.ls() (path/&#34;images&#34;).ls() Get the file name fname = (path/&#34;images&#34;).ls()[1] # Path(&#39;images/havanese_158.jpg&#39;) fname.name # havanese_158.jpg use regex to get the file name
+re.findall(r&#39;(.+)_\d+.jpg$&#39;, fname.name) # [&#39;havanese&#39;] Prepare the data pets = DataBlock(blocks = (ImageBlock, CategoryBlock), get_items=get_image_files, splitter=RandomSplitter(seed=42), get_y=using_attr(RegexLabeller(r&#39;(.
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/ai-tutorial-5.1/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://roy989898.github.io/posts/ai-tutorial-4.12/">Ai Tutorial 4.12 Adding a Nonlinearity</a>
         </h1>
         <div class="post-meta">
@@ -326,58 +374,6 @@ basic Python string.ascii_lowercase string.ascii_lowercase # abcdefghijklmnopqrs
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-4.9/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-4.8/">Ai Tutorial 4.8 The MNIST Loss Function</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-04-28
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/mnist/">MNIST</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/loss-function/">Loss Function</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/view/">view</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/cat/">cat</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          My Code Source Code
-MNIST Loss Function some basic python zip # zip a=[1,2,3,4] b=[5,6,7,8] list(zip(a,b)) # [(1, 5), (2, 6), (3, 7), (4, 8)] create array [1]*4 # [1, 1, 1, 1] tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) Some basic pytorch functions horizontal tensor to vertical tensors tensor([1]*4 + [0]*3) # tensor([1, 1, 1, 1, 0, 0, 0]) tensor([1]*4 + [0]*3).unsqueeze(1) # tensor([[1], # [1], # [1], # [1], # [0], # [0], # [0]]) torch.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-4.8/">Read more →</a>
         </div>
         
       </div>

@@ -163,3 +163,70 @@ idxs
 dsets.train.vocab[idxs]
 # ['dog']
 ```
+
+handle is valid in the csv
+at default,datablock random select he item to be valid item of train item
+
+```py
+df['is_valid']
+
+# 0        True
+# 1        True
+# 2        True
+# 3       False
+# 4        True
+#         ...  
+# 5006     True
+# 5007     True
+# 5008     True
+# 5009    False
+# 5010    False
+# Name: is_valid, Length: 5011, dtype: bool
+```
+
+get the not is_valid index
+
+```py
+df.index[~df['is_valid']]
+
+# Int64Index([   3,    5,    9,   11,   13,   14,   15,   16,   17,   20,
+#             ...
+#             4991, 4993, 4996, 4998, 4999, 5000, 5001, 5004, 5009, 5010],
+#            dtype='int64', length=2501)
+```
+
+```py
+def splitter(df):
+    train = df.index[~df['is_valid']].tolist()
+    valid = df.index[df['is_valid']].tolist()
+    return train,valid
+
+dblock = DataBlock(blocks=(ImageBlock, MultiCategoryBlock),
+                   splitter=splitter,
+                   get_x=get_x, 
+                   get_y=get_y)
+
+dsets = dblock.datasets(df)
+dsets.train[0]
+
+# (PILImage mode=RGB size=500x333,
+#  TensorMultiCategory([0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]))
+```
+
+Final
+
+```py
+dblock = DataBlock(blocks=(ImageBlock, MultiCategoryBlock),
+                   splitter=splitter,
+                   get_x=get_x, 
+                   get_y=get_y,
+                   item_tfms = RandomResizedCrop(128, min_scale=0.35))
+dls = dblock.dataloaders(df)
+
+```
+
+```py
+# show some sample
+dls.show_batch(nrows=1, ncols=3)
+```
+![batch_6](/img/ai_t/t1/batch_6.2.PNG)
