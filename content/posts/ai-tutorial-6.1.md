@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 6.1 Other Computer Vision Problems-Multi-Label Classification"
+title = "Ai Tutorial 6.1 Other Computer Vision Problems-Multi-Label Classification.1"
 date = "2021-05-16T15:03:29+08:00"
 author = ""
 authorTwitter = "" #do not include @
