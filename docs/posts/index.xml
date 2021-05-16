@@ -6,7 +6,78 @@
     <description>Recent content in Posts on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 May 2021 15:29:00 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 16:59:46 +0800</lastBuildDate><atom:link href="https://roy989898.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai Tutorial 6.3 Other Computer Vision Problems-Multi-Label Binary Cross-Entropy</title>
+      <link>https://roy989898.github.io/posts/ai-tutorial-6.3/</link>
+      <pubDate>Sun, 16 May 2021 16:59:46 +0800</pubDate>
+      
+      <guid>https://roy989898.github.io/posts/ai-tutorial-6.3/</guid>
+      <description>some python basic partial
+def say_hello(name, say_what=&amp;#34;Hello&amp;#34;): return f&amp;#34;{say_what} {name}.&amp;#34; say_hello(&amp;#39;Jeremy&amp;#39;),say_hello(&amp;#39;Jeremy&amp;#39;, &amp;#39;Ahoy!&amp;#39;) # (&amp;#39;Hello Jeremy.&amp;#39;, &amp;#39;Ahoy! Jeremy.&amp;#39;) f = partial(say_hello, say_what=&amp;#34;Bonjour&amp;#34;) f(&amp;#34;Jeremy&amp;#34;),f(&amp;#34;Sylvain&amp;#34;) # (&amp;#39;Bonjour Jeremy.&amp;#39;, &amp;#39;Bonjour Sylvain.&amp;#39;) Binary Cross-Entropy a Learner object contains four main things: the model, a DataLoaders object, an Optimizer, and the loss function to use. we use resnet models (teach later),we know howto build SGD optimizer(lesson 4) and the dataloader,so we look focus on the loss function.</description>
+      <content>&lt;h1 id=&#34;some-python-basic&#34;&gt;some python basic&lt;/h1&gt;
+&lt;p&gt;partial&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;say_hello&lt;/span&gt;(name, say_what&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello&amp;#34;&lt;/span&gt;): &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{say_what} {name}.&amp;#34;&lt;/span&gt;
+say_hello(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Jeremy&amp;#39;&lt;/span&gt;),say_hello(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Jeremy&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Ahoy!&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# (&amp;#39;Hello Jeremy.&amp;#39;, &amp;#39;Ahoy! Jeremy.&amp;#39;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;f &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; partial(say_hello, say_what&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Bonjour&amp;#34;&lt;/span&gt;)
+f(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Jeremy&amp;#34;&lt;/span&gt;),f(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Sylvain&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# (&amp;#39;Bonjour Jeremy.&amp;#39;, &amp;#39;Bonjour Sylvain.&amp;#39;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;binary-cross-entropy&#34;&gt;Binary Cross-Entropy&lt;/h1&gt;
+&lt;p&gt;a Learner object contains four main things: the model, a DataLoaders object, an Optimizer, and the loss function to use.
+we use resnet models (teach later),we know howto build SGD optimizer(lesson 4) and the dataloader,so we look focus on the &lt;em&gt;loss function&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet18)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;seeone batch&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;x,y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; to_cpu(dls&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;one_batch())
+x[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([3, 128, 128])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pass the independernt vairable to the model,to gte the activs &lt;/span&gt;
+activs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;model(x)
+activs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
+&lt;span style=&#34;color:#75715e&#34;&gt;# torch.Size([64, 20])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;why is this shape???torch.Size([64, 20]), because the match size is 64,and we have 20 categories,the activs, is for each image,the probability of each of 20 categories&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;activs
+&lt;span style=&#34;color:#75715e&#34;&gt;# tensor([[ 0.7476, -1.1988,  4.5421,  ...,  0.7063, -1.3358, -0.3715],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-0.9919, -0.4608, -0.4424,  ..., -1.4165, -2.9962,  0.5873],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [ 2.1179, -0.0294,  0.7001,  ...,  2.2310,  1.1888, -0.0595],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         ...,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-0.3535,  3.0212,  0.4811,  ...,  1.8732,  1.2486, -3.3234],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.4724, -2.8740, -1.2860,  ..., -2.7895, -1.8632, -0.1557],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#         [-1.6487,  1.5647,  1.0682,  ..., -0.6979, -1.5629, -1.7217]], grad_fn=&amp;lt;MmBackward&amp;gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we can see that the number still not between 0 and 1,but we can use the the loss function learn in lesson 4(mist_loss,because have sigmoid) and add log&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binary_cross_entropy&lt;/span&gt;(inputs, targets):
+    inputs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputs&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;where(targets&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;inputs, inputs)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;why we do not use the nll_loss or softmax thta lear in lesson 5????becuase it use for one image one tag,but ther is one imagfe maybe &amp;gt;1 tag or 0 tag&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;softmax&lt;/strong&gt;, as we saw, requires that all predictions sum to 1, and tends to push one activation to be much larger than the others (due to the use of exp); however, we may well have multiple objects that we&amp;rsquo;re confident appear in an image, so restricting the maximum sum of activations to 1 is not a good idea. By the same reasoning, we may want the sum to be less than 1, if we don&amp;rsquo;t think any of the categories appear in an image.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nll_loss&lt;/strong&gt;, as we saw, returns the value of just one activation: the single activation corresponding with the single label for an item. This doesn&amp;rsquo;t make sense when we have multiple labels.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;pytorch already provide binary_cross_entropy&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;loss_func &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;BCEWithLogitsLoss()
+loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; loss_func(activs, y)
+loss
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# TensorMultiCategory(1.0342, grad_fn=&amp;lt;AliasBackward&amp;gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;However ,we do not need to require fastai use this loss function,!!! Becasue if fastai dataloaders know have multi categories ta a image, default use nn.BCEWithLogitsLoss&lt;/p&gt;
+&lt;p&gt;we need to change the metric too,compare to the lesson 5&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# orginal one&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;accuracy&lt;/span&gt;(inp, targ, axis&lt;span style=&#34;color:#f92672&#34;&gt;=-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;):
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Compute accuracy with `targ` when `pred` is bs * n_classes&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# select the mots hight valu one.but know we have multi category for a image&lt;/span&gt;
+    pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;argmax(dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;axis)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (pred &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; targ)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# suitable one&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# we need to set a value:thresh,to decide which is 1,whis is 0&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;accuracy_multi&lt;/span&gt;(inp, targ, thresh&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;, sigmoid&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True):
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Compute accuracy when `inp` and `targ` are the same size.&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sigmoid: inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ((inp&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;thresh)&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;targ&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;bool())&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Ai Tutorial 6.2 Other Computer Vision Problems-Multi-Label Classification.2 Data Block</title>
       <link>https://roy989898.github.io/posts/ai-tutorial-6.2/</link>

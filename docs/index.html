@@ -140,6 +140,54 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://roy989898.github.io/posts/ai-tutorial-6.3/">Ai Tutorial 6.3 Other Computer Vision Problems-Multi-Label Binary Cross-Entropy</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-16
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/multi-label-classification/">Multi-Label Classification</a>&nbsp;
+            
+            #<a href="https://roy989898.github.io/tags/cross-entropy/">Cross-Entropy</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          some python basic partial
+def say_hello(name, say_what=&#34;Hello&#34;): return f&#34;{say_what} {name}.&#34; say_hello(&#39;Jeremy&#39;),say_hello(&#39;Jeremy&#39;, &#39;Ahoy!&#39;) # (&#39;Hello Jeremy.&#39;, &#39;Ahoy! Jeremy.&#39;) f = partial(say_hello, say_what=&#34;Bonjour&#34;) f(&#34;Jeremy&#34;),f(&#34;Sylvain&#34;) # (&#39;Bonjour Jeremy.&#39;, &#39;Bonjour Sylvain.&#39;) Binary Cross-Entropy a Learner object contains four main things: the model, a DataLoaders object, an Optimizer, and the loss function to use. we use resnet models (teach later),we know howto build SGD optimizer(lesson 4) and the dataloader,so we look focus on the loss function.
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/ai-tutorial-6.3/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://roy989898.github.io/posts/ai-tutorial-6.2/">Ai Tutorial 6.2 Other Computer Vision Problems-Multi-Label Classification.2 Data Block</a>
         </h1>
         <div class="post-meta">
@@ -337,59 +385,6 @@ Cross-entropy loss 2 although softmax+ log Likelihood look like very suitable as
         <div>
           <a class="read-more button"
             href="/posts/ai-tutorial-5.3/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="https://roy989898.github.io/posts/ai-tutorial-5.2/">Ai Tutorial 5.2 Image Classification &gt;2 types Cross-entropy loss 1</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2021-05-06
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://roy989898.github.io/tags/ai/">ai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/fastai/">fastai</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/pytorch/">pytorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/%E5%AF%AB%E7%B5%A6%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%B8%AB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E4%BD%BF%E7%94%A8fastai%E5%92%8Cpytorch/">寫給程式設計師的深度學習：使用fastai和PyTorch</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/cross-entropy-loss/">cross-entropy loss</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/log-likelihood/">Log Likelihood</a>&nbsp;
-            
-            #<a href="https://roy989898.github.io/tags/softmax/">softmax</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          My Code 
-Source Code 
-Cross-entropy loss fastai will choose the loss based on what kind of data and model you are using. In this case we have image data and a categorical outcome, so fastai will default to using cross-entropy loss.
-Cross-entropy loss can use for more than 2 category
-Viewing Activations and Labels x,y = dls.one_batch() x.shape # torch.Size([64, 3, 224, 224]) our batch isze is 64,so we can see the list is 64 item.
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/posts/ai-tutorial-5.2/">Read more →</a>
         </div>
         
       </div>
