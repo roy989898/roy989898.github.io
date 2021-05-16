@@ -75,7 +75,59 @@ loss
     &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Compute accuracy when `inp` and `targ` are the same size.&amp;#34;&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sigmoid: inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sigmoid()
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ((inp&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;thresh)&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;targ&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;bool())&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;float()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;now ,use the new metric start to train&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# start to train&lt;/span&gt;
+learn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cnn_learner(dls, resnet50, metrics&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;partial(accuracy_multi, thresh&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.2&lt;/span&gt;))
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fine_tune(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, base_lr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3e-3&lt;/span&gt;, freeze_epochs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss accuracy_multi time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 0.942215 0.698972 0.239303 00:26&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.824776 0.551198 0.290996 00:26&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.607759 0.198789 0.827131 00:26&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3 0.361537 0.125557 0.943287 00:26&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# epoch train_loss valid_loss accuracy_multi time&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 0 0.134416 0.125471 0.934343 00:27&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 1 0.118428 0.105183 0.949880 00:27&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2 0.097109 0.102836 0.950040 00:27&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;after train we can chnage the metrics with different value of thresh If you pick a threshold that&amp;rsquo;s too low, you&amp;rsquo;ll often be failing to select correctly labeled objects&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; partial(accuracy_multi, thresh&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;validate()
+&lt;span style=&#34;color:#75715e&#34;&gt;# validation loss and metrics&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# [0.10283613950014114,0.9265138506889343]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;you&amp;rsquo;ll only be selecting the objects for which your model is very confident with a high thresh:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;metrics &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; partial(accuracy_multi, thresh&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.99&lt;/span&gt;)
+learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;validate()
+&lt;span style=&#34;color:#75715e&#34;&gt;# [0.10283613950014114,0.9433467388153076]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;we calculate one pred to test different thresh value&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# we can getpre and &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# the get_preds get all the valid data ,to calculate their pred,and the target&lt;/span&gt;
+preds,targs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; learn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get_preds()
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# (tensor([[1.3728e-03, 3.1368e-03, 4.9623e-04,  ..., 4.6060e-01, 1.1935e-03, 9.1202e-02],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [3.3482e-04, 1.2069e-02, 1.0969e-03,  ..., 1.7647e-02, 1.6421e-03, 9.6689e-04],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [3.8831e-03, 1.3268e-02, 4.4939e-03,  ..., 1.1680e-02, 1.0579e-03, 2.7399e-03],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          ...,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [3.9797e-03, 5.1892e-03, 7.0612e-04,  ..., 3.0286e-03, 1.7749e-03, 7.1625e-03],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [8.4477e-03, 7.8008e-03, 1.7175e-03,  ..., 2.0243e-03, 2.5596e-02, 1.8781e-03],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [6.2252e-04, 9.4245e-01, 4.3180e-03,  ..., 8.6979e-03, 8.4691e-04, 5.2906e-03]]),&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#  TensorMultiCategory([[0., 0., 0.,  ..., 0., 0., 0.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [0., 0., 0.,  ..., 0., 0., 0.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [0., 0., 0.,  ..., 0., 0., 0.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          ...,&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [0., 0., 0.,  ..., 0., 0., 0.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [0., 0., 0.,  ..., 0., 0., 0.],&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#          [0., 1., 0.,  ..., 0., 0., 0.]]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# at default ,get_preds applies the output activation function (sigmoid, in this case) for us, so we&amp;#39;ll need to tell accuracy_multi to not apply it:&lt;/span&gt;
+accuracy_multi(preds, targs, thresh&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.9&lt;/span&gt;, sigmoid&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;False)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;use this way to find the best thresh value&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;xs = torch.linspace(0.05,0.95,29)
+accs = [accuracy_multi(preds, targs, thresh=i, sigmoid=False) for i in xs]
+plt.plot(xs,accs);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://roy989898.github.io/img/ai_t/t1/graph_tresh.PNG&#34; alt=&#34;graph_tresh&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In this case, we&amp;rsquo;re using the validation set to pick a hyperparameter (the threshold), which is the purpose of the validation set. Sometimes students have expressed their concern that we might be overfitting to the validation set, since we&amp;rsquo;re trying lots of values to see which is the best. However, as you see in the plot, changing the threshold in this case results in a smooth curve, so we&amp;rsquo;re clearly not picking some inappropriate outlier. This is a good example of where you have to be careful of the difference between theory (don&amp;rsquo;t try lots of hyperparameter values or you might overfit the validation set) versus practice (if the relationship is smooth, then it&amp;rsquo;s fine to do this).&lt;/p&gt;
+&lt;p&gt;在這種情況下，我們使用驗證集來選擇一個超參數（閾值），這是驗證集的目的。 有時，學生表達了他們對我們可能過度適合驗證集的擔憂，因為我們正在嘗試大量的值以查看哪種值最好。 但是，正如您在圖中所看到的，在這種情況下，更改閾值會產生平滑的曲線，因此我們顯然不會選擇一些不合適的離群值。 這是一個很好的例子，說明您必須注意理論（不要嘗試過多的超參數值，否則可能會過度擬合驗證集）與實踐之間的差異（如果關係是平滑的，則可以這樣做） 。&lt;/p&gt;
+</content>
     </item>
     
     <item>

@@ -220,7 +220,59 @@ loss
     <span style="color:#e6db74">&#34;Compute accuracy when `inp` and `targ` are the same size.&#34;</span>
     <span style="color:#66d9ef">if</span> sigmoid: inp <span style="color:#f92672">=</span> inp<span style="color:#f92672">.</span>sigmoid()
     <span style="color:#66d9ef">return</span> ((inp<span style="color:#f92672">&gt;</span>thresh)<span style="color:#f92672">==</span>targ<span style="color:#f92672">.</span>bool())<span style="color:#f92672">.</span>float()<span style="color:#f92672">.</span>mean()
-</code></pre></div>
+</code></pre></div><p>now ,use the new metric start to train</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># start to train</span>
+learn <span style="color:#f92672">=</span> cnn_learner(dls, resnet50, metrics<span style="color:#f92672">=</span>partial(accuracy_multi, thresh<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>))
+learn<span style="color:#f92672">.</span>fine_tune(<span style="color:#ae81ff">3</span>, base_lr<span style="color:#f92672">=</span><span style="color:#ae81ff">3e-3</span>, freeze_epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+
+<span style="color:#75715e"># epoch train_loss valid_loss accuracy_multi time</span>
+<span style="color:#75715e"># 0 0.942215 0.698972 0.239303 00:26</span>
+<span style="color:#75715e"># 1 0.824776 0.551198 0.290996 00:26</span>
+<span style="color:#75715e"># 2 0.607759 0.198789 0.827131 00:26</span>
+<span style="color:#75715e"># 3 0.361537 0.125557 0.943287 00:26</span>
+<span style="color:#75715e"># epoch train_loss valid_loss accuracy_multi time</span>
+<span style="color:#75715e"># 0 0.134416 0.125471 0.934343 00:27</span>
+<span style="color:#75715e"># 1 0.118428 0.105183 0.949880 00:27</span>
+<span style="color:#75715e"># 2 0.097109 0.102836 0.950040 00:27</span>
+</code></pre></div><p>after train we can chnage the metrics with different value of thresh If you pick a threshold that&rsquo;s too low, you&rsquo;ll often be failing to select correctly labeled objects</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn<span style="color:#f92672">.</span>metrics <span style="color:#f92672">=</span> partial(accuracy_multi, thresh<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+learn<span style="color:#f92672">.</span>validate()
+<span style="color:#75715e"># validation loss and metrics</span>
+
+<span style="color:#75715e"># [0.10283613950014114,0.9265138506889343]</span>
+</code></pre></div><p>you&rsquo;ll only be selecting the objects for which your model is very confident with a high thresh:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">learn<span style="color:#f92672">.</span>metrics <span style="color:#f92672">=</span> partial(accuracy_multi, thresh<span style="color:#f92672">=</span><span style="color:#ae81ff">0.99</span>)
+learn<span style="color:#f92672">.</span>validate()
+<span style="color:#75715e"># [0.10283613950014114,0.9433467388153076]</span>
+</code></pre></div><p>we calculate one pred to test different thresh value</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># we can getpre and </span>
+<span style="color:#75715e"># the get_preds get all the valid data ,to calculate their pred,and the target</span>
+preds,targs <span style="color:#f92672">=</span> learn<span style="color:#f92672">.</span>get_preds()
+
+<span style="color:#75715e"># (tensor([[1.3728e-03, 3.1368e-03, 4.9623e-04,  ..., 4.6060e-01, 1.1935e-03, 9.1202e-02],</span>
+<span style="color:#75715e">#          [3.3482e-04, 1.2069e-02, 1.0969e-03,  ..., 1.7647e-02, 1.6421e-03, 9.6689e-04],</span>
+<span style="color:#75715e">#          [3.8831e-03, 1.3268e-02, 4.4939e-03,  ..., 1.1680e-02, 1.0579e-03, 2.7399e-03],</span>
+<span style="color:#75715e">#          ...,</span>
+<span style="color:#75715e">#          [3.9797e-03, 5.1892e-03, 7.0612e-04,  ..., 3.0286e-03, 1.7749e-03, 7.1625e-03],</span>
+<span style="color:#75715e">#          [8.4477e-03, 7.8008e-03, 1.7175e-03,  ..., 2.0243e-03, 2.5596e-02, 1.8781e-03],</span>
+<span style="color:#75715e">#          [6.2252e-04, 9.4245e-01, 4.3180e-03,  ..., 8.6979e-03, 8.4691e-04, 5.2906e-03]]),</span>
+<span style="color:#75715e">#  TensorMultiCategory([[0., 0., 0.,  ..., 0., 0., 0.],</span>
+<span style="color:#75715e">#          [0., 0., 0.,  ..., 0., 0., 0.],</span>
+<span style="color:#75715e">#          [0., 0., 0.,  ..., 0., 0., 0.],</span>
+<span style="color:#75715e">#          ...,</span>
+<span style="color:#75715e">#          [0., 0., 0.,  ..., 0., 0., 0.],</span>
+<span style="color:#75715e">#          [0., 0., 0.,  ..., 0., 0., 0.],</span>
+<span style="color:#75715e">#          [0., 1., 0.,  ..., 0., 0., 0.]]))</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># at default ,get_preds applies the output activation function (sigmoid, in this case) for us, so we&#39;ll need to tell accuracy_multi to not apply it:</span>
+accuracy_multi(preds, targs, thresh<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>, sigmoid<span style="color:#f92672">=</span>False)
+</code></pre></div><p>use this way to find the best thresh value</p>
+<pre><code>xs = torch.linspace(0.05,0.95,29)
+accs = [accuracy_multi(preds, targs, thresh=i, sigmoid=False) for i in xs]
+plt.plot(xs,accs);
+</code></pre><p><img src="/img/ai_t/t1/graph_tresh.PNG" alt="graph_tresh"></p>
+<p>In this case, we&rsquo;re using the validation set to pick a hyperparameter (the threshold), which is the purpose of the validation set. Sometimes students have expressed their concern that we might be overfitting to the validation set, since we&rsquo;re trying lots of values to see which is the best. However, as you see in the plot, changing the threshold in this case results in a smooth curve, so we&rsquo;re clearly not picking some inappropriate outlier. This is a good example of where you have to be careful of the difference between theory (don&rsquo;t try lots of hyperparameter values or you might overfit the validation set) versus practice (if the relationship is smooth, then it&rsquo;s fine to do this).</p>
+<p>在這種情況下，我們使用驗證集來選擇一個超參數（閾值），這是驗證集的目的。 有時，學生表達了他們對我們可能過度適合驗證集的擔憂，因為我們正在嘗試大量的值以查看哪種值最好。 但是，正如您在圖中所看到的，在這種情況下，更改閾值會產生平滑的曲線，因此我們顯然不會選擇一些不合適的離群值。 這是一個很好的例子，說明您必須注意理論（不要嘗試過多的超參數值，否則可能會過度擬合驗證集）與實踐之間的差異（如果關係是平滑的，則可以這樣做） 。</p>
+
       </div></div>
 
   

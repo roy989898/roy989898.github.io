@@ -149,6 +149,8 @@ learn.validate()
 we calculate one pred to test different thresh value
 
 ```py
+# we can getpre and 
+# the get_preds get all the valid data ,to calculate their pred,and the target
 preds,targs = learn.get_preds()
 
 # (tensor([[1.3728e-03, 3.1368e-03, 4.9623e-04,  ..., 4.6060e-01, 1.1935e-03, 9.1202e-02],
