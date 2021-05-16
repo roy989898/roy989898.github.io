@@ -83,8 +83,8 @@ df
 
 ![df](/img/ai_t/t1/df.PNG)
 
-
 tell date block that,fname is the x,u is the labels
+
 ```py
 dblock = DataBlock(get_x = lambda r: r['fname'], get_y = lambda r: r['labels'])
 dsets = dblock.datasets(df)
@@ -106,4 +106,60 @@ dsets.train[0]
 
 # ('002549.jpg', 'tvmonitor')
 
+```
+
+better,x is path, and y is more than two tag
+
+```py
+def get_x(r): return path/'train'/r['fname']
+def get_y(r): return r['labels'].split(' ')
+dblock = DataBlock(get_x = get_x, get_y = get_y)
+dsets = dblock.datasets(df)
+dsets.train[0]
+# (Path('/root/.fastai/data/pascal_2007/train/002844.jpg'), ['train'])
+```
+
+more better,MultiCategoryBlock ,can return one-hot encoding
+
+```py
+# ategoryBlock return a number,MultiCategoryBlock return multi number
+dblock = DataBlock(blocks=(ImageBlock, MultiCategoryBlock),
+                   get_x = get_x, get_y = get_y)
+dsets = dblock.datasets(df)
+dsets.train[0]
+# 1 mean the image is the type,we can have a fix length of the array
+
+
+# (PILImage mode=RGB size=500x375,
+#  TensorMultiCategory([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.]))
+```
+
+try to show the tag
+
+```py
+dsets.train[0][1]
+# TensorMultiCategory([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.])
+# this mean we have 20 avliable tag,and this picture tag is index 11 tag
+```
+
+get the 1 index number
+
+```py
+# get the index when ==1
+torch.where(dsets.train[0][1]==1.)
+# (TensorMultiCategory([11]),)
+```
+
+show the tag
+
+```py
+# show the tag
+idxs = torch.where(dsets.train[0][1]==1.)[0]
+idxs
+# TensorMultiCategory([11])
+```
+
+```py
+dsets.train.vocab[idxs]
+# ['dog']
 ```
