@@ -1,5 +1,5 @@
 +++
-title = "Ai Tutorial 6.4 Other Computer Vision Problems-Multi-Label Binary Cross-Entropy Image and Point"
+title = "Ai Tutorial 6.4  Other Computer Vision Problems-Multi-Label Binary Cross-Entropy Image and Point"
 date = "2021-05-16T18:41:39+08:00"
 author = ""
 authorTwitter = "" #do not include @
